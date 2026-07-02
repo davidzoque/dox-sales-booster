@@ -65,7 +65,7 @@ Search for "Sales Booster" in the block inserter: viewing counter, recent sales,
 2. Activate the plugin through the **Plugins** menu in WordPress.
 3. Go to **Sales Booster** in the admin menu to configure the plugin.
 4. (Optional) Place the shortcodes, Elementor widgets or Gutenberg blocks on your product pages.
-5. (Private GitHub repo) Define `DSB_GITHUB_TOKEN` in `wp-config.php` so the site can check for updates.
+5. Updates are automatic from this plugin's public GitHub releases — nothing to configure.
 
 The purchase popup is enabled automatically on all pages (except cart/checkout by default) — no shortcode needed.
 
@@ -85,7 +85,7 @@ Only the product, the billing **city**, and how long ago the order was placed. C
 
 = How do updates work without WordPress.org? =
 
-The plugin checks the GitHub repository releases (via Plugin Update Checker) and shows updates in the normal WordPress updates screen. For private repositories, define `DSB_GITHUB_TOKEN` in `wp-config.php`.
+The plugin checks this project's public GitHub releases (via Plugin Update Checker) and shows updates in the normal WordPress updates screen — no configuration or token needed.
 
 = Can I change the popup locations? =
 
@@ -110,7 +110,7 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 == Changelog ==
 
 = 1.2.0 =
-* New: Automatic updates from GitHub Releases (Plugin Update Checker) — no WordPress.org needed. Token via `DSB_GITHUB_TOKEN` in wp-config.php for private repos.
+* New: Automatic updates from GitHub Releases (Plugin Update Checker) — no WordPress.org needed.
 * New: Real sales mode — the purchase popup can use actual recent orders (product, city, real "time ago"; buyer always anonymous). Falls back to simulated mode if there are no recent orders.
 * New: Low-stock urgency element `[dsb_stock]` driven by real inventory, with Elementor widget and Gutenberg block.
 * New: Gutenberg blocks for the viewing counter, recent sales counter and low stock.

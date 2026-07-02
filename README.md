@@ -1,15 +1,15 @@
 # Dox Sales Booster
 
-Plugin premium de WooCommerce (Dox Studio) que añade prueba social para mejorar la conversión:
+Plugin de WooCommerce (Dox Studio) que añade prueba social para mejorar la conversión:
 
 - **👁️ Personas viendo** — contador con fluctuación gradual (shortcode `[dsb_viewing]`, widget de Elementor, bloque de Gutenberg).
 - **🔥 Ventas recientes** — unidades vendidas en un período (`[dsb_sales]`, widget, bloque).
 - **⚡ Stock bajo** — urgencia con inventario **real** de WooCommerce (`[dsb_stock]`, widget, bloque).
-- **🛍️ Popup de compra** — notificación animada con producto, precio, ciudad y tiempo. Modo **simulado** (catálogo) o **real** (pedidos de los últimos 30 días, siempre anónimo: solo ciudad y tiempo).
+- **🛍️ Popup de compra** — notificación animada con producto, precio, ciudad y tiempo. Modo **simulado** (catálogo) o **real** (pedidos recientes, siempre anónimo: solo ciudad y tiempo).
 
 Todo se configura en **wp-admin → Sales Booster**.
 
-> ⚠️ Distribución privada de Dox Studio. Este plugin **no** se publica en WordPress.org (la prueba social simulada incumple su guideline 9); se distribuye e instala manualmente o vía este repo.
+> ℹ️ Distribución propia de Dox Studio — este plugin no se publica en WordPress.org (la prueba social simulada incumple su guideline 9). Se instala subiendo el ZIP de la última release y **se actualiza solo** desde este repositorio.
 
 ## Requisitos
 
@@ -17,29 +17,17 @@ Todo se configura en **wp-admin → Sales Booster**.
 - WooCommerce 6.0+ (probado hasta 10.9) — solo para popup y stock; los contadores funcionan sin Woo
 - PHP 7.4+
 
-## Actualizaciones automáticas desde GitHub
+## Instalación
 
-El plugin incluye [Plugin Update Checker v5.7](https://github.com/YahnisElsts/plugin-update-checker) apuntando a las **releases** de este repositorio. Los sitios con el plugin instalado ven las actualizaciones en la pantalla normal de plugins de WordPress (con enlace "Check for updates").
+1. Descarga el ZIP de la [última release](https://github.com/davidzoque/dox-sales-booster/releases/latest) (`dox-sales-booster.zip`).
+2. En WordPress: **Plugins → Añadir nuevo → Subir plugin**, elige el ZIP y actívalo.
+3. Configúralo en **wp-admin → Sales Booster**.
 
-### Configuración inicial (una sola vez)
+## Actualizaciones automáticas
 
-1. **Crear el repo** (privado) en GitHub, p. ej. `davidzoque/dox-sales-booster`.
-   - Si el usuario/organización u el nombre difieren, ajusta la URL en `dox-sales-booster.php` (bloque *Auto-actualizaciones desde GitHub*) y en el header `Update URI`.
-2. **Subir el código** (la raíz del repo es la raíz del plugin, este mismo directorio):
-   ```bash
-   git init -b main
-   git add .
-   git commit -m "Dox Sales Booster 1.2.0"
-   git remote add origin git@github.com:davidzoque/dox-sales-booster.git
-   git push -u origin main
-   ```
-3. **Token de lectura** (solo repos privados): crea un *fine-grained personal access token* en GitHub → Settings → Developer settings → Personal access tokens, con acceso **solo a este repo** y permiso **Contents: Read-only**. En cada sitio WordPress cliente, añade a `wp-config.php`:
-   ```php
-   define( 'DSB_GITHUB_TOKEN', 'github_pat_xxxxxxxx' );
-   ```
-   El token **nunca** va dentro del código del plugin ni del repo.
+El plugin incluye [Plugin Update Checker v5.7](https://github.com/YahnisElsts/plugin-update-checker) apuntando a las **releases** de este repositorio (público), así que **no requiere ninguna configuración ni token**: las actualizaciones aparecen en la pantalla normal de plugins de WordPress, igual que cualquier otro. Puedes forzar la comprobación con **"Ver detalles / Buscar actualizaciones"** en la fila del plugin.
 
-### Publicar una nueva versión
+## Publicar una nueva versión (mantenedor)
 
 1. Sube el número de versión en **dos** sitios: header `Version:` de `dox-sales-booster.php` (y la constante `DSB_VERSION`) y `Stable tag:` de `readme.txt`. Añade la entrada al changelog.
 2. Commit + tag + push:
@@ -49,10 +37,10 @@ El plugin incluye [Plugin Update Checker v5.7](https://github.com/YahnisElsts/pl
    git push && git push --tags
    ```
 3. El workflow de GitHub Actions (`.github/workflows/release.yml`) crea la **release** con un ZIP limpio (`dox-sales-booster.zip`) adjunto.
-4. Los sitios detectan la actualización en unas horas (WordPress consulta ~2 veces al día), o al instante con el enlace **Check for updates** en la fila del plugin.
+4. Los sitios detectan la actualización en unas horas (WordPress consulta ~2 veces al día), o al instante con el enlace **Buscar actualizaciones**.
 
 Notas:
-- El tag debe empezar por `v` (p. ej. `v1.2.1`) y coincidir con la versión del header.
+- El tag debe empezar por `v` (p. ej. `v1.2.1`) y **coincidir** con la versión del header (el workflow lo valida).
 - PUC usa el asset ZIP de la release (`enableReleaseAssets`), así que el paquete no arrastra `.github/` ni archivos de desarrollo.
 
 ## Estructura
