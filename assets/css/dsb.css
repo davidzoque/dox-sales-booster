@@ -1,0 +1,216 @@
+/* =====================================================================
+   Dox Sales Booster — Estilos
+   ===================================================================== */
+
+/* ── Live Viewing ─────────────────────────────────────────────────── */
+.dsb-live-viewing {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9em;
+    color: #555;
+    margin: 8px 0 12px;
+}
+.dsb-eye-icon {
+    font-size: 1.1em;
+}
+.dsb-viewing-count {
+    font-weight: 700;
+    color: #e44c4c;
+}
+
+/* ── Ventas recientes ────────────────────────────────────────────── */
+.dsb-fake-sales {
+    font-size: 0.88em;
+    color: #555;
+    margin: 4px 0 12px;
+}
+.dsb-sales-count {
+    font-weight: 700;
+    color: #e44c4c;
+}
+
+/* ── Stock bajo (datos reales) ───────────────────────────────────── */
+.dsb-low-stock {
+    font-size: 0.88em;
+    color: #b3261e;
+    margin: 4px 0 12px;
+}
+.dsb-stock-count {
+    font-weight: 700;
+}
+
+/* ── Popup de compra reciente ─────────────────────────────────────── */
+#dsb-popup {
+    position: fixed;
+    bottom: 20px;
+    z-index: 99999;
+    max-width: 400px;
+    width: calc(100vw - 40px);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 7px 0 rgba(0,0,0,.1);
+    overflow: hidden;
+    pointer-events: auto;
+}
+#dsb-popup.dsb-pos-left  { left: 20px; }
+#dsb-popup.dsb-pos-right { right: 20px; }
+
+/* Animaciones de entrada */
+#dsb-popup.animation-slide_up {
+    animation-name: dsbSlideUp;
+}
+#dsb-popup.animation-slide_right {
+    animation-name: dsbSlideFromLeft;
+}
+/* En posición derecha, "deslizar lateral" entra desde el borde derecho */
+#dsb-popup.dsb-pos-right.animation-slide_right {
+    animation-name: dsbSlideFromRight;
+}
+#dsb-popup.dsb-animate {
+    animation-duration: .4s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(.22,.61,.36,1);
+}
+
+@keyframes dsbSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes dsbSlideFromLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes dsbSlideFromRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes dsbFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(12px); }
+}
+#dsb-popup.dsb-animate-out {
+    animation-name: dsbFadeOut;
+    animation-duration: .38s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+}
+
+/* Accesibilidad: sin animaciones si el usuario las tiene reducidas */
+@media (prefers-reduced-motion: reduce) {
+    #dsb-popup.dsb-animate,
+    #dsb-popup.dsb-animate-out {
+        animation: none !important;
+    }
+}
+
+/* Inner layout */
+.dsb-popup-inner {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 38px 20px 20px;
+}
+.dsb-popup-img-link {
+    flex-shrink: 0;
+    line-height: 0;
+}
+.dsb-popup-img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+.dsb-popup-body {
+    flex: 1;
+    min-width: 0;
+}
+.dsb-popup-title {
+    display: block;
+    font-size: 0.95em;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+.dsb-popup-title a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.dsb-popup-title a:hover {
+    text-decoration: none;
+}
+.dsb-popup-price {
+    display: block;
+    font-size: 0.88em;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 2px;
+    color: inherit;
+}
+.dsb-popup-meta {
+    display: block;
+    font-size: 0.82em;
+    color: #777;
+    line-height: 1.4;
+    margin: 0 0 6px;
+}
+.dsb-popup-link {
+    display: inline-block;
+    font-size: 0.82em;
+    font-weight: 500;
+    color: inherit;
+    text-decoration: none;
+    line-height: 1.4;
+}
+.dsb-popup-link:hover {
+    text-decoration: underline;
+}
+
+/* Botón cerrar */
+.dsb-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8em;
+    color: #999;
+    line-height: 1;
+    padding: 6px;
+    pointer-events: auto;
+}
+.dsb-popup-close:hover {
+    color: #333;
+}
+
+/* Placeholder de widgets en el editor (función desactivada / sin datos) */
+.dsb-widget-disabled {
+    border: 1.5px dashed #ccc;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #dsb-popup.dsb-hide-mobile {
+        display: none !important;
+    }
+    #dsb-popup {
+        bottom: 10px;
+        max-width: calc(100vw - 20px);
+    }
+    #dsb-popup.dsb-pos-left  { left: 10px; }
+    #dsb-popup.dsb-pos-right { right: 10px; }
+}
