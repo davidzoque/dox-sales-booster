@@ -185,7 +185,7 @@ function dsb_product_to_item( $product ) {
         'title' => $product->get_name(),
         'url'   => get_permalink( $product->get_id() ),
         'image' => esc_url( $image_url ),
-        'price' => wp_strip_all_tags( $product->get_price_html() ),
+        'price' => html_entity_decode( wp_strip_all_tags( $product->get_price_html() ), ENT_QUOTES, 'UTF-8' ),
     ];
 }
 
