@@ -128,7 +128,9 @@ function dsb_cache_salt() {
         $v = (string) time();
         add_option( 'dsb_cache_ver', $v, '', false );
     }
-    return (string) $v;
+    // La versión del plugin forma parte del salt: cada actualización invalida
+    // la caché automáticamente (los items cacheados pueden cambiar de formato).
+    return DSB_VERSION . '|' . $v;
 }
 
 function dsb_flush_popup_cache() {
@@ -177,6 +179,26 @@ function dsb_parse_locations( $raw ) {
 
 /* ── Feed de productos del popup ──────────────────────────────────────────── */
 
+// Precio en texto plano para el popup. Se construye con wc_price() en vez de
+// limpiar get_price_html(): ese HTML incluye texto para lectores de pantalla
+// ("Rango de precios: desde...", "El precio original era...") que al quitar las
+// etiquetas quedaba duplicado. Los variables muestran "Desde <mínimo>".
+function dsb_price_text( $product ) {
+    if ( $product->is_type( 'variable' ) ) {
+        $min = $product->get_variation_price( 'min', true );
+        $max = $product->get_variation_price( 'max', true );
+        if ( '' === $min ) return '';
+        $price = ( $min < $max )
+            /* translators: %s: minimum price of a variable product. */
+            ? sprintf( __( 'Desde %s', 'dox-sales-booster' ), wc_price( $min ) )
+            : wc_price( $min );
+    } else {
+        if ( '' === $product->get_price() ) return '';
+        $price = wc_price( wc_get_price_to_display( $product ) );
+    }
+    return trim( html_entity_decode( wp_strip_all_tags( $price ), ENT_QUOTES, 'UTF-8' ) );
+}
+
 function dsb_product_to_item( $product ) {
     if ( ! $product instanceof WC_Product ) return null;
     $image_id  = $product->get_image_id();
@@ -185,7 +207,7 @@ function dsb_product_to_item( $product ) {
         'title' => $product->get_name(),
         'url'   => get_permalink( $product->get_id() ),
         'image' => esc_url( $image_url ),
-        'price' => html_entity_decode( wp_strip_all_tags( $product->get_price_html() ), ENT_QUOTES, 'UTF-8' ),
+        'price' => dsb_price_text( $product ),
     ];
 }
 

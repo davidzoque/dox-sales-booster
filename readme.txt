@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,10 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 
 == Changelog ==
 
+= 1.2.2 =
+* Fixed: variable products showed a duplicated price in the purchase popup ("$ 110.000 - $ 120.000Rango de precios: desde...") — the screen-reader text from WooCommerce's price HTML leaked into the plain-text price. The popup price is now built with `wc_price()` directly; variable products display "Desde <minimum price>".
+* Fixed: the popup product cache now invalidates automatically on every plugin update (the cache salt includes the plugin version), so price-format fixes apply immediately instead of after the 3-hour cache expires.
+
 = 1.2.1 =
 * Fixed: on stores whose currency symbol is an HTML entity (e.g. Colombian peso, COP = `&#36;`), the purchase popup showed the raw price entities (`&#36;&nbsp;148.000`) instead of the amount. The price is now decoded to plain text before it reaches the popup. Also fixes variable-product price ranges and sale prices.
 
@@ -152,6 +156,9 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+Fixes duplicated price text for variable products in the purchase popup (now "Desde <min>") and makes the product cache flush automatically on plugin updates.
 
 = 1.2.1 =
 Fixes the purchase popup showing raw price entities (e.g. &#36;) instead of the formatted amount on currencies like Colombian peso (COP).
