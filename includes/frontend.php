@@ -40,7 +40,10 @@ class DSB_Frontend {
     }
 
     private function dynamic_css() {
-        $font_size   = (int) $this->opts['popup_font_size'];
+        $font_title  = (int) $this->opts['popup_font_title'];
+        $font_price  = (int) $this->opts['popup_font_price'];
+        $font_meta   = (int) $this->opts['popup_font_meta'];
+        $font_link   = (int) $this->opts['popup_font_link'];
         $popup_width = (int) $this->opts['popup_width'];
         $img_size    = (int) $this->opts['popup_img_size'];
         $bg_color    = $this->opts['popup_bg_color'] ?: '#ffffff';
@@ -51,15 +54,14 @@ class DSB_Frontend {
 
         return "
             #dsb-popup {
-                --dsb-popup-font: {$font_size}px;
                 max-width: {$popup_width}px;
                 background: {$bg_color};
             }
             .dsb-popup-img   { width: {$img_size}px; height: {$img_size}px; }
-            .dsb-popup-title { font-size: var(--dsb-popup-font, 14px); color: {$title_color}; }
-            .dsb-popup-price { font-size: calc(var(--dsb-popup-font, 14px) - 1px); color: {$title_color}; }
-            .dsb-popup-meta  { font-size: calc(var(--dsb-popup-font, 14px) - 2px); color: {$meta_color}; }
-            .dsb-popup-link  { font-size: calc(var(--dsb-popup-font, 14px) - 2px); color: {$link_color}; }
+            .dsb-popup-title { font-size: {$font_title}px; color: {$title_color}; }
+            .dsb-popup-price { font-size: {$font_price}px; color: {$title_color}; }
+            .dsb-popup-meta  { font-size: {$font_meta}px; color: {$meta_color}; }
+            .dsb-popup-link  { font-size: {$font_link}px; color: {$link_color}; }
             @media (max-width: 600px) {
                 #dsb-popup {
                     max-width: calc(100vw - 20px) !important;

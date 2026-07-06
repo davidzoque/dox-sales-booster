@@ -95,7 +95,10 @@ function dsb_sanitize( $input ) {
         'popup_ago_max'         => [ 1, 999 ],
         'popup_close_silence'   => [ 0, 1440 ],
         'popup_max_per_page'    => [ 0, 50 ],
-        'popup_font_size'       => [ 10, 22 ],
+        'popup_font_title'      => [ 8, 30 ],
+        'popup_font_price'      => [ 8, 28 ],
+        'popup_font_meta'       => [ 8, 24 ],
+        'popup_font_link'       => [ 8, 24 ],
         'popup_width'           => [ 200, 500 ],
         'popup_img_size'        => [ 40, 120 ],
         'popup_title_maxchars'  => [ 20, 100 ],
@@ -186,7 +189,10 @@ function dsb_render_page() {
 
     $o     = dsb_get_settings();
     $nonce = wp_create_nonce( 'dsb_nonce' );
-    $font  = (int) $o['popup_font_size'];
+    $font_title = (int) $o['popup_font_title'];
+    $font_price = (int) $o['popup_font_price'];
+    $font_meta  = (int) $o['popup_font_meta'];
+    $font_link  = (int) $o['popup_font_link'];
 
     // Ubicaciones: mostrar el formato legado {{{...}}} como una por línea
     $loc_display = $o['popup_locations'];
@@ -563,10 +569,28 @@ function dsb_render_page() {
                         </div>
                     </div>
 
-                    <div class="dsb-field">
-                        <label><?php esc_html_e( 'Tamaño de fuente del popup', 'dox-sales-booster' ); ?> — <strong><span id="dsb-font-size-val"><?php echo $font; ?></span>px</strong></label>
-                        <input type="range" id="dsb-font-slider" name="dsb[popup_font_size]"
-                               value="<?php echo esc_attr( $font ); ?>" min="10" max="22" step="1" class="dsb-slider">
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Tamaño del texto', 'dox-sales-booster' ); ?></h4>
+                    <div class="dsb-field-row">
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Título', 'dox-sales-booster' ); ?></label>
+                            <input type="number" name="dsb[popup_font_title]" value="<?php echo esc_attr( $font_title ); ?>" min="8" max="30">
+                            <span class="dsb-hint">px</span>
+                        </div>
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Precio', 'dox-sales-booster' ); ?></label>
+                            <input type="number" name="dsb[popup_font_price]" value="<?php echo esc_attr( $font_price ); ?>" min="8" max="28">
+                            <span class="dsb-hint">px</span>
+                        </div>
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Meta (tiempo · ciudad)', 'dox-sales-booster' ); ?></label>
+                            <input type="number" name="dsb[popup_font_meta]" value="<?php echo esc_attr( $font_meta ); ?>" min="8" max="24">
+                            <span class="dsb-hint">px</span>
+                        </div>
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Enlace', 'dox-sales-booster' ); ?></label>
+                            <input type="number" name="dsb[popup_font_link]" value="<?php echo esc_attr( $font_link ); ?>" min="8" max="24">
+                            <span class="dsb-hint">px</span>
+                        </div>
                     </div>
 
                     <div class="dsb-field-row">
@@ -606,10 +630,10 @@ function dsb_render_page() {
                             <div style="display:flex;align-items:center;gap:15px;">
                                 <div class="dsb-preview-popup-img" id="dsb-prev-img" style="width:<?php echo (int) $o['popup_img_size']; ?>px;height:<?php echo (int) $o['popup_img_size']; ?>px;flex-shrink:0;"></div>
                                 <div style="min-width:0;flex:1;overflow:hidden;">
-                                    <p class="dsb-prev-title" style="font-weight:500;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:<?php echo $font; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;"><?php echo esc_html( $o['popup_prefix_text'] ); ?> <span style="font-weight:600;text-decoration:underline;"><?php esc_html_e( 'Suéter tejido lila', 'dox-sales-booster' ); ?></span></p>
-                                    <p class="dsb-prev-price" id="dsb-prev-price" style="margin:0 0 2px;font-weight:600;font-size:<?php echo $font - 1; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;<?php echo empty( $o['popup_show_price'] ) ? 'display:none;' : ''; ?>">$ 89.900</p>
-                                    <p class="dsb-prev-meta" style="margin:0 0 6px;font-size:<?php echo $font - 2; ?>px;color:<?php echo esc_attr( $o['popup_meta_color'] ); ?>;"><?php esc_html_e( 'hace 5 minutos · Bogotá, D.C. 🇨🇴', 'dox-sales-booster' ); ?></p>
-                                    <a href="#" class="dsb-prev-link" onclick="return false;" style="font-size:<?php echo $font - 2; ?>px;font-weight:500;color:<?php echo esc_attr( $o['popup_link_color'] ); ?>;text-decoration:none;"><?php echo esc_html( $o['popup_link_text'] ); ?></a>
+                                    <p class="dsb-prev-title" style="font-weight:500;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:<?php echo $font_title; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;"><?php echo esc_html( $o['popup_prefix_text'] ); ?> <span style="font-weight:600;text-decoration:underline;"><?php esc_html_e( 'Suéter tejido lila', 'dox-sales-booster' ); ?></span></p>
+                                    <p class="dsb-prev-price" id="dsb-prev-price" style="margin:0 0 2px;font-weight:600;font-size:<?php echo $font_price; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;<?php echo empty( $o['popup_show_price'] ) ? 'display:none;' : ''; ?>">$ 89.900</p>
+                                    <p class="dsb-prev-meta" style="margin:0 0 6px;font-size:<?php echo $font_meta; ?>px;color:<?php echo esc_attr( $o['popup_meta_color'] ); ?>;"><?php esc_html_e( 'hace 5 minutos · Bogotá, D.C. 🇨🇴', 'dox-sales-booster' ); ?></p>
+                                    <a href="#" class="dsb-prev-link" onclick="return false;" style="font-size:<?php echo $font_link; ?>px;font-weight:500;color:<?php echo esc_attr( $o['popup_link_color'] ); ?>;text-decoration:none;"><?php echo esc_html( $o['popup_link_text'] ); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -691,7 +715,7 @@ function dsb_admin_css() { return '
 .dsb-tab.active svg{stroke:#fff}
 .dsb-panel{display:none}
 .dsb-panel.active{display:block}
-.dsb-panel-grid{display:grid;grid-template-columns:1fr 440px;gap:16px;align-items:start}
+.dsb-panel-grid{display:grid;grid-template-columns:1fr 560px;gap:16px;align-items:start}
 .dsb-sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .dsb-card{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .dsb-card-full{grid-column:1/-1}
@@ -736,7 +760,7 @@ function dsb_admin_css() { return '
 .dsb-preview-price-bar{height:10px;background:#e9e9f0;border-radius:4px;width:40%;margin-bottom:10px}
 .dsb-preview-viewing,.dsb-preview-sales{font-size:13px;color:#555}
 .dsb-preview-popup-wrap{overflow-x:auto;overflow-y:visible;margin-bottom:12px;padding:6px 2px 10px;background:#f0f0f5;border-radius:10px}
-.dsb-preview-popup{background:#fff;border-radius:10px;box-shadow:0 0 7px 0 rgba(0,0,0,.1);padding:20px 38px 20px 20px;position:relative;display:inline-block;min-width:200px}
+.dsb-preview-popup{background:#fff;border-radius:10px;box-shadow:0 0 7px 0 rgba(0,0,0,.1);padding:20px 38px 20px 20px;position:relative;display:inline-block;box-sizing:border-box;min-width:200px}
 .dsb-preview-popup-close{position:absolute;top:6px;right:8px;background:none;border:none;cursor:default;font-size:11px;color:#bbb}
 .dsb-preview-popup-img{background:linear-gradient(135deg,#ffe8cc,#ffd4a3);border-radius:6px;flex-shrink:0}
 .dsb-preview-popup-scale-note{font-size:11px;color:#888;text-align:center;margin-bottom:8px;font-style:italic}
@@ -751,7 +775,7 @@ function dsb_admin_css() { return '
 .dsb-toast{position:fixed;bottom:30px;right:30px;background:#ff8d27;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 4px 14px rgba(255,141,39,.4);opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:9999}
 .dsb-toast.show{opacity:1;transform:translateY(0)}
 .dsb-toast.dsb-toast-error{background:#e44c4c;box-shadow:0 4px 14px rgba(228,76,76,.4)}
-@media(max-width:900px){.dsb-panel-grid,.dsb-sc-grid{grid-template-columns:1fr}.dsb-tabs{flex-wrap:wrap}.dsb-preview-card{position:static}}
+@media(max-width:1024px){.dsb-panel-grid,.dsb-sc-grid{grid-template-columns:1fr}.dsb-tabs{flex-wrap:wrap}.dsb-preview-card{position:static}}
 '; }
 
 /* ══ JS ══════════════════════════════════════════════════════════════════════ */
@@ -827,14 +851,18 @@ jQuery(function($){
         previewTitle();
     });
 
-    /* Vista previa: sliders y colores */
-    $('#dsb-font-slider').on('input',function(){
-        var size=parseInt($(this).val(),10);
-        $('#dsb-font-size-val').text(size);
-        $('#dsb-popup-preview .dsb-prev-title').css('font-size',size+'px');
-        $('#dsb-prev-price').css('font-size',(size-1)+'px');
-        $('#dsb-popup-preview .dsb-prev-meta').css('font-size',(size-2)+'px');
-        $('#dsb-popup-preview .dsb-prev-link').css('font-size',(size-2)+'px');
+    /* Vista previa: tamaños de texto por elemento */
+    $('input[name="dsb[popup_font_title]"]').on('input',function(){
+        $('#dsb-popup-preview .dsb-prev-title').css('font-size',(parseInt(this.value,10)||14)+'px');
+    });
+    $('input[name="dsb[popup_font_price]"]').on('input',function(){
+        $('#dsb-prev-price').css('font-size',(parseInt(this.value,10)||13)+'px');
+    });
+    $('input[name="dsb[popup_font_meta]"]').on('input',function(){
+        $('#dsb-popup-preview .dsb-prev-meta').css('font-size',(parseInt(this.value,10)||12)+'px');
+    });
+    $('input[name="dsb[popup_font_link]"]').on('input',function(){
+        $('#dsb-popup-preview .dsb-prev-link').css('font-size',(parseInt(this.value,10)||12)+'px');
     });
     $('#dsb-display-secs-slider').on('input',function(){
         $('#dsb-display-secs-val').text($(this).val());

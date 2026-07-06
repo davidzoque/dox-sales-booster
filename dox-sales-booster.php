@@ -3,7 +3,7 @@
  * Plugin Name:       Dox Sales Booster
  * Plugin URI:        https://doxstudio.com
  * Description:       Adds purchase notifications, live viewing counter, recent sales counter and real low-stock urgency to WooCommerce to boost conversions with social proof.
- * Version:           1.2.2
+ * Version:           1.2.3
  * Author:            Dox Studio
  * Author URI:        https://doxstudio.com
  * License:           GPL v2 or later
@@ -20,7 +20,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'DSB_VERSION', '1.2.2' );
+define( 'DSB_VERSION', '1.2.3' );
 define( 'DSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DSB_URL',  plugin_dir_url( __FILE__ ) );
 

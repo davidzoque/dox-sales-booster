@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,10 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 
 == Changelog ==
 
+= 1.2.3 =
+* New: independent font-size controls for each line of the purchase popup — title, price, meta (time · city) and link — instead of one size for everything. Defaults match the previous look, so the popup is unchanged until you adjust a size.
+* Improved: the admin popup preview no longer needs horizontal scrolling — the preview column is wider and the preview box matches the popup's real width.
+
 = 1.2.2 =
 * Fixed: variable products showed a duplicated price in the purchase popup ("$ 110.000 - $ 120.000Rango de precios: desde...") — the screen-reader text from WooCommerce's price HTML leaked into the plain-text price. The popup price is now built with `wc_price()` directly; variable products display "Desde <minimum price>".
 * Fixed: the popup product cache now invalidates automatically on every plugin update (the cache salt includes the plugin version), so price-format fixes apply immediately instead of after the 3-hour cache expires.
@@ -156,6 +160,9 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+Per-element text sizes for the purchase popup (title, price, meta, link) and an admin preview that fits without horizontal scroll.
 
 = 1.2.2 =
 Fixes duplicated price text for variable products in the purchase popup (now "Desde <min>") and makes the product cache flush automatically on plugin updates.

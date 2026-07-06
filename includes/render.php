@@ -94,7 +94,10 @@ function dsb_defaults() {
         'popup_names'            => '',
 
         // Popup — apariencia
-        'popup_font_size'        => 14,
+        'popup_font_title'       => 14,
+        'popup_font_price'       => 13,
+        'popup_font_meta'        => 12,
+        'popup_font_link'        => 12,
         'popup_prefix_text'      => __( '🛍️ Alguien ha comprado', 'dox-sales-booster' ),
         'popup_link_text'        => __( 'Ver producto', 'dox-sales-booster' ),
         'popup_width'            => 400,
