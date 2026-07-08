@@ -40,6 +40,41 @@
     font-weight: 700;
 }
 
+/* ── Barra de envío gratis ───────────────────────────────────────── */
+.dsb-shipbar {
+    --dsb-shipbar-fill: #4caf50;
+    --dsb-shipbar-track: #e9e9f0;
+    --dsb-shipbar-text: #333;
+    margin: 12px 0;
+    text-align: center;
+}
+.dsb-shipbar-msg {
+    font-size: 0.88em;
+    color: var(--dsb-shipbar-text);
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+.dsb-shipbar-amount {
+    font-weight: 700;
+    white-space: nowrap;
+}
+.dsb-shipbar-track {
+    height: 8px;
+    border-radius: 99px;
+    background: var(--dsb-shipbar-track);
+    overflow: hidden;
+}
+.dsb-shipbar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: var(--dsb-shipbar-fill);
+    transition: width .5s ease;
+}
+/* Un respiro extra cuando va dentro del mini carrito, pegada a los botones */
+.widget_shopping_cart_content .dsb-shipbar {
+    margin: 14px 0;
+}
+
 /* ── Popup de compra reciente ─────────────────────────────────────── */
 #dsb-popup {
     position: fixed;

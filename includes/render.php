@@ -69,6 +69,20 @@ function dsb_defaults() {
         'stock_threshold'        => 10,
         'stock_text'             => __( '⚡ ¡Solo quedan {stock} unidades!', 'dox-sales-booster' ),
 
+        // Barra de envío gratis
+        'shipbar_enabled'        => 0,
+        'shipbar_minicart'       => 1,
+        'shipbar_cart'           => 1,
+        'shipbar_checkout'       => 1,
+        'shipbar_source'         => 'custom', // custom | woocommerce
+        'shipbar_threshold'      => 150000,
+        'shipbar_ignore_coupons' => 1,
+        'shipbar_text'           => __( '🚚 ¡Te faltan {precio} para el envío gratis!', 'dox-sales-booster' ),
+        'shipbar_success_text'   => __( '🎉 ¡Felicidades! Tienes envío gratis.', 'dox-sales-booster' ),
+        'shipbar_bar_color'      => '#4caf50',
+        'shipbar_track_color'    => '#e9e9f0',
+        'shipbar_text_color'     => '#333333',
+
         // Popup — comportamiento
         'popup_enabled'          => 1,
         'popup_interval'         => 25,

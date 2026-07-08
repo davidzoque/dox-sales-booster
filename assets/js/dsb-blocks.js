@@ -130,6 +130,29 @@
         save: function () { return null; }
     });
 
+    /* 🚚 Barra de envío gratis */
+    registerBlockType('dox-sales-booster/shipbar', {
+        title: '🚚 ' + __('Barra de envío gratis (Sales Booster)', 'dox-sales-booster'),
+        description: __('Barra de progreso hacia el envío gratis según el total del carrito.', 'dox-sales-booster'),
+        icon: 'car',
+        category: 'widgets',
+        keywords: [ 'dox', 'sales booster', 'envío', 'gratis', 'progreso' ],
+        attributes: {
+            threshold:    { type: 'number' },
+            text:         { type: 'string' },
+            success_text: { type: 'string' }
+        },
+        edit: makeEdit('dox-sales-booster/shipbar', function (props) {
+            var a = props.attributes, set = props.setAttributes;
+            return [
+                numField('threshold', __('Monto para envío gratis (vacío = fuente del panel)', 'dox-sales-booster'), a.threshold, function (v) { set({ threshold: v }); }),
+                textField('text', __('Texto de progreso (variable {precio})', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
+                textField('success_text', __('Texto de éxito', 'dox-sales-booster'), a.success_text, function (v) { set({ success_text: v }); })
+            ];
+        }, __('La barra usa el carrito real del visitante; en el editor la vista previa puede mostrar el carrito vacío.', 'dox-sales-booster')),
+        save: function () { return null; }
+    });
+
     /* ⚡ Stock bajo (datos reales) */
     registerBlockType('dox-sales-booster/stock', {
         title: '⚡ ' + __('Stock bajo (Sales Booster)', 'dox-sales-booster'),

@@ -6,6 +6,7 @@ Plugin de WooCommerce (Dox Studio) que añade prueba social para mejorar la conv
 - **🔥 Ventas recientes** — unidades vendidas en un período (`[dsb_sales]`, widget, bloque).
 - **⚡ Stock bajo** — urgencia con inventario **real** de WooCommerce (`[dsb_stock]`, widget, bloque).
 - **🛍️ Popup de compra** — notificación animada con producto, precio, ciudad y tiempo. Modo **simulado** (catálogo) o **real** (pedidos recientes, siempre anónimo: solo ciudad y tiempo).
+- **🚚 Barra de envío gratis** — "¡Te faltan {precio} para el envío gratis!" con barra de progreso según el carrito real (`[dsb_envio_gratis]`, widget, bloque). Se inserta sola en el mini carrito estándar de WooCommerce (incluido el offcanvas de UICore Pro), el carrito y el checkout, y se refresca por cart fragments sin recargar. El monto puede ser propio o leerse del método "Envío gratuito" de WooCommerce de la zona del cliente.
 
 Todo se configura en **wp-admin → Sales Booster**.
 
@@ -51,8 +52,9 @@ uninstall.php              Limpieza de opciones y transients al desinstalar
 includes/render.php        Núcleo compartido: defaults, caché, feed (simulado/real), renders
 includes/frontend.php      Encolado de assets, popup en el footer, shortcodes
 includes/blocks.php        Bloques de Gutenberg (dinámicos, sin build step)
+includes/shipping-bar.php  Barra de envío gratis: umbral, render, hooks y fragments
 admin/settings.php         Panel de administración (tabs, preview en vivo, AJAX)
-elementor/widgets.php      Widgets de Elementor (viewing, sales, stock)
+elementor/widgets.php      Widgets de Elementor (viewing, sales, stock, shipbar)
 assets/css/dsb.css         Estilos del frontend
 assets/js/dsb.js           JS del frontend (popup, contador) — vanilla, sin jQuery
 assets/js/dsb-blocks.js    JS del editor de bloques (ES5, sin build)

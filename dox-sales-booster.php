@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Dox Sales Booster
  * Plugin URI:        https://doxstudio.com
- * Description:       Adds purchase notifications, live viewing counter, recent sales counter and real low-stock urgency to WooCommerce to boost conversions with social proof.
- * Version:           1.2.3
+ * Description:       Adds purchase notifications, live viewing counter, recent sales counter, real low-stock urgency and a free-shipping progress bar to WooCommerce to boost conversions with social proof.
+ * Version:           1.3.0
  * Author:            Dox Studio
  * Author URI:        https://doxstudio.com
  * License:           GPL v2 or later
@@ -20,7 +20,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'DSB_VERSION', '1.2.3' );
+define( 'DSB_VERSION', '1.3.0' );
 define( 'DSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DSB_URL',  plugin_dir_url( __FILE__ ) );
 
@@ -41,6 +41,7 @@ add_action( 'init', function () {
 require_once DSB_PATH . 'includes/render.php';
 require_once DSB_PATH . 'includes/blocks.php';
 require_once DSB_PATH . 'includes/frontend.php';
+require_once DSB_PATH . 'includes/shipping-bar.php';
 if ( is_admin() ) {
     require_once DSB_PATH . 'admin/settings.php';
 }
@@ -62,6 +63,7 @@ add_action( 'elementor/widgets/register', function ( $manager ) {
     $manager->register( new DSB_Widget_Viewing() );
     $manager->register( new DSB_Widget_Sales() );
     $manager->register( new DSB_Widget_Stock() );
+    $manager->register( new DSB_Widget_Shipbar() );
 } );
 
 // ─── Auto-actualizaciones desde GitHub (Plugin Update Checker) ────────────────

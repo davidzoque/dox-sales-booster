@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.2.3
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,12 +12,13 @@ Boost WooCommerce conversions with a live viewing counter, recent sales counter,
 
 == Description ==
 
-**Dox Sales Booster** adds four conversion-focused social proof elements to your WooCommerce store:
+**Dox Sales Booster** adds five conversion-focused elements to your WooCommerce store:
 
 * **Live Viewing Counter** — Shows a dynamic number of people currently viewing the product. Fluctuates gradually at a configurable interval for a believable feel.
 * **Recent Sales Counter** — Displays how many units have been sold in a given time period (minutes, hours, days, or weeks).
 * **Low Stock Alert** — Real urgency based on the actual WooCommerce inventory: "Only {stock} left!" appears only when a product's real stock falls below your threshold.
 * **Purchase Popup** — An animated notification popup showing a recent purchase: product image, name, price, location, and time. Can run on **simulated data** or on **real recent orders** (product, city and real time ago — never customer names).
+* **Free Shipping Progress Bar** — "You're only {precio} away from free shipping!" with a progress bar based on the real cart total. Auto-inserted into the standard WooCommerce mini cart (including off-canvas carts like UICore Pro's), the cart page and the checkout, refreshing via cart fragments without page reloads. The threshold can be a custom amount or read from the WooCommerce Free Shipping method's minimum order amount for the customer's zone.
 
 All elements are controlled from a dedicated admin panel under **Sales Booster** in the WordPress menu, and can be placed via **shortcodes**, **Elementor widgets**, or **Gutenberg blocks**.
 
@@ -42,16 +43,18 @@ All elements are controlled from a dedicated admin panel under **Sales Booster**
 `[dsb_viewing]` — Displays the live viewing counter.
 `[dsb_sales]` — Displays the recent sales counter.
 `[dsb_stock]` — Displays the real low-stock alert (product pages).
+`[dsb_envio_gratis]` — Displays the free shipping progress bar (auto-inserted locations don't need it).
 
 = Elementor Widgets =
 
 * 👁️ Personas viendo (Sales Booster)
 * 🔥 Ventas recientes (Sales Booster)
 * ⚡ Stock bajo (Sales Booster)
+* 🚚 Barra de envío gratis (Sales Booster)
 
 = Gutenberg Blocks =
 
-Search for "Sales Booster" in the block inserter: viewing counter, recent sales, and low stock.
+Search for "Sales Booster" in the block inserter: viewing counter, recent sales, low stock, and free shipping bar.
 
 = Requirements =
 
@@ -109,6 +112,15 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 
 == Changelog ==
 
+= 1.3.0 =
+* New: **Free shipping progress bar** — shows how much is missing for free shipping, with progress bar, success message and configurable colors.
+* New: Auto-inserted via standard WooCommerce hooks into the mini cart (works with off-canvas carts that use the native mini cart, e.g. UICore Pro), the cart page and the checkout — each location can be toggled independently.
+* New: Threshold source options: a custom amount, or the minimum order amount of the WooCommerce "Free Shipping" method for the customer's shipping zone (falls back to the custom amount if the zone has no minimum configured).
+* New: Live refresh without page reloads: the bar is registered as a cart fragment, so it updates on add-to-cart, quantity changes and coupons (including checkout coupons).
+* New: "Ignore coupons" option to count the subtotal before discounts (like typical free-shipping thresholds).
+* New: `[dsb_envio_gratis]` shortcode, 🚚 Elementor widget (with per-instance threshold, texts, colors and typography) and Gutenberg block.
+* New: Admin tab "Envío gratis" with live preview and a progress simulator slider.
+
 = 1.2.3 =
 * New: independent font-size controls for each line of the purchase popup — title, price, meta (time · city) and link — instead of one size for everything. Defaults match the previous look, so the popup is unchanged until you adjust a size.
 * Improved: the admin popup preview no longer needs horizontal scrolling — the preview column is wider and the preview box matches the popup's real width.
@@ -160,6 +172,9 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+New free shipping progress bar for the mini cart, cart and checkout — enable it under Sales Booster → Envío gratis (off by default).
 
 = 1.2.3 =
 Per-element text sizes for the purchase popup (title, price, meta, link) and an admin preview that fits without horizontal scroll.

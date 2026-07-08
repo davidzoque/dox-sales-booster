@@ -59,6 +59,20 @@ function dsb_register_blocks() {
         },
     ] );
 
+    register_block_type( 'dox-sales-booster/shipbar', [
+        'api_version'     => 2,
+        'editor_script'   => 'dsb-blocks',
+        'style'           => 'dsb-styles',
+        'attributes'      => [
+            'threshold'    => [ 'type' => 'number' ],
+            'text'         => [ 'type' => 'string' ],
+            'success_text' => [ 'type' => 'string' ],
+        ],
+        'render_callback' => function ( $attrs ) {
+            return dsb_render_shipping_bar( $attrs );
+        },
+    ] );
+
     register_block_type( 'dox-sales-booster/stock', [
         'api_version'     => 2,
         'editor_script'   => 'dsb-blocks',

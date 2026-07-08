@@ -74,7 +74,8 @@ function dsb_sanitize( $input ) {
 
     // Checkboxes
     foreach ( [ 'viewing_enabled', 'fakesales_enabled', 'stock_enabled', 'popup_enabled',
-                'popup_show_mobile', 'popup_hide_outofstock', 'popup_exclude_checkout', 'popup_show_price' ] as $k ) {
+                'popup_show_mobile', 'popup_hide_outofstock', 'popup_exclude_checkout', 'popup_show_price',
+                'shipbar_enabled', 'shipbar_minicart', 'shipbar_cart', 'shipbar_checkout', 'shipbar_ignore_coupons' ] as $k ) {
         $c[ $k ] = ! empty( $input[ $k ] ) ? 1 : 0;
     }
 
@@ -102,6 +103,7 @@ function dsb_sanitize( $input ) {
         'popup_width'           => [ 200, 500 ],
         'popup_img_size'        => [ 40, 120 ],
         'popup_title_maxchars'  => [ 20, 100 ],
+        'shipbar_threshold'     => [ 0, 999999999 ],
     ];
     foreach ( $ranges as $k => $r ) {
         $c[ $k ] = isset( $input[ $k ] ) ? min( $r[1], max( $r[0], absint( $input[ $k ] ) ) ) : $d[ $k ];
@@ -114,6 +116,7 @@ function dsb_sanitize( $input ) {
         'popup_position'      => [ 'left', 'right' ],
         'popup_data_mode'     => [ 'simulated', 'real' ],
         'popup_products_type' => [ 'random', 'featured', 'sale', 'bestsellers' ],
+        'shipbar_source'      => [ 'custom', 'woocommerce' ],
     ];
     foreach ( $selects as $k => $allowed ) {
         $v        = isset( $input[ $k ] ) ? sanitize_text_field( $input[ $k ] ) : '';
@@ -122,12 +125,14 @@ function dsb_sanitize( $input ) {
 
     // Textos
     foreach ( [ 'viewing_text', 'fakesales_text', 'stock_text', 'popup_locations',
-                'popup_prefix_text', 'popup_link_text', 'popup_names' ] as $k ) {
+                'popup_prefix_text', 'popup_link_text', 'popup_names',
+                'shipbar_text', 'shipbar_success_text' ] as $k ) {
         $c[ $k ] = isset( $input[ $k ] ) ? sanitize_textarea_field( $input[ $k ] ) : $d[ $k ];
     }
 
     // Colores (sanitize_hex_color devuelve ''/null si no es válido → default)
-    foreach ( [ 'popup_bg_color', 'popup_title_color', 'popup_meta_color', 'popup_link_color' ] as $k ) {
+    foreach ( [ 'popup_bg_color', 'popup_title_color', 'popup_meta_color', 'popup_link_color',
+                'shipbar_bar_color', 'shipbar_track_color', 'shipbar_text_color' ] as $k ) {
         $hex     = isset( $input[ $k ] ) ? sanitize_hex_color( $input[ $k ] ) : '';
         $c[ $k ] = $hex ?: $d[ $k ];
     }
@@ -182,6 +187,7 @@ function dsb_icon_fire() { return '<svg xmlns="http://www.w3.org/2000/svg" width
 function dsb_icon_bag()  { return '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>'; }
 function dsb_icon_code() { return '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'; }
 function dsb_icon_bolt() { return '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'; }
+function dsb_icon_truck() { return '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'; }
 
 /* ── Render página ─────────────────────────────────────────────────────────── */
 function dsb_render_page() {
@@ -233,6 +239,7 @@ function dsb_render_page() {
             <button type="button" class="dsb-tab active" data-tab="viewing"><?php echo dsb_icon_eye(); ?> <?php esc_html_e( 'Personas viendo', 'dox-sales-booster' ); ?></button>
             <button type="button" class="dsb-tab" data-tab="sales"><?php echo dsb_icon_fire(); ?> <?php esc_html_e( 'Ventas recientes', 'dox-sales-booster' ); ?></button>
             <button type="button" class="dsb-tab" data-tab="stock"><?php echo dsb_icon_bolt(); ?> <?php esc_html_e( 'Stock bajo', 'dox-sales-booster' ); ?></button>
+            <button type="button" class="dsb-tab" data-tab="shipbar"><?php echo dsb_icon_truck(); ?> <?php esc_html_e( 'Envío gratis', 'dox-sales-booster' ); ?></button>
             <button type="button" class="dsb-tab" data-tab="popup"><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Popup de compra', 'dox-sales-booster' ); ?></button>
             <button type="button" class="dsb-tab" data-tab="shortcodes"><?php echo dsb_icon_code(); ?> <?php esc_html_e( 'Shortcodes', 'dox-sales-booster' ); ?></button>
         </div>
@@ -371,6 +378,112 @@ function dsb_render_page() {
                         </div>
                     </div>
                     <p class="dsb-shortcode-box"><?php esc_html_e( 'Shortcode', 'dox-sales-booster' ); ?>: <code>[dsb_stock]</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BARRA DE ENVÍO GRATIS -->
+        <div class="dsb-panel" id="dsb-tab-shipbar">
+            <div class="dsb-panel-grid">
+                <div class="dsb-card">
+                    <div class="dsb-card-header">
+                        <h2><?php echo dsb_icon_truck(); ?> <?php esc_html_e( 'Barra de envío gratis', 'dox-sales-booster' ); ?></h2>
+                        <label class="dsb-toggle"><input type="checkbox" name="dsb[shipbar_enabled]" value="1" <?php checked( $o['shipbar_enabled'], 1 ); ?>><span class="dsb-toggle-slider"></span></label>
+                    </div>
+                    <p class="dsb-card-desc"><?php esc_html_e( 'Barra de progreso con lo que le falta al cliente para obtener envío gratis. Usa el carrito real y se actualiza sola (sin recargar) al agregar o quitar productos. Compatible con el mini carrito estándar de WooCommerce, incluido el offcanvas de UICore Pro.', 'dox-sales-booster' ); ?></p>
+
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Dónde se muestra', 'dox-sales-booster' ); ?></h4>
+
+                    <div class="dsb-switches-row">
+                        <label class="dsb-switch-label">
+                            <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_minicart]" value="1" <?php checked( $o['shipbar_minicart'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
+                            <?php esc_html_e( 'Mini carrito (offcanvas / widget)', 'dox-sales-booster' ); ?>
+                        </label>
+                        <label class="dsb-switch-label">
+                            <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_cart]" value="1" <?php checked( $o['shipbar_cart'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
+                            <?php esc_html_e( 'Página del carrito', 'dox-sales-booster' ); ?>
+                        </label>
+                        <label class="dsb-switch-label">
+                            <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_checkout]" value="1" <?php checked( $o['shipbar_checkout'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
+                            <?php esc_html_e( 'Página de pago (checkout)', 'dox-sales-booster' ); ?>
+                        </label>
+                    </div>
+
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Monto para envío gratis', 'dox-sales-booster' ); ?></h4>
+
+                    <div class="dsb-field">
+                        <label><?php esc_html_e( 'Fuente del monto', 'dox-sales-booster' ); ?></label>
+                        <select name="dsb[shipbar_source]">
+                            <option value="custom" <?php selected( $o['shipbar_source'], 'custom' ); ?>><?php esc_html_e( 'Monto propio (configurado aquí)', 'dox-sales-booster' ); ?></option>
+                            <option value="woocommerce" <?php selected( $o['shipbar_source'], 'woocommerce' ); ?>><?php esc_html_e( 'Método "Envío gratuito" de WooCommerce (pedido mínimo)', 'dox-sales-booster' ); ?></option>
+                        </select>
+                        <span class="dsb-hint"><?php esc_html_e( 'Con la fuente WooCommerce, el monto se lee del pedido mínimo del método "Envío gratuito" de la zona de envío del cliente. Si esa zona no tiene monto mínimo configurado, se usa el monto propio como respaldo.', 'dox-sales-booster' ); ?></span>
+                    </div>
+
+                    <div class="dsb-shipbar-custom-only">
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Monto propio', 'dox-sales-booster' ); ?></label>
+                            <input type="number" name="dsb[shipbar_threshold]" value="<?php echo esc_attr( $o['shipbar_threshold'] ); ?>" min="0" max="999999999">
+                            <span class="dsb-hint"><?php esc_html_e( 'Solo números, sin símbolo de moneda. Ej: 349000', 'dox-sales-booster' ); ?></span>
+                        </div>
+                    </div>
+
+                    <div class="dsb-switches-row">
+                        <label class="dsb-switch-label">
+                            <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_ignore_coupons]" value="1" <?php checked( $o['shipbar_ignore_coupons'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
+                            <?php esc_html_e( 'Ignorar cupones (contar el subtotal sin descuentos)', 'dox-sales-booster' ); ?>
+                        </label>
+                    </div>
+
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Textos', 'dox-sales-booster' ); ?></h4>
+
+                    <div class="dsb-field">
+                        <label><?php esc_html_e( 'Texto de progreso', 'dox-sales-booster' ); ?></label>
+                        <textarea name="dsb[shipbar_text]" rows="2"><?php echo esc_textarea( $o['shipbar_text'] ); ?></textarea>
+                        <span class="dsb-hint"><?php esc_html_e( 'Variable:', 'dox-sales-booster' ); ?> <code>{precio}</code> — <?php esc_html_e( 'lo que falta para el envío gratis.', 'dox-sales-booster' ); ?></span>
+                    </div>
+
+                    <div class="dsb-field">
+                        <label><?php esc_html_e( 'Texto de éxito', 'dox-sales-booster' ); ?></label>
+                        <textarea name="dsb[shipbar_success_text]" rows="2"><?php echo esc_textarea( $o['shipbar_success_text'] ); ?></textarea>
+                        <span class="dsb-hint"><?php esc_html_e( 'Se muestra cuando el carrito ya alcanzó el monto.', 'dox-sales-booster' ); ?></span>
+                    </div>
+
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Colores', 'dox-sales-booster' ); ?></h4>
+
+                    <div class="dsb-field-row">
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Barra de progreso', 'dox-sales-booster' ); ?></label>
+                            <input type="color" name="dsb[shipbar_bar_color]" value="<?php echo esc_attr( $o['shipbar_bar_color'] ); ?>" class="dsb-color-input">
+                        </div>
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Fondo de la barra', 'dox-sales-booster' ); ?></label>
+                            <input type="color" name="dsb[shipbar_track_color]" value="<?php echo esc_attr( $o['shipbar_track_color'] ); ?>" class="dsb-color-input">
+                        </div>
+                        <div class="dsb-field">
+                            <label><?php esc_html_e( 'Texto', 'dox-sales-booster' ); ?></label>
+                            <input type="color" name="dsb[shipbar_text_color]" value="<?php echo esc_attr( $o['shipbar_text_color'] ); ?>" class="dsb-color-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dsb-card dsb-preview-card">
+                    <h3><?php esc_html_e( 'Vista previa', 'dox-sales-booster' ); ?></h3>
+                    <div class="dsb-preview-box">
+                        <div id="dsb-shipbar-preview" style="--dsb-prev-fill:<?php echo esc_attr( $o['shipbar_bar_color'] ); ?>;--dsb-prev-track:<?php echo esc_attr( $o['shipbar_track_color'] ); ?>;--dsb-prev-text:<?php echo esc_attr( $o['shipbar_text_color'] ); ?>;text-align:center;">
+                            <p id="dsb-shipbar-preview-msg" style="font-size:13px;margin:0 0 8px;color:var(--dsb-prev-text);"></p>
+                            <div style="height:8px;border-radius:99px;background:var(--dsb-prev-track);overflow:hidden;">
+                                <div id="dsb-shipbar-preview-fill" style="height:100%;border-radius:99px;width:65%;background:var(--dsb-prev-fill);transition:width .4s ease;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dsb-field">
+                        <label><?php esc_html_e( 'Simular progreso del carrito', 'dox-sales-booster' ); ?> — <strong><span id="dsb-shipbar-demo-val">65</span>%</strong></label>
+                        <input type="range" id="dsb-shipbar-demo" value="65" min="0" max="100" step="1" class="dsb-slider">
+                        <span class="dsb-hint"><?php esc_html_e( 'Solo para la vista previa: al llegar a 100% se muestra el texto de éxito.', 'dox-sales-booster' ); ?></span>
+                    </div>
+                    <p class="dsb-shortcode-box"><?php esc_html_e( 'Shortcode', 'dox-sales-booster' ); ?>: <code>[dsb_envio_gratis]</code></p>
+                    <div class="dsb-info-box"><?php esc_html_e( 'Con las ubicaciones activadas arriba, la barra se inserta sola: no necesitas shortcode ni widget. El shortcode y el widget de Elementor son para colocarla en lugares adicionales.', 'dox-sales-booster' ); ?></div>
                 </div>
             </div>
         </div>
@@ -679,6 +792,17 @@ function dsb_render_page() {
                     </div>
                     <div class="dsb-info-box"><?php esc_html_e( 'También disponible como widget de Elementor y bloque de Gutenberg.', 'dox-sales-booster' ); ?></div>
                 </div>
+                <div class="dsb-card">
+                    <h2><?php echo dsb_icon_truck(); ?> <code>[dsb_envio_gratis]</code></h2>
+                    <p><?php esc_html_e( 'Barra de progreso de envío gratis. Con las ubicaciones del panel activadas se inserta sola en el mini carrito, el carrito y el checkout; usa el shortcode solo para lugares adicionales.', 'dox-sales-booster' ); ?></p>
+                    <div class="dsb-sc-examples">
+                        <p><strong><?php esc_html_e( 'Básico:', 'dox-sales-booster' ); ?></strong></p>
+                        <code>[dsb_envio_gratis]</code>
+                        <p><strong><?php esc_html_e( 'Personalizado:', 'dox-sales-booster' ); ?></strong></p>
+                        <code>[dsb_envio_gratis threshold="349000" text="¡Te faltan {precio} para el envío gratis!"]</code>
+                    </div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'También disponible como widget de Elementor y bloque de Gutenberg.', 'dox-sales-booster' ); ?></div>
+                </div>
                 <div class="dsb-card dsb-card-full">
                     <h2><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Popup de compra', 'dox-sales-booster' ); ?></h2>
                     <p><?php esc_html_e( 'El popup no necesita shortcode: se activa automáticamente cuando está habilitado en la pestaña "Popup de compra". En Gutenberg busca los bloques "Sales Booster"; en Elementor, los widgets con el mismo nombre.', 'dox-sales-booster' ); ?></p>
@@ -749,8 +873,8 @@ function dsb_admin_css() { return '
 .dsb-toggle-sm input:checked+.dsb-toggle-slider:before{transform:translateX(16px)}
 .dsb-switches-row{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .dsb-switch-label{display:flex;align-items:center;gap:10px;font-size:13px;color:#444;cursor:pointer}
-.dsb-sim-only{transition:opacity .2s}
-.dsb-sim-only.dsb-dim{opacity:.45;pointer-events:none}
+.dsb-sim-only,.dsb-shipbar-custom-only{transition:opacity .2s}
+.dsb-sim-only.dsb-dim,.dsb-shipbar-custom-only.dsb-dim{opacity:.45;pointer-events:none}
 .dsb-preview-card{background:#f9f9fc;border:1.5px dashed #ffd4a3;position:sticky;top:46px}
 .dsb-preview-box{background:#fff;border-radius:10px;padding:16px;margin-bottom:16px;border:1px solid #eee}
 .dsb-preview-product{display:flex;gap:12px;align-items:center}
@@ -901,6 +1025,41 @@ jQuery(function($){
         var esc=$('<div/>').text($(this).val()||'').html();
         $('#dsb-stock-preview-text').html(esc.replace('{stock}','<strong class="dsb-stock-count" style="color:#b3261e">3</strong>'));
     });
+
+    /* Barra de envío gratis: vista previa en vivo */
+    function shipbarPreview(){
+        var pct=parseInt($('#dsb-shipbar-demo').val(),10)||0;
+        var $msg=$('#dsb-shipbar-preview-msg');
+        if(pct>=100){
+            $msg.text($('textarea[name="dsb[shipbar_success_text]"]').val()||'');
+        }else{
+            var txt=$('textarea[name="dsb[shipbar_text]"]').val()||'';
+            var esc=$('<div/>').text(txt).html();
+            $msg.html(esc.replace(/\{(precio|price)\}/g,'<strong>$ 58.000</strong>'));
+        }
+        $('#dsb-shipbar-preview-fill').css('width',pct+'%');
+        $('#dsb-shipbar-demo-val').text(pct);
+    }
+    $('#dsb-shipbar-demo').on('input',shipbarPreview);
+    $('textarea[name="dsb[shipbar_text]"], textarea[name="dsb[shipbar_success_text]"]').on('input',shipbarPreview);
+    $('input[name="dsb[shipbar_bar_color]"]').on('input',function(){
+        $('#dsb-shipbar-preview').css('--dsb-prev-fill',$(this).val());
+    });
+    $('input[name="dsb[shipbar_track_color]"]').on('input',function(){
+        $('#dsb-shipbar-preview').css('--dsb-prev-track',$(this).val());
+    });
+    $('input[name="dsb[shipbar_text_color]"]').on('input',function(){
+        $('#dsb-shipbar-preview').css('--dsb-prev-text',$(this).val());
+    });
+    shipbarPreview();
+
+    /* Fuente del monto: atenuar el monto propio cuando se usa WooCommerce */
+    function syncShipbarSource(){
+        var wc=$('select[name="dsb[shipbar_source]"]').val()==='woocommerce';
+        $('.dsb-shipbar-custom-only').toggleClass('dsb-dim',wc);
+    }
+    $('select[name="dsb[shipbar_source]"]').on('change',syncShipbarSource);
+    syncShipbarSource();
 
     /* Modo de datos: atenuar campos que solo aplican al modo simulado */
     function syncDataMode(){

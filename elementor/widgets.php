@@ -199,6 +199,89 @@ class DSB_Widget_Sales extends \Elementor\Widget_Base {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
+   Widget: Barra de envío gratis
+   ══════════════════════════════════════════════════════════════════════════ */
+class DSB_Widget_Shipbar extends \Elementor\Widget_Base {
+
+    public function get_name()       { return 'dsb_shipbar'; }
+    public function get_title()      { return '🚚 ' . __( 'Barra de envío gratis (Sales Booster)', 'dox-sales-booster' ); }
+    public function get_icon()       { return 'eicon-skill-bar'; }
+    public function get_keywords()   { return [ 'envío', 'gratis', 'shipping', 'barra', 'progreso', 'sales booster', 'dox' ]; }
+    public function get_categories() { return [ 'woocommerce-elements', 'general' ]; }
+
+    public function get_style_depends() { return [ 'dsb-styles' ]; }
+
+    protected function register_controls() {
+        $opts = dsb_get_settings();
+
+        $this->start_controls_section( 'section_content', [ 'label' => __( 'Configuración', 'dox-sales-booster' ) ] );
+        dsb_widget_note_control( $this );
+
+        $this->add_control( 'threshold', [
+            'label'       => __( 'Monto para envío gratis', 'dox-sales-booster' ),
+            'type'        => \Elementor\Controls_Manager::NUMBER,
+            'min'         => 0,
+            'description' => __( 'Vacío o 0 = usar la fuente configurada en el panel (monto propio o método de WooCommerce).', 'dox-sales-booster' ),
+        ] );
+        $this->add_control( 'text', [
+            'label'       => __( 'Texto de progreso', 'dox-sales-booster' ),
+            'type'        => \Elementor\Controls_Manager::TEXTAREA,
+            'default'     => $opts['shipbar_text'],
+            'description' => __( 'Variable disponible: {precio} (lo que falta para el envío gratis).', 'dox-sales-booster' ),
+        ] );
+        $this->add_control( 'success_text', [
+            'label'   => __( 'Texto de éxito', 'dox-sales-booster' ),
+            'type'    => \Elementor\Controls_Manager::TEXTAREA,
+            'default' => $opts['shipbar_success_text'],
+        ] );
+
+        $this->end_controls_section();
+
+        // Estilo — los colores se pasan al render (la barra usa variables CSS
+        // inline, así que un selector de Elementor no podría sobreescribirlas).
+        $this->start_controls_section( 'section_style', [ 'label' => __( 'Estilo', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
+        $this->add_control( 'bar_color', [
+            'label'   => __( 'Color de la barra', 'dox-sales-booster' ),
+            'type'    => \Elementor\Controls_Manager::COLOR,
+            'default' => $opts['shipbar_bar_color'],
+        ] );
+        $this->add_control( 'track_color', [
+            'label'   => __( 'Color del fondo de la barra', 'dox-sales-booster' ),
+            'type'    => \Elementor\Controls_Manager::COLOR,
+            'default' => $opts['shipbar_track_color'],
+        ] );
+        $this->add_control( 'text_color', [
+            'label'   => __( 'Color del texto', 'dox-sales-booster' ),
+            'type'    => \Elementor\Controls_Manager::COLOR,
+            'default' => $opts['shipbar_text_color'],
+        ] );
+        $this->add_group_control( \Elementor\Group_Control_Typography::get_type(), [
+            'name'     => 'typography',
+            'selector' => '{{WRAPPER}} .dsb-shipbar-msg',
+        ] );
+        $this->end_controls_section();
+    }
+
+    protected function render() {
+        $s    = $this->get_settings_for_display();
+        $html = dsb_render_shipping_bar( [
+            'threshold'    => $s['threshold'] ?? '',
+            'text'         => $s['text'] ?? '',
+            'success_text' => $s['success_text'] ?? '',
+            'bar_color'    => $s['bar_color'] ?? '',
+            'track_color'  => $s['track_color'] ?? '',
+            'text_color'   => $s['text_color'] ?? '',
+        ] );
+
+        if ( '' === $html ) {
+            dsb_widget_placeholder( __( 'La barra de envío gratis está desactivada en los ajustes de Sales Booster, o no hay un monto de envío gratis configurado.', 'dox-sales-booster' ) );
+            return;
+        }
+        echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_shipping_bar()
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
    Widget: Stock bajo (datos reales)
    ══════════════════════════════════════════════════════════════════════════ */
 class DSB_Widget_Stock extends \Elementor\Widget_Base {
