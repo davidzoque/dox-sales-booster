@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,10 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 
 == Changelog ==
 
+= 1.3.1 =
+* Fixed: the free shipping bar did not appear on the Cart and Checkout pages when they are built with the WooCommerce **blocks** (woocommerce/cart, woocommerce/checkout) — those blocks don't fire the classic `woocommerce_before_cart` / `woocommerce_before_checkout_form` hooks. The bar is now injected above the block via `render_block` and kept in sync live by listening to the Store API (`wc/store/cart`), so it updates without a reload when quantities or coupons change. The classic (shortcode) cart/checkout keep working as before.
+* New: animated progress bar — moving diagonal stripes, a periodic shimmer sweep, a smooth fill transition and a little "pop" when free shipping is reached. Fully disabled under `prefers-reduced-motion`. The admin preview now shows the movement too.
+
 = 1.3.0 =
 * New: **Free shipping progress bar** — shows how much is missing for free shipping, with progress bar, success message and configurable colors.
 * New: Auto-inserted via standard WooCommerce hooks into the mini cart (works with off-canvas carts that use the native mini cart, e.g. UICore Pro), the cart page and the checkout — each location can be toggled independently.
@@ -172,6 +176,9 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Fixes the free shipping bar not showing on block-based Cart/Checkout pages, and adds an animated (moving) progress bar.
 
 = 1.3.0 =
 New free shipping progress bar for the mini cart, cart and checkout — enable it under Sales Booster → Envío gratis (off by default).

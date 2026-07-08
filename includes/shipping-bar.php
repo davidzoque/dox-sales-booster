@@ -1,11 +1,12 @@
 <?php
 /**
  * Barra de progreso de envío gratis.
- * Se inserta con los hooks ESTÁNDAR de WooCommerce (mini carrito, carrito y
- * checkout), así que funciona con cualquier tema o plugin que use el mini cart
- * nativo (UICore Pro, Elementor, Storefront...) y se refresca sola vía cart
- * fragments. El umbral puede ser un monto propio o leerse del método
- * "Envío gratuito" de WooCommerce de la zona del cliente.
+ * Se inserta tanto en el mini carrito y el carrito/checkout CLÁSICOS (hooks
+ * estándar de WooCommerce) como en el carrito/checkout por BLOQUES de Gutenberg
+ * (vía render_block). En el mini cart se refresca con los cart fragments; en los
+ * bloques, con un JS que escucha el Store API (assets/js/dsb-shipbar-blocks.js).
+ * Compatible con UICore Pro, Elementor, Storefront, etc. El umbral puede ser un
+ * monto propio o leerse del método "Envío gratuito" de la zona del cliente.
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -127,44 +128,73 @@ function dsb_render_shipping_bar( $args = [], $auto = false ) {
         . '</div></div></div>';
 }
 
-/* ── Inserción automática + refresco AJAX ─────────────────────────────────── */
+/* ── Inserción automática ─────────────────────────────────────────────────── */
+
+// Render con candado por contexto: evita duplicar la barra si en la misma página
+// se dispararan tanto el hook clásico como el filtro de bloques (una página usa
+// uno u otro, pero así queda a prueba de temas que mezclen ambos sistemas).
+function dsb_shipbar_render_once( $context ) {
+    static $done = [];
+    if ( ! empty( $done[ $context ] ) ) return '';
+    $done[ $context ] = true;
+    return dsb_render_shipping_bar( [], true );
+}
 
 add_action( 'init', function () {
     if ( ! class_exists( 'WooCommerce' ) ) return;
 
-    $echo_auto = function () {
-        echo dsb_render_shipping_bar( [], true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_shipping_bar()
-    };
-
     $o = dsb_get_settings();
 
-    // Mini carrito (offcanvas de UICore, widget de WooCommerce, etc.):
-    // entre el subtotal y los botones. Al vivir dentro de
-    // .widget_shopping_cart_content se refresca solo con los cart fragments.
-    if ( ! empty( $o['shipbar_minicart'] ) ) {
-        add_action( 'woocommerce_widget_shopping_cart_before_buttons', $echo_auto, 5 );
-    }
-
-    // Página del carrito: arriba de la tabla. WooCommerce re-renderiza todo el
-    // bloque del carrito al cambiar cantidades, así que también se actualiza sola.
-    if ( ! empty( $o['shipbar_cart'] ) ) {
-        add_action( 'woocommerce_before_cart', $echo_auto, 5 );
-    }
-
-    // Checkout: arriba del formulario.
-    if ( ! empty( $o['shipbar_checkout'] ) ) {
-        add_action( 'woocommerce_before_checkout_form', $echo_auto, 5 );
-    }
-
+    // Shortcode siempre disponible (devuelve '' si la barra está desactivada).
     add_shortcode( 'dsb_envio_gratis', function ( $atts ) {
         $atts = shortcode_atts( [ 'threshold' => '', 'text' => '', 'success_text' => '' ], $atts, 'dsb_envio_gratis' );
         return dsb_render_shipping_bar( $atts );
     } );
+
+    if ( empty( $o['shipbar_enabled'] ) ) return; // sin inserción automática
+
+    // Mini carrito (offcanvas de UICore, widget de WooCommerce, etc.): entre el
+    // subtotal y los botones. Vive dentro de .widget_shopping_cart_content, así
+    // que se refresca solo con los cart fragments estándar.
+    if ( ! empty( $o['shipbar_minicart'] ) ) {
+        add_action( 'woocommerce_widget_shopping_cart_before_buttons', function () {
+            echo dsb_render_shipping_bar( [], true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_shipping_bar()
+        }, 5 );
+    }
+
+    // Carrito / checkout CLÁSICOS (shortcode [woocommerce_cart] / [woocommerce_checkout]).
+    if ( ! empty( $o['shipbar_cart'] ) ) {
+        add_action( 'woocommerce_before_cart', function () {
+            echo dsb_shipbar_render_once( 'cart' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_shipping_bar()
+        }, 5 );
+    }
+    if ( ! empty( $o['shipbar_checkout'] ) ) {
+        add_action( 'woocommerce_before_checkout_form', function () {
+            echo dsb_shipbar_render_once( 'checkout' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_shipping_bar()
+        }, 5 );
+    }
+
+    // Carrito / checkout por BLOQUES (Gutenberg woocommerce/cart y woocommerce/
+    // checkout). Estos NO disparan los hooks clásicos, así que anteponemos la
+    // barra al bloque contenedor cuando se renderiza.
+    if ( ! empty( $o['shipbar_cart'] ) || ! empty( $o['shipbar_checkout'] ) ) {
+        add_filter( 'render_block', function ( $content, $block ) use ( $o ) {
+            $name = $block['blockName'] ?? '';
+            if ( 'woocommerce/cart' === $name && ! empty( $o['shipbar_cart'] ) ) {
+                return dsb_shipbar_render_once( 'cart' ) . $content;
+            }
+            if ( 'woocommerce/checkout' === $name && ! empty( $o['shipbar_checkout'] ) ) {
+                return dsb_shipbar_render_once( 'checkout' ) . $content;
+            }
+            return $content;
+        }, 10, 2 );
+    }
 } );
 
-// Las instancias automáticas se registran como cart fragment: WooCommerce las
-// reemplaza vía AJAX en cada added_to_cart / wc_fragment_refresh (así la barra
-// del checkout y del carrito reaccionan sin recargar).
+/* ── Refresco en vivo ─────────────────────────────────────────────────────── */
+
+// Mini carrito clásico: cada instancia automática se registra como cart fragment,
+// así WooCommerce la reemplaza vía AJAX en added_to_cart / wc_fragment_refresh.
 add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
     $html = dsb_render_shipping_bar( [], true );
     if ( '' !== $html ) {
@@ -173,14 +203,30 @@ add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
     return $fragments;
 } );
 
-// En el checkout el subtotal solo cambia al aplicar/quitar cupones: forzar un
-// refresco de fragments en esos eventos para que la barra se actualice.
+// Carrito / checkout por bloques: usan el Store API, no los cart fragments. Este
+// script escucha wc/store/cart y recalcula la barra in-place. En el checkout
+// clásico, además refresca los fragments al aplicar/quitar cupones.
 add_action( 'wp_enqueue_scripts', function () {
-    if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) return;
+    if ( ! function_exists( 'is_cart' ) ) return;
     $o = dsb_get_settings();
-    if ( empty( $o['shipbar_enabled'] ) || empty( $o['shipbar_checkout'] ) ) return;
-    wp_add_inline_script(
-        'wc-checkout',
-        'jQuery(function($){$(document.body).on("applied_coupon_in_checkout removed_coupon_in_checkout",function(){$(document.body).trigger("wc_fragment_refresh");});});'
-    );
+    if ( empty( $o['shipbar_enabled'] ) ) return;
+
+    $on_cart     = is_cart() && ! empty( $o['shipbar_cart'] );
+    $on_checkout = is_checkout() && ! empty( $o['shipbar_checkout'] );
+    if ( ! $on_cart && ! $on_checkout ) return;
+
+    wp_enqueue_script( 'dsb-shipbar-blocks', DSB_URL . 'assets/js/dsb-shipbar-blocks.js', [ 'wp-data' ], DSB_VERSION, true );
+    wp_localize_script( 'dsb-shipbar-blocks', 'dsbShipbar', [
+        'threshold'     => dsb_shipbar_threshold( $o ),
+        'text'          => $o['shipbar_text'],
+        'successText'   => $o['shipbar_success_text'],
+        'ignoreCoupons' => ! empty( $o['shipbar_ignore_coupons'] ),
+    ] );
+
+    if ( $on_checkout ) {
+        wp_add_inline_script(
+            'wc-checkout',
+            'jQuery(function($){$(document.body).on("applied_coupon_in_checkout removed_coupon_in_checkout",function(){$(document.body).trigger("wc_fragment_refresh");});});'
+        );
+    }
 }, 20 );

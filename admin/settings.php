@@ -472,8 +472,8 @@ function dsb_render_page() {
                     <div class="dsb-preview-box">
                         <div id="dsb-shipbar-preview" style="--dsb-prev-fill:<?php echo esc_attr( $o['shipbar_bar_color'] ); ?>;--dsb-prev-track:<?php echo esc_attr( $o['shipbar_track_color'] ); ?>;--dsb-prev-text:<?php echo esc_attr( $o['shipbar_text_color'] ); ?>;text-align:center;">
                             <p id="dsb-shipbar-preview-msg" style="font-size:13px;margin:0 0 8px;color:var(--dsb-prev-text);"></p>
-                            <div style="height:8px;border-radius:99px;background:var(--dsb-prev-track);overflow:hidden;">
-                                <div id="dsb-shipbar-preview-fill" style="height:100%;border-radius:99px;width:65%;background:var(--dsb-prev-fill);transition:width .4s ease;"></div>
+                            <div style="height:10px;border-radius:99px;background:var(--dsb-prev-track);overflow:hidden;">
+                                <div id="dsb-shipbar-preview-fill" style="height:100%;border-radius:99px;width:65%;background-color:var(--dsb-prev-fill);transition:width .4s ease;"></div>
                             </div>
                         </div>
                     </div>
@@ -899,6 +899,9 @@ function dsb_admin_css() { return '
 .dsb-toast{position:fixed;bottom:30px;right:30px;background:#ff8d27;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 4px 14px rgba(255,141,39,.4);opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:9999}
 .dsb-toast.show{opacity:1;transform:translateY(0)}
 .dsb-toast.dsb-toast-error{background:#e44c4c;box-shadow:0 4px 14px rgba(228,76,76,.4)}
+#dsb-shipbar-preview-fill{background-image:linear-gradient(45deg,rgba(255,255,255,.28) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.28) 50%,rgba(255,255,255,.28) 75%,transparent 75%,transparent);background-size:20px 20px;animation:dsb-prev-stripes 1s linear infinite}
+@keyframes dsb-prev-stripes{from{background-position:20px 0}to{background-position:0 0}}
+@media(prefers-reduced-motion:reduce){#dsb-shipbar-preview-fill{animation:none}}
 @media(max-width:1024px){.dsb-panel-grid,.dsb-sc-grid{grid-template-columns:1fr}.dsb-tabs{flex-wrap:wrap}.dsb-preview-card{position:static}}
 '; }
 
@@ -1037,7 +1040,7 @@ jQuery(function($){
             var esc=$('<div/>').text(txt).html();
             $msg.html(esc.replace(/\{(precio|price)\}/g,'<strong>$ 58.000</strong>'));
         }
-        $('#dsb-shipbar-preview-fill').css('width',pct+'%');
+        $('#dsb-shipbar-preview-fill').css('width',pct+'%').css('animation',pct>=100?'none':'');
         $('#dsb-shipbar-demo-val').text(pct);
     }
     $('#dsb-shipbar-demo').on('input',shipbarPreview);

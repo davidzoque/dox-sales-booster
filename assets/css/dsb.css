@@ -59,16 +59,66 @@
     white-space: nowrap;
 }
 .dsb-shipbar-track {
-    height: 8px;
+    position: relative;
+    height: 10px;
     border-radius: 99px;
     background: var(--dsb-shipbar-track);
     overflow: hidden;
 }
 .dsb-shipbar-fill {
+    position: relative;
     height: 100%;
     border-radius: 99px;
-    background: var(--dsb-shipbar-fill);
-    transition: width .5s ease;
+    overflow: hidden;
+    background-color: var(--dsb-shipbar-fill);
+    /* Rayas diagonales sutiles en movimiento: sensación de "en progreso" */
+    background-image: linear-gradient(45deg,
+        rgba(255, 255, 255, .22) 25%, transparent 25%,
+        transparent 50%, rgba(255, 255, 255, .22) 50%,
+        rgba(255, 255, 255, .22) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    transition: width .6s cubic-bezier(.22, .61, .36, 1);
+    animation: dsb-shipbar-stripes 1s linear infinite;
+}
+/* Brillo que recorre la parte llena cada pocos segundos */
+.dsb-shipbar-fill::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .5) 50%, transparent 70%);
+    transform: translateX(-100%);
+    animation: dsb-shipbar-shimmer 2.6s ease-in-out infinite;
+}
+@keyframes dsb-shipbar-stripes {
+    from { background-position: 20px 0; }
+    to   { background-position: 0 0; }
+}
+@keyframes dsb-shipbar-shimmer {
+    0%        { transform: translateX(-100%); }
+    55%, 100% { transform: translateX(100%); }
+}
+/* Al completar: se detiene el movimiento y la barra da un pequeño "pop" */
+.dsb-shipbar-done .dsb-shipbar-fill {
+    animation: none;
+    background-image: none;
+}
+.dsb-shipbar-done .dsb-shipbar-fill::after { content: none; animation: none; }
+.dsb-shipbar-done .dsb-shipbar-track {
+    animation: dsb-shipbar-pop .5s ease;
+}
+@keyframes dsb-shipbar-pop {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+/* Accesibilidad: sin movimiento si el visitante lo tiene reducido */
+@media (prefers-reduced-motion: reduce) {
+    .dsb-shipbar-fill,
+    .dsb-shipbar-fill::after,
+    .dsb-shipbar-done .dsb-shipbar-track {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 /* Un respiro extra cuando va dentro del mini carrito, pegada a los botones */
 .widget_shopping_cart_content .dsb-shipbar {
