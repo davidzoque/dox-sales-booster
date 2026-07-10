@@ -69,19 +69,71 @@
 
         var interval = (parseInt(cfg.viewing_interval, 10) || 2) * 60 * 1000;
 
+        // El número se guarda por producto en sessionStorage: al recargar la
+        // página continúa donde iba en vez de saltar a otro valor aleatorio.
+        // Generarlo aquí (y no usar el del servidor) lo hace además inmune a la
+        // caché de página, que serviría el mismo número a todos los visitantes.
+        function storeKey(el) {
+            return 'dsbViewing_' + (el.getAttribute('data-key') || location.pathname);
+        }
+
+        function readStored(el) {
+            try {
+                var o = JSON.parse(sessionStorage.getItem(storeKey(el)));
+                return (o && typeof o.v === 'number' && typeof o.t === 'number') ? o : null;
+            } catch (e) { return null; }
+        }
+
+        function writeStored(el, v) {
+            try {
+                sessionStorage.setItem(storeKey(el), JSON.stringify({ v: v, t: Date.now() }));
+            } catch (e) { /* sessionStorage no disponible (modo privado, etc.) */ }
+        }
+
+        function bounds(el) {
+            return {
+                min: parseInt(el.getAttribute('data-min'), 10) || 3,
+                max: parseInt(el.getAttribute('data-max'), 10) || 12
+            };
+        }
+
+        // Variación gradual (±1-2): más creíble que un salto aleatorio
+        function fluctuate(cur, min, max) {
+            var delta = (Math.random() < 0.5 ? -1 : 1) * randInt(1, 2);
+            var next  = clamp(cur + delta, min, max);
+            if (next === cur) next = clamp(cur - delta, min, max);
+            return next;
+        }
+
+        function paint(el, v) {
+            var span = el.querySelector('.dsb-viewing-count');
+            if (span) span.textContent = v;
+            writeStored(el, v);
+        }
+
+        els.forEach(function (el) {
+            var b      = bounds(el);
+            var stored = readStored(el);
+            var v;
+            if (stored && stored.v >= b.min && stored.v <= b.max) {
+                // Si estuvo fuera más tiempo que el intervalo, fluctúa una vez
+                v = (Date.now() - stored.t >= interval)
+                    ? fluctuate(stored.v, b.min, b.max)
+                    : stored.v;
+            } else {
+                v = randInt(b.min, b.max);
+            }
+            paint(el, v);
+        });
+
         setInterval(function () {
             els.forEach(function (el) {
-                var min  = parseInt(el.getAttribute('data-min'), 10) || 3;
-                var max  = parseInt(el.getAttribute('data-max'), 10) || 12;
+                var b    = bounds(el);
                 var span = el.querySelector('.dsb-viewing-count');
                 if (!span) return;
                 var cur = parseInt(span.textContent, 10);
-                if (isNaN(cur)) cur = randInt(min, max);
-                // Variación gradual (±1-2): más creíble que un salto aleatorio
-                var delta = (Math.random() < 0.5 ? -1 : 1) * randInt(1, 2);
-                var next  = clamp(cur + delta, min, max);
-                if (next === cur) next = clamp(cur - delta, min, max);
-                span.textContent = next;
+                if (isNaN(cur)) cur = randInt(b.min, b.max);
+                paint(el, fluctuate(cur, b.min, b.max));
             });
         }, interval);
     }

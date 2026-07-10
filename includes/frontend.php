@@ -147,12 +147,12 @@ class DSB_Frontend {
 
     // ── Shortcodes (los atributos vacíos heredan del panel) ──────────────────
     public function shortcode_viewing( $atts ) {
-        $atts = shortcode_atts( [ 'min' => '', 'max' => '', 'text' => '' ], $atts, 'dsb_viewing' );
+        $atts = shortcode_atts( [ 'min' => '', 'max' => '', 'text' => '', 'product_id' => '' ], $atts, 'dsb_viewing' );
         return dsb_render_viewing( $atts );
     }
 
     public function shortcode_sales( $atts ) {
-        $atts = shortcode_atts( [ 'min' => '', 'max' => '', 'text' => '', 'timeframe' => '', 'period' => '' ], $atts, 'dsb_sales' );
+        $atts = shortcode_atts( [ 'min' => '', 'max' => '', 'text' => '', 'timeframe' => '', 'period' => '', 'product_id' => '' ], $atts, 'dsb_sales' );
         return dsb_render_sales( $atts );
     }
 

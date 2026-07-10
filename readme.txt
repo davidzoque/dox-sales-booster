@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Boost WooCommerce conversions with a live viewing counter, recent sales counter,
 **Dox Sales Booster** adds five conversion-focused elements to your WooCommerce store:
 
 * **Live Viewing Counter** — Shows a dynamic number of people currently viewing the product. Fluctuates gradually at a configurable interval for a believable feel.
-* **Recent Sales Counter** — Displays how many units have been sold in a given time period (minutes, hours, days, or weeks).
+* **Recent Sales Counter** — Displays how many units have been sold in a given time period (minutes, hours, days, or weeks). Runs on **simulated data** (a stable number within your range, not re-randomised on every page load) or on **real sales** for that product.
 * **Low Stock Alert** — Real urgency based on the actual WooCommerce inventory: "Only {stock} left!" appears only when a product's real stock falls below your threshold.
 * **Purchase Popup** — An animated notification popup showing a recent purchase: product image, name, price, location, and time. Can run on **simulated data** or on **real recent orders** (product, city and real time ago — never customer names).
 * **Free Shipping Progress Bar** — "You're only {precio} away from free shipping!" with a progress bar based on the real cart total. Auto-inserted into the standard WooCommerce mini cart (including off-canvas carts like UICore Pro's), the cart page and the checkout, refreshing via cart fragments without page reloads. The threshold can be a custom amount or read from the WooCommerce Free Shipping method's minimum order amount for the customer's zone.
@@ -80,7 +80,7 @@ The purchase popup and the low-stock alert require WooCommerce. The viewing and 
 
 = Are the sales and viewing numbers real? =
 
-The viewing and recent-sales counters are simulated within the min/max range you configure. The purchase popup can run in **simulated** mode (catalog products) or in **real** mode (actual recent orders). The low-stock alert always uses real inventory data.
+The viewing counter is simulated within the min/max range you configure. The recent-sales counter can run in **simulated** mode (a stable number within your range) or in **real** mode (units actually sold for that product in the configured period; if there were none, nothing is shown). The purchase popup can run in **simulated** mode (catalog products) or in **real** mode (actual recent orders). The low-stock alert always uses real inventory data.
 
 = What customer data does the real mode expose? =
 
@@ -100,7 +100,7 @@ Yes, and it adapts to the screen width automatically. You can disable it on mobi
 
 = Is it compatible with caching plugins? =
 
-Yes. All dynamic numbers are generated client-side via JavaScript, so they work correctly even with full-page caching.
+Yes. The "people viewing" number is generated in the visitor's browser and stored per product in `sessionStorage`, so full-page caching never freezes it. The recent-sales number is deterministic (derived from the product and the current time window), so caching cannot freeze it either and every visitor sees the same value.
 
 == Screenshots ==
 
@@ -111,6 +111,13 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 5. Elementor widgets panel
 
 == Changelog ==
+
+= 1.4.0 =
+* New: **Data mode for the recent sales counter** (Simulated / Real), like the purchase popup already had. In **Real** mode it counts the units actually sold for that product within the configured period (completed and processing orders, cached 15 minutes); if there were no sales, the element is hidden instead of inventing a number.
+* Fixed: the recent sales counter drew a **new random number on every page load**, so it changed on each reload and looked obviously fake. In Simulated mode the number is now deterministic: it stays fixed for the whole configured period and is identical for every visitor.
+* Fixed: the "people viewing" counter also jumped to a new random number on every reload. It is now stored per product in `sessionStorage`, so it continues where it left off and keeps fluctuating gradually every N minutes as intended.
+* Fixed: both counters are now genuinely immune to full-page caching. The viewing number is generated in the browser and the sales number is deterministic, so a cached page no longer freezes them (the readme previously claimed this, but the initial numbers were rendered server-side).
+* New: `product_id` attribute for `[dsb_viewing]` and `[dsb_sales]` (and their Gutenberg blocks), to target a specific product outside a product page.
 
 = 1.3.1 =
 * Fixed: the free shipping bar did not appear on the Cart and Checkout pages when they are built with the WooCommerce **blocks** (woocommerce/cart, woocommerce/checkout) — those blocks don't fire the classic `woocommerce_before_cart` / `woocommerce_before_checkout_form` hooks. The bar is now injected above the block via `render_block` and kept in sync live by listening to the Store API (`wc/store/cart`), so it updates without a reload when quantities or coupons change. The classic (shortcode) cart/checkout keep working as before.
@@ -176,6 +183,9 @@ Yes. All dynamic numbers are generated client-side via JavaScript, so they work 
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+The sales and viewing counters no longer change on every page reload, and the sales counter can now use real WooCommerce sales. Review the new "Modo de datos" option under Sales Booster → Ventas recientes.
 
 = 1.3.1 =
 Fixes the free shipping bar not showing on block-based Cart/Checkout pages, and adds an animated (moving) progress bar.

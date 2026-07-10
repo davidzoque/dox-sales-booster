@@ -63,6 +63,7 @@ function dsb_defaults() {
         'fakesales_text'         => __( '🔥 {count} vendidos en las últimas {timeframe} {period}', 'dox-sales-booster' ),
         'fakesales_timeframe'    => 24,
         'fakesales_period'       => 'horas',
+        'fakesales_data_mode'    => 'simulated', // simulated | real
 
         // Stock bajo (datos reales de WooCommerce)
         'stock_enabled'          => 1,
@@ -339,6 +340,73 @@ function dsb_get_popup_feed( $opts ) {
     return dsb_get_popup_products( $opts );
 }
 
+/* ── Contador de ventas: número estable y ventas reales ──────────────────── */
+
+// Segundos que representa el período configurado ("horas", "días"...).
+function dsb_period_seconds( $period ) {
+    switch ( $period ) {
+        case 'minutos': return MINUTE_IN_SECONDS;
+        case 'días':    return DAY_IN_SECONDS;
+        case 'semanas': return WEEK_IN_SECONDS;
+        default:        return HOUR_IN_SECONDS;
+    }
+}
+
+// Producto del contexto actual (o el pasado explícitamente por atributo).
+function dsb_context_product_id( $explicit = 0 ) {
+    $explicit = absint( $explicit );
+    if ( $explicit ) return $explicit;
+    if ( ! function_exists( 'wc_get_product' ) ) return 0;
+
+    global $product;
+    if ( $product instanceof WC_Product ) return (int) $product->get_id();
+    if ( get_the_ID() && 'product' === get_post_type() ) return (int) get_the_ID();
+    return 0;
+}
+
+// Número pseudoaleatorio DETERMINISTA: la misma semilla devuelve siempre el
+// mismo número. Con wp_rand() el contador cambiaba en cada carga de página (se
+// notaba falso al recargar); así se mantiene fijo durante toda la ventana de
+// tiempo, es idéntico para todos los visitantes y sobrevive a la caché de página.
+function dsb_stable_count( $seed, $min, $max ) {
+    if ( $max <= $min ) return $min;
+    // 7 dígitos hex = 28 bits: siempre positivo y cabe en un int de 32 bits.
+    $hash = hexdec( substr( md5( (string) $seed ), 0, 7 ) );
+    return $min + (int) ( $hash % ( $max - $min + 1 ) );
+}
+
+// Unidades REALES vendidas de un producto dentro de la ventana de tiempo.
+// Cacheado 15 min porque recorre pedidos.
+function dsb_real_sales_count( $product_id, $window_seconds ) {
+    $product_id = (int) $product_id;
+    if ( ! $product_id || ! function_exists( 'wc_get_orders' ) ) return 0;
+
+    $cache_key = 'dsb_rs_' . md5( dsb_cache_salt() . '|' . $product_id . '|' . (int) $window_seconds );
+    $cached    = get_transient( $cache_key );
+    if ( false !== $cached ) return (int) $cached;
+
+    $count  = 0;
+    $orders = wc_get_orders( [
+        'limit'        => 100,
+        'status'       => [ 'completed', 'processing' ],
+        'date_created' => '>' . ( time() - (int) $window_seconds ),
+    ] );
+
+    foreach ( (array) $orders as $order ) {
+        if ( ! $order instanceof WC_Order ) continue;
+        foreach ( $order->get_items() as $item ) {
+            // get_product_id() devuelve el padre en variaciones: cuenta todas
+            // las variantes bajo el mismo producto, que es lo que se muestra.
+            if ( (int) $item->get_product_id() === $product_id ) {
+                $count += (int) $item->get_quantity();
+            }
+        }
+    }
+
+    set_transient( $cache_key, $count, 15 * MINUTE_IN_SECONDS );
+    return $count;
+}
+
 /* ── Render compartido (shortcodes / Elementor / Gutenberg) ───────────────── */
 
 // Los args vacíos o null caen al valor global del panel.
@@ -364,17 +432,25 @@ function dsb_render_viewing( $args = [] ) {
     if ( empty( $o['viewing_enabled'] ) ) return '';
 
     $args = wp_parse_args( dsb_filter_args( $args ), [
-        'min'  => $o['viewing_min'],
-        'max'  => $o['viewing_max'],
-        'text' => $o['viewing_text'],
+        'min'        => $o['viewing_min'],
+        'max'        => $o['viewing_max'],
+        'text'       => $o['viewing_text'],
+        'product_id' => 0,
     ] );
 
     $min = max( 1, (int) $args['min'] );
     $max = max( $min, (int) $args['max'] );
 
+    // Clave de persistencia: el JS guarda el número por producto en
+    // sessionStorage, para que al recargar continúe donde iba en vez de saltar
+    // a otro valor aleatorio. El número impreso aquí es solo el respaldo
+    // (visitantes sin JS); el JS lo sustituye por el suyo al cargar.
+    $key = dsb_context_product_id( $args['product_id'] );
+    if ( ! $key ) $key = 'page';
+
     dsb_ensure_assets( true );
 
-    return '<p class="dsb-live-viewing" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '">'
+    return '<p class="dsb-live-viewing" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-key="' . esc_attr( $key ) . '">'
         . '<span class="dsb-eye-icon">&#128065;</span> '
         . '<span class="dsb-viewing-count">' . wp_rand( $min, $max ) . '</span> '
         . esc_html( $args['text'] )
@@ -386,18 +462,35 @@ function dsb_render_sales( $args = [] ) {
     if ( empty( $o['fakesales_enabled'] ) ) return '';
 
     $args = wp_parse_args( dsb_filter_args( $args ), [
-        'min'       => $o['fakesales_min'],
-        'max'       => $o['fakesales_max'],
-        'text'      => $o['fakesales_text'],
-        'timeframe' => $o['fakesales_timeframe'],
-        'period'    => $o['fakesales_period'],
+        'min'        => $o['fakesales_min'],
+        'max'        => $o['fakesales_max'],
+        'text'       => $o['fakesales_text'],
+        'timeframe'  => $o['fakesales_timeframe'],
+        'period'     => $o['fakesales_period'],
+        'product_id' => 0,
     ] );
 
-    $min  = max( 1, (int) $args['min'] );
-    $max  = max( $min, (int) $args['max'] );
+    $min       = max( 1, (int) $args['min'] );
+    $max       = max( $min, (int) $args['max'] );
+    $timeframe = max( 1, (int) $args['timeframe'] );
+    $window    = $timeframe * dsb_period_seconds( $args['period'] );
+    $pid       = dsb_context_product_id( $args['product_id'] );
+
+    if ( 'real' === ( $o['fakesales_data_mode'] ?? 'simulated' ) ) {
+        // Ventas REALES del producto en la ventana. Si no hubo ninguna no se
+        // inventa un número: el elemento simplemente no se muestra.
+        $count = dsb_real_sales_count( $pid, $window );
+        if ( $count < 1 ) return '';
+    } else {
+        // Simulado, pero ESTABLE: el mismo número durante toda la ventana de
+        // tiempo, en vez de uno nuevo en cada carga de página.
+        $bucket = (int) floor( time() / max( MINUTE_IN_SECONDS, $window ) );
+        $count  = dsb_stable_count( $pid . '|' . $bucket . '|' . $min . '|' . $max, $min, $max );
+    }
+
     $text = str_replace(
         [ '{count}', '{timeframe}', '{period}' ],
-        [ '<strong class="dsb-sales-count">' . wp_rand( $min, $max ) . '</strong>', esc_html( $args['timeframe'] ), esc_html( $args['period'] ) ],
+        [ '<strong class="dsb-sales-count">' . (int) $count . '</strong>', esc_html( $args['timeframe'] ), esc_html( $args['period'] ) ],
         esc_html( $args['text'] )
     );
 

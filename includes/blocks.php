@@ -34,9 +34,10 @@ function dsb_register_blocks() {
         'style'           => 'dsb-styles',
         'view_script'     => 'dsb-scripts', // refresco periódico del contador
         'attributes'      => [
-            'min'  => [ 'type' => 'number' ],
-            'max'  => [ 'type' => 'number' ],
-            'text' => [ 'type' => 'string' ],
+            'min'        => [ 'type' => 'number' ],
+            'max'        => [ 'type' => 'number' ],
+            'text'       => [ 'type' => 'string' ],
+            'product_id' => [ 'type' => 'number' ],
         ],
         'render_callback' => function ( $attrs ) {
             return dsb_render_viewing( $attrs );
@@ -48,11 +49,12 @@ function dsb_register_blocks() {
         'editor_script'   => 'dsb-blocks',
         'style'           => 'dsb-styles',
         'attributes'      => [
-            'min'       => [ 'type' => 'number' ],
-            'max'       => [ 'type' => 'number' ],
-            'text'      => [ 'type' => 'string' ],
-            'timeframe' => [ 'type' => 'number' ],
-            'period'    => [ 'type' => 'string' ],
+            'min'        => [ 'type' => 'number' ],
+            'max'        => [ 'type' => 'number' ],
+            'text'       => [ 'type' => 'string' ],
+            'timeframe'  => [ 'type' => 'number' ],
+            'period'     => [ 'type' => 'string' ],
+            'product_id' => [ 'type' => 'number' ],
         ],
         'render_callback' => function ( $attrs ) {
             return dsb_render_sales( $attrs );

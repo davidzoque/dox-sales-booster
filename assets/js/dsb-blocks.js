@@ -76,16 +76,18 @@
         category: 'widgets',
         keywords: [ 'dox', 'sales booster', 'viendo', 'urgencia' ],
         attributes: {
-            min:  { type: 'number' },
-            max:  { type: 'number' },
-            text: { type: 'string' }
+            min:        { type: 'number' },
+            max:        { type: 'number' },
+            text:       { type: 'string' },
+            product_id: { type: 'number' }
         },
         edit: makeEdit('dox-sales-booster/viewing', function (props) {
             var a = props.attributes, set = props.setAttributes;
             return [
                 numField('min', __('Mínimo personas', 'dox-sales-booster'), a.min, function (v) { set({ min: v }); }),
                 numField('max', __('Máximo personas', 'dox-sales-booster'), a.max, function (v) { set({ max: v }); }),
-                textField('text', __('Texto', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); })
+                textField('text', __('Texto', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
+                numField('product_id', __('ID de producto (vacío = producto actual)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
             ];
         }),
         save: function () { return null; }
@@ -99,11 +101,12 @@
         category: 'widgets',
         keywords: [ 'dox', 'sales booster', 'ventas', 'vendidos' ],
         attributes: {
-            min:       { type: 'number' },
-            max:       { type: 'number' },
-            text:      { type: 'string' },
-            timeframe: { type: 'number' },
-            period:    { type: 'string' }
+            min:        { type: 'number' },
+            max:        { type: 'number' },
+            text:       { type: 'string' },
+            timeframe:  { type: 'number' },
+            period:     { type: 'string' },
+            product_id: { type: 'number' }
         },
         edit: makeEdit('dox-sales-booster/sales', function (props) {
             var a = props.attributes, set = props.setAttributes;
@@ -124,7 +127,8 @@
                         { label: __('Semanas', 'dox-sales-booster'), value: 'semanas' }
                     ],
                     onChange: function (v) { set({ period: v === '' ? undefined : v }); }
-                })
+                }),
+                numField('product_id', __('ID de producto (vacío = producto actual)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
             ];
         }),
         save: function () { return null; }

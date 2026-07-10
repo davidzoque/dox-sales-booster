@@ -112,6 +112,7 @@ function dsb_sanitize( $input ) {
     // Selects: solo valores de la whitelist
     $selects = [
         'fakesales_period'    => [ 'minutos', 'horas', 'días', 'semanas' ],
+        'fakesales_data_mode' => [ 'simulated', 'real' ],
         'popup_animation'     => [ 'slide_up', 'slide_right' ],
         'popup_position'      => [ 'left', 'right' ],
         'popup_data_mode'     => [ 'simulated', 'real' ],
@@ -297,9 +298,20 @@ function dsb_render_page() {
                         <input type="text" name="dsb[fakesales_text]" value="<?php echo esc_attr( $o['fakesales_text'] ); ?>">
                         <span class="dsb-hint"><?php esc_html_e( 'Variables:', 'dox-sales-booster' ); ?> <code>{count}</code> <code>{timeframe}</code> <code>{period}</code></span>
                     </div>
-                    <div class="dsb-field-row">
-                        <div class="dsb-field"><label><?php esc_html_e( 'Mínimo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_min]" value="<?php echo esc_attr( $o['fakesales_min'] ); ?>" min="1" max="50"></div>
-                        <div class="dsb-field"><label><?php esc_html_e( 'Máximo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_max]" value="<?php echo esc_attr( $o['fakesales_max'] ); ?>" min="1" max="200"></div>
+                    <div class="dsb-field">
+                        <label><?php esc_html_e( 'Modo de datos', 'dox-sales-booster' ); ?></label>
+                        <select name="dsb[fakesales_data_mode]">
+                            <option value="simulated" <?php selected( $o['fakesales_data_mode'], 'simulated' ); ?>><?php esc_html_e( 'Simulado (número entre el mínimo y el máximo)', 'dox-sales-booster' ); ?></option>
+                            <option value="real" <?php selected( $o['fakesales_data_mode'], 'real' ); ?>><?php esc_html_e( 'Real (unidades vendidas de verdad)', 'dox-sales-booster' ); ?></option>
+                        </select>
+                        <span class="dsb-hint"><?php esc_html_e( 'Simulado: el número se mantiene fijo durante todo el período (ya no cambia al recargar la página) y es el mismo para todos los visitantes. Real: cuenta las unidades vendidas del producto en pedidos completados o en proceso dentro del período; si no hubo ninguna venta, el texto no se muestra.', 'dox-sales-booster' ); ?></span>
+                    </div>
+
+                    <div class="dsb-sales-sim-only">
+                        <div class="dsb-field-row">
+                            <div class="dsb-field"><label><?php esc_html_e( 'Mínimo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_min]" value="<?php echo esc_attr( $o['fakesales_min'] ); ?>" min="1" max="50"></div>
+                            <div class="dsb-field"><label><?php esc_html_e( 'Máximo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_max]" value="<?php echo esc_attr( $o['fakesales_max'] ); ?>" min="1" max="200"></div>
+                        </div>
                     </div>
                     <div class="dsb-field-row">
                         <div class="dsb-field"><label><?php esc_html_e( 'Cantidad', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_timeframe]" value="<?php echo esc_attr( $o['fakesales_timeframe'] ); ?>" min="1" max="999"></div>
@@ -873,8 +885,8 @@ function dsb_admin_css() { return '
 .dsb-toggle-sm input:checked+.dsb-toggle-slider:before{transform:translateX(16px)}
 .dsb-switches-row{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .dsb-switch-label{display:flex;align-items:center;gap:10px;font-size:13px;color:#444;cursor:pointer}
-.dsb-sim-only,.dsb-shipbar-custom-only{transition:opacity .2s}
-.dsb-sim-only.dsb-dim,.dsb-shipbar-custom-only.dsb-dim{opacity:.45;pointer-events:none}
+.dsb-sim-only,.dsb-shipbar-custom-only,.dsb-sales-sim-only{transition:opacity .2s}
+.dsb-sim-only.dsb-dim,.dsb-shipbar-custom-only.dsb-dim,.dsb-sales-sim-only.dsb-dim{opacity:.45;pointer-events:none}
 .dsb-preview-card{background:#f9f9fc;border:1.5px dashed #ffd4a3;position:sticky;top:46px}
 .dsb-preview-box{background:#fff;border-radius:10px;padding:16px;margin-bottom:16px;border:1px solid #eee}
 .dsb-preview-product{display:flex;gap:12px;align-items:center}
@@ -1071,6 +1083,14 @@ jQuery(function($){
     }
     $('select[name="dsb[popup_data_mode]"]').on('change',syncDataMode);
     syncDataMode();
+
+    /* Ventas recientes: en modo real el mínimo/máximo no se usan */
+    function syncSalesMode(){
+        var real=$('select[name="dsb[fakesales_data_mode]"]').val()==='real';
+        $('.dsb-sales-sim-only').toggleClass('dsb-dim',real);
+    }
+    $('select[name="dsb[fakesales_data_mode]"]').on('change',syncSalesMode);
+    syncSalesMode();
 
     /* Restaurar valores por defecto */
     $('#dsb-reset-btn').on('click',function(e){

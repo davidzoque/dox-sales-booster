@@ -3,7 +3,7 @@
 Plugin de WooCommerce (Dox Studio) que añade prueba social para mejorar la conversión:
 
 - **👁️ Personas viendo** — contador con fluctuación gradual (shortcode `[dsb_viewing]`, widget de Elementor, bloque de Gutenberg).
-- **🔥 Ventas recientes** — unidades vendidas en un período (`[dsb_sales]`, widget, bloque).
+- **🔥 Ventas recientes** — unidades vendidas en un período (`[dsb_sales]`, widget, bloque). Modo **simulado** (número estable dentro del rango, no cambia al recargar) o **real** (ventas reales del producto; si no hubo, no se muestra).
 - **⚡ Stock bajo** — urgencia con inventario **real** de WooCommerce (`[dsb_stock]`, widget, bloque).
 - **🛍️ Popup de compra** — notificación animada con producto, precio, ciudad y tiempo. Modo **simulado** (catálogo) o **real** (pedidos recientes, siempre anónimo: solo ciudad y tiempo).
 - **🚚 Barra de envío gratis** — "¡Te faltan {precio} para el envío gratis!" con barra de progreso según el carrito real (`[dsb_envio_gratis]`, widget, bloque). Se inserta sola en el mini carrito estándar de WooCommerce (incluido el offcanvas de UICore Pro), el carrito y el checkout, y se refresca por cart fragments sin recargar. El monto puede ser propio o leerse del método "Envío gratuito" de WooCommerce de la zona del cliente.
