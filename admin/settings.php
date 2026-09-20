@@ -7,7 +7,30 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /* ── Menú ─────────────────────────────────────────────────────────────────── */
+// La pantalla cuelga del menú común "Dox Plugins", que crea dox-core. El
+// submenú lo añade el core, no este plugin, para que el orden y las
+// capacidades sean iguales en todos los plugins de Dox Studio.
+add_action( 'dox_core_register', function ( $core ) {
+    $core->register_plugin( [
+        'slug'    => 'dox-sales-booster',
+        'name'    => __( 'Dox Sales Booster', 'dox-sales-booster' ),
+        'version' => DSB_VERSION,
+        'summary' => __( 'Purchase notifications, live viewing counter, real low stock urgency and a free shipping bar for WooCommerce.', 'dox-sales-booster' ),
+        'page'    => [
+            'page_title' => __( 'Dox Sales Booster', 'dox-sales-booster' ),
+            'menu_title' => __( 'Sales Booster', 'dox-sales-booster' ),
+            'capability' => 'manage_options',
+            'menu_slug'  => 'dox-sales-booster',
+            'callback'   => 'dsb_render_page',
+        ],
+    ] );
+} );
+
+// Respaldo: si por lo que sea dox-core no llegara a cargarse, el panel sigue
+// teniendo su propia entrada en vez de quedarse inalcanzable.
 add_action( 'admin_menu', function () {
+    if ( function_exists( 'dox_core' ) ) return;
+
     add_menu_page(
         __( 'Dox Sales Booster', 'dox-sales-booster' ),
         __( 'Sales Booster', 'dox-sales-booster' ),
@@ -17,11 +40,17 @@ add_action( 'admin_menu', function () {
         dsb_menu_icon(),
         58
     );
-} );
+}, 11 );
 
 /* ── Estilos/scripts del admin (handles propios, contenido inline) ────────── */
 add_action( 'admin_enqueue_scripts', function ( $hook ) {
-    if ( 'toplevel_page_dox-sales-booster' !== $hook ) return;
+    // Dentro del menú común el hook es dox-plugins_page_..., y toplevel_page_...
+    // solo cuando actúa el respaldo de arriba.
+    $screens = [ 'toplevel_page_dox-sales-booster' ];
+    if ( function_exists( 'dox_core' ) ) {
+        $screens[] = dox_core()->page_hook( 'dox-sales-booster' );
+    }
+    if ( ! in_array( $hook, array_filter( $screens ), true ) ) return;
 
     wp_register_style( 'dsb-admin', false, [], DSB_VERSION );
     wp_enqueue_style( 'dsb-admin' );

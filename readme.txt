@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.6.0
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 
 == Changelog ==
 
+= 1.7.0 =
+* **New: the settings screen now lives under a shared "Dox Plugins" menu.** Every Dox Studio plugin used to add its own top-level entry, so a site with three of them had three separate menus. They now share one, with a front page listing what is installed and a link to each plugin's settings. Nothing depends on anything else: each plugin carries its own copy of the shared code and only the newest one runs.
+
 = 1.6.0 =
 * **New: automatic placement on the product page.** The viewing counter, the recent sales counter and the low stock notice can now be inserted on their own, with a position of your choice (after the price, above or below the add to cart button, after the product meta...). Until now they could only be placed with a shortcode, an Elementor widget or a Gutenberg block, which left out any store whose product page uses the plain WooCommerce template. It is on for new installs and off when you update, so nothing you already placed by hand appears twice.
 * **New: colors for those three elements in the settings panel.** Text and number colors were only available inside the Elementor widgets, so a store without Elementor was stuck with the default grey and red, unreadable on a dark theme. The Gutenberg blocks got the same colour controls the Elementor widgets have, and they override the global ones per instance.
@@ -202,6 +205,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.7.0 =
+The settings screen moved from its own menu entry to Sales Booster inside the new "Dox Plugins" menu. Same screen, same settings.
 
 = 1.6.0 =
 Adds automatic placement on the product page, colour settings for the three product elements and support for the block Mini Cart, so the plugin no longer needs Elementor to be fully configurable. Automatic placement stays off on existing installs.
