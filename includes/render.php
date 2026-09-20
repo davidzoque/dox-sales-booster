@@ -27,6 +27,10 @@ function dsb_defaults() {
         'viewing_max'            => 12,
         'viewing_text'           => __( 'people are viewing this product right now.', 'dox-sales-booster' ),
         'viewing_interval'       => 2,
+        'viewing_auto'           => 1,
+        'viewing_position'       => 'after_price',
+        'viewing_text_color'     => '#555555',
+        'viewing_count_color'    => '#e44c4c',
 
         // Ventas recientes
         'fakesales_enabled'      => 1,
@@ -36,11 +40,19 @@ function dsb_defaults() {
         'fakesales_timeframe'    => 24,
         'fakesales_period'       => 'hours',
         'fakesales_data_mode'    => 'simulated', // simulated | real
+        'fakesales_auto'         => 1,
+        'fakesales_position'     => 'after_price',
+        'fakesales_text_color'   => '#555555',
+        'fakesales_count_color'  => '#e44c4c',
 
         // Stock bajo (datos reales de WooCommerce)
         'stock_enabled'          => 1,
         'stock_threshold'        => 10,
         'stock_text'             => __( '⚡ Only {stock} units left!', 'dox-sales-booster' ),
+        'stock_auto'             => 1,
+        'stock_position'         => 'before_add_to_cart',
+        'stock_text_color'       => '#b3261e',
+        'stock_count_color'      => '#b3261e',
 
         // Barra de envío gratis
         'shipbar_enabled'        => 0,
@@ -403,6 +415,19 @@ function dsb_real_sales_count( $product_id, $window_seconds ) {
 /* ── Render compartido (shortcodes / Elementor / Gutenberg) ───────────────── */
 
 // Los args vacíos o null caen al valor global del panel.
+// Estilo en línea de un elemento: escribe solo las variables de color que
+// traiga esa instancia (bloque o widget). Lo que no venga lo sigue poniendo el
+// color global del panel, que se imprime con los estilos del plugin.
+function dsb_inline_colors( $args, $map ) {
+    $style = '';
+    foreach ( $map as $key => $var ) {
+        if ( empty( $args[ $key ] ) ) continue;
+        $hex = sanitize_hex_color( $args[ $key ] );
+        if ( $hex ) $style .= $var . ':' . $hex . ';';
+    }
+    return $style ? ' style="' . esc_attr( $style ) . '"' : '';
+}
+
 function dsb_filter_args( $args ) {
     return array_filter( (array) $args, function ( $v ) {
         return null !== $v && '' !== $v;
@@ -427,8 +452,10 @@ function dsb_render_viewing( $args = [] ) {
     $args = wp_parse_args( dsb_filter_args( $args ), [
         'min'        => $o['viewing_min'],
         'max'        => $o['viewing_max'],
-        'text'       => $o['viewing_text'],
-        'product_id' => 0,
+        'text'        => $o['viewing_text'],
+        'product_id'  => 0,
+        'text_color'  => '',
+        'count_color' => '',
     ] );
 
     $min = max( 1, (int) $args['min'] );
@@ -443,7 +470,9 @@ function dsb_render_viewing( $args = [] ) {
 
     dsb_ensure_assets( true );
 
-    return '<p class="dsb-live-viewing" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-key="' . esc_attr( $key ) . '">'
+    $colors = dsb_inline_colors( $args, [ 'text_color' => '--dsb-viewing-text', 'count_color' => '--dsb-viewing-count' ] );
+
+    return '<p class="dsb-live-viewing" data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-key="' . esc_attr( $key ) . '"' . $colors . '>'
         . '<span class="dsb-eye-icon">&#128065;</span> '
         . '<span class="dsb-viewing-count">' . wp_rand( $min, $max ) . '</span> '
         . esc_html( $args['text'] )
@@ -489,7 +518,9 @@ function dsb_render_sales( $args = [] ) {
 
     dsb_ensure_assets();
 
-    return '<p class="dsb-fake-sales">' . wp_kses( $text, [ 'strong' => [ 'class' => [] ] ] ) . '</p>';
+    $colors = dsb_inline_colors( $args, [ 'text_color' => '--dsb-sales-text', 'count_color' => '--dsb-sales-count' ] );
+
+    return '<p class="dsb-fake-sales"' . $colors . '>' . wp_kses( $text, [ 'strong' => [ 'class' => [] ] ] ) . '</p>';
 }
 
 // Urgencia con stock REAL de WooCommerce. Solo renderiza si el producto
@@ -542,5 +573,7 @@ function dsb_render_stock( $args = [] ) {
 
     dsb_ensure_assets();
 
-    return '<p class="dsb-low-stock">' . wp_kses( $text, [ 'strong' => [ 'class' => [] ] ] ) . '</p>';
+    $colors = dsb_inline_colors( $args, [ 'text_color' => '--dsb-stock-text', 'count_color' => '--dsb-stock-count' ] );
+
+    return '<p class="dsb-low-stock"' . $colors . '>' . wp_kses( $text, [ 'strong' => [ 'class' => [] ] ] ) . '</p>';
 }

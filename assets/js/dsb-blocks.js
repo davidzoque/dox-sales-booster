@@ -44,6 +44,32 @@
         });
     }
 
+    // Input de color nativo en vez de los componentes de color del editor, cuya
+    // API ha ido cambiando entre versiones de Gutenberg. Vacío = color global.
+    function colorField(key, label, value, onChange) {
+        return el('div', { key: key, style: { marginBottom: '16px' } },
+            el('label', {
+                style: { display: 'block', fontSize: '11px', fontWeight: 500, textTransform: 'uppercase', marginBottom: '6px' }
+            }, label),
+            el('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
+                el('input', {
+                    type: 'color',
+                    value: value || '#555555',
+                    onChange: function (e) { onChange(e.target.value); },
+                    style: { width: '38px', height: '28px', padding: 0, border: '1px solid #ddd', borderRadius: '2px', cursor: 'pointer' }
+                }),
+                value
+                    ? el('button', {
+                        type: 'button',
+                        className: 'components-button is-link',
+                        style: { fontSize: '11px' },
+                        onClick: function () { onChange(undefined); }
+                      }, __('Use the global color', 'dox-sales-booster'))
+                    : el('span', { style: { fontSize: '11px', color: '#888' } }, __('(use global color)', 'dox-sales-booster'))
+            )
+        );
+    }
+
     function makeEdit(blockName, fieldsFn, note) {
         return function (props) {
             var children = [
@@ -76,10 +102,12 @@
         category: 'widgets',
         keywords: [ 'dox', 'sales booster', __('viewing', 'dox-sales-booster'), __('urgency', 'dox-sales-booster') ],
         attributes: {
-            min:        { type: 'number' },
-            max:        { type: 'number' },
-            text:       { type: 'string' },
-            product_id: { type: 'number' }
+            min:         { type: 'number' },
+            max:         { type: 'number' },
+            text:        { type: 'string' },
+            product_id:  { type: 'number' },
+            text_color:  { type: 'string' },
+            count_color: { type: 'string' }
         },
         edit: makeEdit('dox-sales-booster/viewing', function (props) {
             var a = props.attributes, set = props.setAttributes;
@@ -87,7 +115,9 @@
                 numField('min', __('Minimum people', 'dox-sales-booster'), a.min, function (v) { set({ min: v }); }),
                 numField('max', __('Maximum people', 'dox-sales-booster'), a.max, function (v) { set({ max: v }); }),
                 textField('text', __('Text', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
-                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
+                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); }),
+                colorField('text_color', __('Text color', 'dox-sales-booster'), a.text_color, function (v) { set({ text_color: v }); }),
+                colorField('count_color', __('Number color', 'dox-sales-booster'), a.count_color, function (v) { set({ count_color: v }); })
             ];
         }),
         save: function () { return null; }
@@ -104,9 +134,11 @@
             min:        { type: 'number' },
             max:        { type: 'number' },
             text:       { type: 'string' },
-            timeframe:  { type: 'number' },
-            period:     { type: 'string' },
-            product_id: { type: 'number' }
+            timeframe:   { type: 'number' },
+            period:      { type: 'string' },
+            product_id:  { type: 'number' },
+            text_color:  { type: 'string' },
+            count_color: { type: 'string' }
         },
         edit: makeEdit('dox-sales-booster/sales', function (props) {
             var a = props.attributes, set = props.setAttributes;
@@ -128,7 +160,9 @@
                     ],
                     onChange: function (v) { set({ period: v === '' ? undefined : v }); }
                 }),
-                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
+                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); }),
+                colorField('text_color', __('Text color', 'dox-sales-booster'), a.text_color, function (v) { set({ text_color: v }); }),
+                colorField('count_color', __('Number color', 'dox-sales-booster'), a.count_color, function (v) { set({ count_color: v }); })
             ];
         }),
         save: function () { return null; }
@@ -144,14 +178,20 @@
         attributes: {
             threshold:    { type: 'number' },
             text:         { type: 'string' },
-            success_text: { type: 'string' }
+            success_text: { type: 'string' },
+            bar_color:    { type: 'string' },
+            track_color:  { type: 'string' },
+            text_color:   { type: 'string' }
         },
         edit: makeEdit('dox-sales-booster/shipbar', function (props) {
             var a = props.attributes, set = props.setAttributes;
             return [
                 numField('threshold', __('Free shipping amount (empty = panel source)', 'dox-sales-booster'), a.threshold, function (v) { set({ threshold: v }); }),
                 textField('text', __('Progress text (variable {amount})', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
-                textField('success_text', __('Success text', 'dox-sales-booster'), a.success_text, function (v) { set({ success_text: v }); })
+                textField('success_text', __('Success text', 'dox-sales-booster'), a.success_text, function (v) { set({ success_text: v }); }),
+                colorField('bar_color', __('Bar color', 'dox-sales-booster'), a.bar_color, function (v) { set({ bar_color: v }); }),
+                colorField('track_color', __('Bar background color', 'dox-sales-booster'), a.track_color, function (v) { set({ track_color: v }); }),
+                colorField('text_color', __('Text color', 'dox-sales-booster'), a.text_color, function (v) { set({ text_color: v }); })
             ];
         }, __('The bar uses the real cart of the visitor; in the editor the preview may show an empty cart.', 'dox-sales-booster')),
         save: function () { return null; }
@@ -165,16 +205,20 @@
         category: 'widgets',
         keywords: [ 'dox', 'sales booster', 'stock', __('inventory', 'dox-sales-booster'), __('urgency', 'dox-sales-booster') ],
         attributes: {
-            threshold:  { type: 'number' },
-            text:       { type: 'string' },
-            product_id: { type: 'number' }
+            threshold:   { type: 'number' },
+            text:        { type: 'string' },
+            product_id:  { type: 'number' },
+            text_color:  { type: 'string' },
+            count_color: { type: 'string' }
         },
         edit: makeEdit('dox-sales-booster/stock', function (props) {
             var a = props.attributes, set = props.setAttributes;
             return [
                 numField('threshold', __('Units threshold', 'dox-sales-booster'), a.threshold, function (v) { set({ threshold: v }); }),
                 textField('text', __('Text (variable {stock})', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
-                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
+                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); }),
+                colorField('text_color', __('Text color', 'dox-sales-booster'), a.text_color, function (v) { set({ text_color: v }); }),
+                colorField('count_color', __('Units left color', 'dox-sales-booster'), a.count_color, function (v) { set({ count_color: v }); })
             ];
         }, __('Shown on product pages when the real stock is below the threshold. Outside a product page the preview may be empty.', 'dox-sales-booster')),
         save: function () { return null; }

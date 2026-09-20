@@ -46,6 +46,12 @@ class DSB_Frontend {
         $font_link   = (int) $this->opts['popup_font_link'];
         $popup_width = (int) $this->opts['popup_width'];
         $img_size    = (int) $this->opts['popup_img_size'];
+        $viewing_txt = sanitize_hex_color( $this->opts['viewing_text_color'] )    ?: '#555555';
+        $viewing_num = sanitize_hex_color( $this->opts['viewing_count_color'] )   ?: '#e44c4c';
+        $sales_txt   = sanitize_hex_color( $this->opts['fakesales_text_color'] )  ?: '#555555';
+        $sales_num   = sanitize_hex_color( $this->opts['fakesales_count_color'] ) ?: '#e44c4c';
+        $stock_txt   = sanitize_hex_color( $this->opts['stock_text_color'] )      ?: '#b3261e';
+        $stock_num   = sanitize_hex_color( $this->opts['stock_count_color'] )     ?: '#b3261e';
         $bg_color    = $this->opts['popup_bg_color'] ?: '#ffffff';
         $title_color = $this->opts['popup_title_color'] ?: '#1a1a1a';
         $meta_color  = $this->opts['popup_meta_color'] ?: '#777777';
@@ -53,6 +59,18 @@ class DSB_Frontend {
         $mobile_img  = max( 44, (int) round( $img_size * 0.75 ) );
 
         return "
+            .dsb-live-viewing {
+                --dsb-viewing-text: {$viewing_txt};
+                --dsb-viewing-count: {$viewing_num};
+            }
+            .dsb-fake-sales {
+                --dsb-sales-text: {$sales_txt};
+                --dsb-sales-count: {$sales_num};
+            }
+            .dsb-low-stock {
+                --dsb-stock-text: {$stock_txt};
+                --dsb-stock-count: {$stock_num};
+            }
             #dsb-popup {
                 max-width: {$popup_width}px;
                 background: {$bg_color};

@@ -34,10 +34,12 @@ function dsb_register_blocks() {
         'style'           => 'dsb-styles',
         'view_script'     => 'dsb-scripts', // refresco periódico del contador
         'attributes'      => [
-            'min'        => [ 'type' => 'number' ],
-            'max'        => [ 'type' => 'number' ],
-            'text'       => [ 'type' => 'string' ],
-            'product_id' => [ 'type' => 'number' ],
+            'min'         => [ 'type' => 'number' ],
+            'max'         => [ 'type' => 'number' ],
+            'text'        => [ 'type' => 'string' ],
+            'product_id'  => [ 'type' => 'number' ],
+            'text_color'  => [ 'type' => 'string' ],
+            'count_color' => [ 'type' => 'string' ],
         ],
         'render_callback' => function ( $attrs ) {
             return dsb_render_viewing( $attrs );
@@ -52,9 +54,11 @@ function dsb_register_blocks() {
             'min'        => [ 'type' => 'number' ],
             'max'        => [ 'type' => 'number' ],
             'text'       => [ 'type' => 'string' ],
-            'timeframe'  => [ 'type' => 'number' ],
-            'period'     => [ 'type' => 'string' ],
-            'product_id' => [ 'type' => 'number' ],
+            'timeframe'   => [ 'type' => 'number' ],
+            'period'      => [ 'type' => 'string' ],
+            'product_id'  => [ 'type' => 'number' ],
+            'text_color'  => [ 'type' => 'string' ],
+            'count_color' => [ 'type' => 'string' ],
         ],
         'render_callback' => function ( $attrs ) {
             return dsb_render_sales( $attrs );
@@ -69,6 +73,9 @@ function dsb_register_blocks() {
             'threshold'    => [ 'type' => 'number' ],
             'text'         => [ 'type' => 'string' ],
             'success_text' => [ 'type' => 'string' ],
+            'bar_color'    => [ 'type' => 'string' ],
+            'track_color'  => [ 'type' => 'string' ],
+            'text_color'   => [ 'type' => 'string' ],
         ],
         'render_callback' => function ( $attrs ) {
             return dsb_render_shipping_bar( $attrs );
@@ -80,9 +87,11 @@ function dsb_register_blocks() {
         'editor_script'   => 'dsb-blocks',
         'style'           => 'dsb-styles',
         'attributes'      => [
-            'threshold'  => [ 'type' => 'number' ],
-            'text'       => [ 'type' => 'string' ],
-            'product_id' => [ 'type' => 'number' ],
+            'threshold'   => [ 'type' => 'number' ],
+            'text'        => [ 'type' => 'string' ],
+            'product_id'  => [ 'type' => 'number' ],
+            'text_color'  => [ 'type' => 'string' ],
+            'count_color' => [ 'type' => 'string' ],
         ],
         'render_callback' => function ( $attrs ) {
             return dsb_render_stock( $attrs );

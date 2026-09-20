@@ -75,7 +75,8 @@ function dsb_sanitize( $input ) {
     // Checkboxes
     foreach ( [ 'viewing_enabled', 'fakesales_enabled', 'stock_enabled', 'popup_enabled',
                 'popup_show_mobile', 'popup_hide_outofstock', 'popup_exclude_checkout', 'popup_show_price',
-                'shipbar_enabled', 'shipbar_minicart', 'shipbar_cart', 'shipbar_checkout', 'shipbar_ignore_coupons' ] as $k ) {
+                'shipbar_enabled', 'shipbar_minicart', 'shipbar_cart', 'shipbar_checkout', 'shipbar_ignore_coupons',
+                'viewing_auto', 'fakesales_auto', 'stock_auto' ] as $k ) {
         $c[ $k ] = ! empty( $input[ $k ] ) ? 1 : 0;
     }
 
@@ -118,6 +119,9 @@ function dsb_sanitize( $input ) {
         'popup_data_mode'     => [ 'simulated', 'real' ],
         'popup_products_type' => [ 'random', 'featured', 'sale', 'bestsellers' ],
         'shipbar_source'      => [ 'custom', 'woocommerce' ],
+        'viewing_position'    => array_keys( dsb_product_positions() ),
+        'fakesales_position'  => array_keys( dsb_product_positions() ),
+        'stock_position'      => array_keys( dsb_product_positions() ),
     ];
     foreach ( $selects as $k => $allowed ) {
         $v        = isset( $input[ $k ] ) ? sanitize_text_field( $input[ $k ] ) : '';
@@ -133,7 +137,9 @@ function dsb_sanitize( $input ) {
 
     // Colores (sanitize_hex_color devuelve ''/null si no es válido → default)
     foreach ( [ 'popup_bg_color', 'popup_title_color', 'popup_meta_color', 'popup_link_color',
-                'shipbar_bar_color', 'shipbar_track_color', 'shipbar_text_color' ] as $k ) {
+                'shipbar_bar_color', 'shipbar_track_color', 'shipbar_text_color',
+                'viewing_text_color', 'viewing_count_color', 'fakesales_text_color',
+                'fakesales_count_color', 'stock_text_color', 'stock_count_color' ] as $k ) {
         $hex     = isset( $input[ $k ] ) ? sanitize_hex_color( $input[ $k ] ) : '';
         $c[ $k ] = $hex ?: $d[ $k ];
     }
@@ -189,6 +195,50 @@ function dsb_icon_bag()  { return '<svg xmlns="http://www.w3.org/2000/svg" width
 function dsb_icon_code() { return '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'; }
 function dsb_icon_bolt() { return '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'; }
 function dsb_icon_truck() { return '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'; }
+
+/* ── Ubicación automática y colores, iguales en los tres elementos ────────── */
+
+/**
+ * @param array  $o       Ajustes actuales.
+ * @param string $prefix  viewing | fakesales | stock.
+ * @param string $label   Nombre del número, para la etiqueta del color.
+ */
+function dsb_placement_fields( $o, $prefix, $label ) {
+    $positions = dsb_product_positions();
+    ?>
+    <h4 class="dsb-subsection"><?php esc_html_e( 'Placement', 'dox-sales-booster' ); ?></h4>
+
+    <div class="dsb-switches-row">
+        <label class="dsb-switch-label">
+            <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[<?php echo esc_attr( $prefix ); ?>_auto]" value="1" <?php checked( $o[ $prefix . '_auto' ], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
+            <?php esc_html_e( 'Show it automatically on the product page', 'dox-sales-booster' ); ?>
+        </label>
+    </div>
+
+    <div class="dsb-field">
+        <label><?php esc_html_e( 'Position', 'dox-sales-booster' ); ?></label>
+        <select name="dsb[<?php echo esc_attr( $prefix ); ?>_position]">
+            <?php foreach ( $positions as $value => $pos ) : ?>
+            <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $o[ $prefix . '_position' ], $value ); ?>><?php echo esc_html( $pos['label'] ); ?></option>
+            <?php endforeach; ?>
+        </select>
+        <span class="dsb-hint"><?php esc_html_e( 'No shortcode or page builder needed: it is inserted into the WooCommerce product page. Turn it off if you prefer to place it yourself with the block, the Elementor widget or the shortcode, so it does not appear twice.', 'dox-sales-booster' ); ?></span>
+    </div>
+
+    <h4 class="dsb-subsection"><?php esc_html_e( 'Colors', 'dox-sales-booster' ); ?></h4>
+
+    <div class="dsb-field-row">
+        <div class="dsb-field">
+            <label><?php esc_html_e( 'Text', 'dox-sales-booster' ); ?></label>
+            <input type="color" name="dsb[<?php echo esc_attr( $prefix ); ?>_text_color]" value="<?php echo esc_attr( $o[ $prefix . '_text_color' ] ); ?>" class="dsb-color-input">
+        </div>
+        <div class="dsb-field">
+            <label><?php echo esc_html( $label ); ?></label>
+            <input type="color" name="dsb[<?php echo esc_attr( $prefix ); ?>_count_color]" value="<?php echo esc_attr( $o[ $prefix . '_count_color' ] ); ?>" class="dsb-color-input">
+        </div>
+    </div>
+    <?php
+}
 
 /* ── Render página ─────────────────────────────────────────────────────────── */
 function dsb_render_page() {
@@ -266,6 +316,8 @@ function dsb_render_page() {
                         <div class="dsb-field"><label><?php esc_html_e( 'Maximum', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_max]" value="<?php echo esc_attr( $o['viewing_max'] ); ?>" min="1" max="200"><span class="dsb-hint"><?php esc_html_e( 'people', 'dox-sales-booster' ); ?></span></div>
                         <div class="dsb-field"><label><?php esc_html_e( 'Refresh every', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_interval]" value="<?php echo esc_attr( $o['viewing_interval'] ); ?>" min="1" max="60"><span class="dsb-hint"><?php esc_html_e( 'minutes', 'dox-sales-booster' ); ?></span></div>
                     </div>
+
+                    <?php dsb_placement_fields( $o, 'viewing', __( 'Number', 'dox-sales-booster' ) ); ?>
                 </div>
                 <div class="dsb-card dsb-preview-card">
                     <h3><?php esc_html_e( 'Preview', 'dox-sales-booster' ); ?></h3>
@@ -275,7 +327,7 @@ function dsb_render_page() {
                             <div class="dsb-preview-info">
                                 <div class="dsb-preview-title-bar"></div>
                                 <div class="dsb-preview-price-bar"></div>
-                                <div class="dsb-preview-viewing">👁️ <strong style="color:#ff8d27"><?php echo wp_rand( (int) $o['viewing_min'], max( (int) $o['viewing_min'], (int) $o['viewing_max'] ) ); ?></strong> <?php echo esc_html( $o['viewing_text'] ); ?></div>
+                                <div class="dsb-preview-viewing" style="color:<?php echo esc_attr( $o['viewing_text_color'] ); ?>">👁️ <strong style="color:<?php echo esc_attr( $o['viewing_count_color'] ); ?>"><?php echo wp_rand( (int) $o['viewing_min'], max( (int) $o['viewing_min'], (int) $o['viewing_max'] ) ); ?></strong> <?php echo esc_html( $o['viewing_text'] ); ?></div>
                             </div>
                         </div>
                     </div>
@@ -324,7 +376,7 @@ function dsb_render_page() {
                             </select>
                         </div>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'The color of the {count} number is set in Elementor → the "🔥 Recent sales" widget → Style tab.', 'dox-sales-booster' ); ?></div>
+                    <?php dsb_placement_fields( $o, 'fakesales', __( 'Number {count}', 'dox-sales-booster' ) ); ?>
                 </div>
                 <div class="dsb-card dsb-preview-card">
                     <h3><?php esc_html_e( 'Preview', 'dox-sales-booster' ); ?></h3>
@@ -339,7 +391,7 @@ function dsb_render_page() {
                                     $preview_text = esc_html( $o['fakesales_text'] );
                                     $preview_text = str_replace(
                                         [ '{count}', '{timeframe}', '{period}' ],
-                                        [ '<strong class="dsb-sales-count">' . $cnt . '</strong>', esc_html( $o['fakesales_timeframe'] ), esc_html( $o['fakesales_period'] ) ],
+                                        [ '<strong class="dsb-sales-count">' . $cnt . '</strong>', esc_html( $o['fakesales_timeframe'] ), esc_html( dsb_period_label( $o['fakesales_period'] ) ) ],
                                         $preview_text
                                     );
                                     echo wp_kses( $preview_text, [ 'strong' => [ 'class' => [] ] ] );
@@ -371,6 +423,8 @@ function dsb_render_page() {
                         <input type="number" name="dsb[stock_threshold]" value="<?php echo esc_attr( $o['stock_threshold'] ); ?>" min="1" max="999">
                         <span class="dsb-hint"><?php esc_html_e( 'Shown when the real stock is less than or equal to this number.', 'dox-sales-booster' ); ?></span>
                     </div>
+                    <?php dsb_placement_fields( $o, 'stock', __( 'Units left', 'dox-sales-booster' ) ); ?>
+
                     <div class="dsb-info-box"><?php esc_html_e( 'Unlike the other elements, this one uses 100% real data: if the product does not manage inventory or has plenty of stock, nothing is shown.', 'dox-sales-booster' ); ?></div>
                 </div>
                 <div class="dsb-card dsb-preview-card">
@@ -383,7 +437,7 @@ function dsb_render_page() {
                                 <div class="dsb-preview-price-bar"></div>
                                 <div class="dsb-preview-sales" id="dsb-stock-preview-text"><?php
                                     $stock_prev = esc_html( $o['stock_text'] );
-                                    $stock_prev = str_replace( '{stock}', '<strong class="dsb-stock-count" style="color:#b3261e">3</strong>', $stock_prev );
+                                    $stock_prev = str_replace( '{stock}', '<strong class="dsb-stock-count" style="color:' . esc_attr( $o['stock_count_color'] ) . '">3</strong>', $stock_prev );
                                     echo wp_kses( $stock_prev, [ 'strong' => [ 'class' => [], 'style' => [] ] ] );
                                 ?></div>
                             </div>
@@ -1036,10 +1090,25 @@ jQuery(function($){
     });
 
     /* Vista previa: texto de stock */
-    $('input[name="dsb[stock_text]"]').on('input',function(){
-        var esc=$('<div/>').text($(this).val()||'').html();
-        $('#dsb-stock-preview-text').html(esc.replace('{stock}','<strong class="dsb-stock-count" style="color:#b3261e">3</strong>'));
-    });
+    function dsbStockPreview(){
+        var esc=$('<div/>').text($('input[name="dsb[stock_text]"]').val()||'').html();
+        var col=$('input[name="dsb[stock_count_color]"]').val()||'#b3261e';
+        $('#dsb-stock-preview-text').html(esc.replace('{stock}','<strong class="dsb-stock-count" style="color:'+col+'">3</strong>'));
+    }
+    $('input[name="dsb[stock_text]"]').on('input',dsbStockPreview);
+
+    /* Vista previa: colores de los tres elementos de la ficha */
+    function dsbColor(n,d){ return $('input[name="dsb['+n+']"]').val()||d; }
+    function dsbPaintElements(){
+        $('.dsb-preview-viewing').css('color',dsbColor('viewing_text_color','#555555'));
+        $('.dsb-preview-viewing strong').css('color',dsbColor('viewing_count_color','#e44c4c'));
+        $('#dsb-tab-sales .dsb-preview-sales').css('color',dsbColor('fakesales_text_color','#555555'));
+        $('#dsb-tab-sales .dsb-preview-sales strong').css('color',dsbColor('fakesales_count_color','#e44c4c'));
+        $('#dsb-stock-preview-text').css('color',dsbColor('stock_text_color','#b3261e'));
+        dsbStockPreview();
+    }
+    $('input.dsb-color-input[name^="dsb[viewing_"],input.dsb-color-input[name^="dsb[fakesales_"],input.dsb-color-input[name^="dsb[stock_"]').on('input change',dsbPaintElements);
+    dsbPaintElements();
 
     /* Barra de envío gratis: vista previa en vivo */
     function shipbarPreview(){

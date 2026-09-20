@@ -217,15 +217,30 @@ add_action( 'wp_enqueue_scripts', function () {
 
     $on_cart     = is_cart() && ! empty( $o['shipbar_cart'] );
     $on_checkout = is_checkout() && ! empty( $o['shipbar_checkout'] );
-    if ( ! $on_cart && ! $on_checkout ) return;
 
-    wp_enqueue_script( 'dsb-shipbar-blocks', DSB_URL . 'assets/js/dsb-shipbar-blocks.js', [ 'wp-data' ], DSB_VERSION, true );
+    // El cajón del mini carrito por bloques se abre en cualquier página, así que
+    // el script tiene que estar cargado en todas. Va sin dependencias y arranca
+    // cuando encuentra wp.data (que el propio bloque carga), para no obligar a
+    // las tiendas con mini carrito clásico a descargar los paquetes del editor.
+    $mini = ! empty( $o['shipbar_minicart'] );
+
+    if ( ! $on_cart && ! $on_checkout && ! $mini ) return;
+
+    wp_enqueue_script( 'dsb-shipbar-blocks', DSB_URL . 'assets/js/dsb-shipbar-blocks.js', [], DSB_VERSION, true );
     wp_localize_script( 'dsb-shipbar-blocks', 'dsbShipbar', [
         'threshold'     => dsb_shipbar_threshold( $o ),
         'text'          => $o['shipbar_text'],
         'successText'   => $o['shipbar_success_text'],
         'ignoreCoupons' => ! empty( $o['shipbar_ignore_coupons'] ),
+        'miniCart'      => $mini,
+        'barColor'      => sanitize_hex_color( $o['shipbar_bar_color'] )   ?: '#4caf50',
+        'trackColor'    => sanitize_hex_color( $o['shipbar_track_color'] ) ?: '#e9e9f0',
+        'textColor'     => sanitize_hex_color( $o['shipbar_text_color'] )  ?: '#333333',
     ] );
+
+    // La barra del cajón la crea el JS, así que los estilos del plugin pueden no
+    // haberse encolado por ningún render.
+    if ( $mini ) wp_enqueue_style( 'dsb-styles' );
 
     if ( $on_checkout ) {
         wp_add_inline_script(

@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ Boost WooCommerce conversions with a live viewing counter, recent sales counter,
 * **Purchase Popup** — An animated notification popup showing a recent purchase: product image, name, price, location, and time. Can run on **simulated data** or on **real recent orders** (product, city and real time ago — never customer names).
 * **Free Shipping Progress Bar** — "You're only {amount} away from free shipping!" with a progress bar based on the real cart total. Auto-inserted into the standard WooCommerce mini cart (including off-canvas carts like UICore Pro's), the cart page and the checkout, refreshing via cart fragments without page reloads. The threshold can be a custom amount or read from the WooCommerce Free Shipping method's minimum order amount for the customer's zone.
 
-All elements are controlled from a dedicated admin panel under **Sales Booster** in the WordPress menu, and can be placed via **shortcodes**, **Elementor widgets**, or **Gutenberg blocks**.
+All elements are controlled from a dedicated admin panel under **Sales Booster** in the WordPress menu. The product elements can be inserted **automatically** into the WooCommerce product page at the position you choose, or placed by hand via **shortcodes**, **Elementor widgets** or **Gutenberg blocks**. No page builder required.
 
 = Features =
 
@@ -113,6 +113,13 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 
 == Changelog ==
 
+= 1.6.0 =
+* **New: automatic placement on the product page.** The viewing counter, the recent sales counter and the low stock notice can now be inserted on their own, with a position of your choice (after the price, above or below the add to cart button, after the product meta...). Until now they could only be placed with a shortcode, an Elementor widget or a Gutenberg block, which left out any store whose product page uses the plain WooCommerce template. It is on for new installs and off when you update, so nothing you already placed by hand appears twice.
+* **New: colors for those three elements in the settings panel.** Text and number colors were only available inside the Elementor widgets, so a store without Elementor was stuck with the default grey and red, unreadable on a dark theme. The Gutenberg blocks got the same colour controls the Elementor widgets have, and they override the global ones per instance.
+* **New: the free shipping bar works in the block Mini Cart.** The bar was inserted through the classic mini cart hook, which the `woocommerce/mini-cart` block does not fire, so it never showed up in block-based side carts. It is now injected into the drawer and kept in sync with the Store API, like the cart and checkout blocks.
+* Fixed: the script that refreshes the bar in the block cart did not recognise the new `{amount}` placeholder, so the message could be left unreplaced after changing quantities.
+* Fixed: the admin preview of the recent sales counter printed the period untranslated.
+
 = 1.5.0 =
 * **The plugin is now in English.** Every interface string was written in Spanish, so an English site had nothing to translate and the whole admin panel, the widgets and the storefront texts showed up in Spanish. The source language is now English and Spanish ships as a full translation (`languages/dox-sales-booster-es_ES.po` / `.mo`, plus the JSON catalogue the Gutenberg blocks need), so each site follows its own WordPress language.
 * Fixed: the recent sales counter printed the period as a raw Spanish word, so an English store read "12 sold in the last 24 horas". Periods are now stored as `minutes` / `hours` / `days` / `weeks` and displayed translated. Sites and blocks that saved the old Spanish values keep working: they are converted when read.
@@ -193,6 +200,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.6.0 =
+Adds automatic placement on the product page, colour settings for the three product elements and support for the block Mini Cart, so the plugin no longer needs Elementor to be fully configurable. Automatic placement stays off on existing installs.
 
 = 1.5.0 =
 The interface is now in English, with Spanish included as a translation — each site follows its own WordPress language. The free shipping shortcode is now `[dsb_free_shipping]` (the old `[dsb_envio_gratis]` still works), and the default free shipping threshold changed to 100 for new installs only.

@@ -8,7 +8,7 @@
     align-items: center;
     gap: 6px;
     font-size: 0.9em;
-    color: #555;
+    color: var(--dsb-viewing-text, #555);
     margin: 8px 0 12px;
 }
 .dsb-eye-icon {
@@ -16,28 +16,29 @@
 }
 .dsb-viewing-count {
     font-weight: 700;
-    color: #e44c4c;
+    color: var(--dsb-viewing-count, #e44c4c);
 }
 
 /* ── Ventas recientes ────────────────────────────────────────────── */
 .dsb-fake-sales {
     font-size: 0.88em;
-    color: #555;
+    color: var(--dsb-sales-text, #555);
     margin: 4px 0 12px;
 }
 .dsb-sales-count {
     font-weight: 700;
-    color: #e44c4c;
+    color: var(--dsb-sales-count, #e44c4c);
 }
 
 /* ── Stock bajo (datos reales) ───────────────────────────────────── */
 .dsb-low-stock {
     font-size: 0.88em;
-    color: #b3261e;
+    color: var(--dsb-stock-text, #b3261e);
     margin: 4px 0 12px;
 }
 .dsb-stock-count {
     font-weight: 700;
+    color: var(--dsb-stock-count, inherit);
 }
 
 /* ── Barra de envío gratis ───────────────────────────────────────── */

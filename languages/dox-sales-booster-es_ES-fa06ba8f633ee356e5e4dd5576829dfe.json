@@ -1,5 +1,5 @@
 {
- "translation-revision-date": "2026-09-20 13:26:33+00:00",
+ "translation-revision-date": "2026-09-20 18:15:39+00:00",
  "generator": "Dox Studio",
  "source": "assets/js/dsb-blocks.js",
  "domain": "messages",
@@ -15,6 +15,12 @@
    ],
    "(use global text)": [
     "(usar texto global)"
+   ],
+   "Use the global color": [
+    "Usar el color global"
+   ],
+   "(use global color)": [
+    "(usar el color global)"
    ],
    "Settings": [
     "Configuración"
@@ -45,6 +51,12 @@
    ],
    "Product ID (empty = current product)": [
     "ID de producto (vacío = producto actual)"
+   ],
+   "Text color": [
+    "Color del texto"
+   ],
+   "Number color": [
+    "Color del número"
    ],
    "Recent sales (Sales Booster)": [
     "Ventas recientes (Sales Booster)"
@@ -106,6 +118,12 @@
    "Success text": [
     "Texto de éxito"
    ],
+   "Bar color": [
+    "Color de la barra"
+   ],
+   "Bar background color": [
+    "Color del fondo de la barra"
+   ],
    "The bar uses the real cart of the visitor; in the editor the preview may show an empty cart.": [
     "La barra usa el carrito real del visitante; en el editor la vista previa puede mostrar el carrito vacío."
    ],
@@ -123,6 +141,9 @@
    ],
    "Text (variable {stock})": [
     "Texto (variable {stock})"
+   ],
+   "Units left color": [
+    "Color de las unidades restantes"
    ],
    "Shown on product pages when the real stock is below the threshold. Outside a product page the preview may be empty.": [
     "Se muestra en páginas de producto cuando el stock real está por debajo del umbral. Fuera de una página de producto la vista previa puede quedar vacía."
