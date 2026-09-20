@@ -797,6 +797,10 @@ function dsb_render_page() {
                         <label><?php esc_html_e( 'Cities', 'dox-sales-booster' ); ?></label>
                         <textarea name="dsb[popup_locations]" rows="8"><?php echo esc_textarea( $loc_display ); ?></textarea>
                         <span class="dsb-hint"><?php esc_html_e( 'One per line. In simulated mode they are always used; in real mode, only when the order has no city.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'The starting list comes from your store country in WooCommerce → Settings → General.', 'dox-sales-booster' ); ?></span>
+                        <?php if ( '' === trim( (string) $loc_display ) ) : ?>
+                        <span class="dsb-hint" style="color:#b3261e;"><?php esc_html_e( 'There is no city list for your store country yet. Write the ones that fit your market, one per line: while this is empty the popup shows the time without a city.', 'dox-sales-booster' ); ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
 

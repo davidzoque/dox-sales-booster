@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dox Sales Booster 1.5.0\n"
 "Report-Msgid-Bugs-To: https://doxstudio.com\n"
-"POT-Creation-Date: 2026-09-20 18:22\n"
-"PO-Revision-Date: 2026-09-20 18:22\n"
+"POT-Creation-Date: 2026-09-20 18:29\n"
+"PO-Revision-Date: 2026-09-20 18:29\n"
 "Last-Translator: Dox Studio <hola@doxstudio.com>\n"
 "Language-Team: es_ES\n"
 "Language: es_ES\n"
@@ -13,62 +13,58 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: dox-sales-booster\n"
 
-#: dox-sales-booster.php:55
+#: dox-sales-booster.php:56
 msgid "WooCommerce is not active. The purchase popup and the low stock notice need WooCommerce; the \"people viewing\" and \"recent sales\" counters keep working."
 msgstr "WooCommerce no está activo. El popup de compras y el aviso de stock necesitan WooCommerce; los contadores de \"personas viendo\" y \"ventas recientes\" siguen funcionando."
 
-#: includes/render.php:16
-msgid "New York, NY 🇺🇸\nLos Angeles, CA 🇺🇸\nChicago, IL 🇺🇸\nHouston, TX 🇺🇸\nPhoenix, AZ 🇺🇸\nPhiladelphia, PA 🇺🇸\nSan Antonio, TX 🇺🇸\nSan Diego, CA 🇺🇸\nDallas, TX 🇺🇸\nJacksonville, FL 🇺🇸\nAustin, TX 🇺🇸\nFort Worth, TX 🇺🇸\nSan Jose, CA 🇺🇸\nColumbus, OH 🇺🇸\nCharlotte, NC 🇺🇸\nIndianapolis, IN 🇺🇸\nSan Francisco, CA 🇺🇸\nSeattle, WA 🇺🇸\nDenver, CO 🇺🇸\nOklahoma City, OK 🇺🇸\nNashville, TN 🇺🇸\nWashington, DC 🇺🇸\nEl Paso, TX 🇺🇸\nLas Vegas, NV 🇺🇸\nBoston, MA 🇺🇸\nDetroit, MI 🇺🇸\nPortland, OR 🇺🇸\nLouisville, KY 🇺🇸\nMemphis, TN 🇺🇸\nBaltimore, MD 🇺🇸\nMilwaukee, WI 🇺🇸\nAlbuquerque, NM 🇺🇸\nTucson, AZ 🇺🇸\nFresno, CA 🇺🇸\nSacramento, CA 🇺🇸\nMesa, AZ 🇺🇸\nAtlanta, GA 🇺🇸\nKansas City, MO 🇺🇸\nColorado Springs, CO 🇺🇸\nOmaha, NE 🇺🇸\nRaleigh, NC 🇺🇸\nMiami, FL 🇺🇸\nVirginia Beach, VA 🇺🇸\nLong Beach, CA 🇺🇸\nOakland, CA 🇺🇸\nMinneapolis, MN 🇺🇸\nBakersfield, CA 🇺🇸\nTulsa, OK 🇺🇸\nTampa, FL 🇺🇸\nArlington, TX 🇺🇸\nNew Orleans, LA 🇺🇸\nWichita, KS 🇺🇸\nCleveland, OH 🇺🇸\nOrlando, FL 🇺🇸\nSt. Louis, MO 🇺🇸\nPittsburgh, PA 🇺🇸\nCincinnati, OH 🇺🇸\nSalt Lake City, UT 🇺🇸\nBoise, ID 🇺🇸\nRichmond, VA 🇺🇸"
-msgstr "Bogotá, D.C. 🇨🇴\nMedellín, Antioquia 🇨🇴\nCali, Valle del Cauca 🇨🇴\nBarranquilla, Atlántico 🇨🇴\nCartagena, Bolívar 🇨🇴\nCúcuta, Norte de Santander 🇨🇴\nBucaramanga, Santander 🇨🇴\nPereira, Risaralda 🇨🇴\nManizales, Caldas 🇨🇴\nSanta Marta, Magdalena 🇨🇴\nIbagué, Tolima 🇨🇴\nPasto, Nariño 🇨🇴\nMontería, Córdoba 🇨🇴\nArmenia, Quindío 🇨🇴\nVillavicencio, Meta 🇨🇴\nNeiva, Huila 🇨🇴\nPopayán, Cauca 🇨🇴\nValledupar, Cesar 🇨🇴\nSincelejo, Sucre 🇨🇴\nTunja, Boyacá 🇨🇴\nFlorencia, Caquetá 🇨🇴\nQuibdó, Chocó 🇨🇴\nRiohacha, La Guajira 🇨🇴\nMocoa, Putumayo 🇨🇴\nLeticia, Amazonas 🇨🇴\nSan Andrés, San Andrés y Providencia 🇨🇴\nYopal, Casanare 🇨🇴\nArauca, Arauca 🇨🇴\nSan José del Guaviare, Guaviare 🇨🇴\nInírida, Guainía 🇨🇴\nPuerto Carreño, Vichada 🇨🇴\nMitú, Vaupés 🇨🇴\nEnvigado, Antioquia 🇨🇴\nBello, Antioquia 🇨🇴\nItagüí, Antioquia 🇨🇴\nSoledad, Atlántico 🇨🇴\nSoacha, Cundinamarca 🇨🇴\nPalmira, Valle del Cauca 🇨🇴\nBuenaventura, Valle del Cauca 🇨🇴\nFloridablanca, Santander 🇨🇴\nGirón, Santander 🇨🇴\nDosquebradas, Risaralda 🇨🇴\nTuluá, Valle del Cauca 🇨🇴\nBarrancabermeja, Santander 🇨🇴\nDuitama, Boyacá 🇨🇴\nSogamoso, Boyacá 🇨🇴\nCartago, Valle del Cauca 🇨🇴\nBuga, Valle del Cauca 🇨🇴\nJamundí, Valle del Cauca 🇨🇴\nYumbo, Valle del Cauca 🇨🇴\nRionegro, Antioquia 🇨🇴\nApartadó, Antioquia 🇨🇴\nTurbo, Antioquia 🇨🇴\nCaucasia, Antioquia 🇨🇴\nSabaneta, Antioquia 🇨🇴\nCopacabana, Antioquia 🇨🇴\nLa Estrella, Antioquia 🇨🇴\nCaldas, Antioquia 🇨🇴\nZipaquirá, Cundinamarca 🇨🇴\nChía, Cundinamarca 🇨🇴\nFacatativá, Cundinamarca 🇨🇴\nFusagasugá, Cundinamarca 🇨🇴\nMosquera, Cundinamarca 🇨🇴\nMadrid, Cundinamarca 🇨🇴\nFunza, Cundinamarca 🇨🇴\nCajicá, Cundinamarca 🇨🇴\nGirardot, Cundinamarca 🇨🇴\nMalambo, Atlántico 🇨🇴\nSabanalarga, Atlántico 🇨🇴\nBaranoa, Atlántico 🇨🇴\nMagangué, Bolívar 🇨🇴\nTurbaco, Bolívar 🇨🇴\nEl Carmen de Bolívar, Bolívar 🇨🇴\nCiénaga, Magdalena 🇨🇴\nFundación, Magdalena 🇨🇴\nEl Banco, Magdalena 🇨🇴\nIpiales, Nariño 🇨🇴\nTumaco, Nariño 🇨🇴\nOcaña, Norte de Santander 🇨🇴\nVilla del Rosario, Norte de Santander 🇨🇴\nLos Patios, Norte de Santander 🇨🇴\nPamplona, Norte de Santander 🇨🇴\nPiedecuesta, Santander 🇨🇴\nSan Gil, Santander 🇨🇴\nSocorro, Santander 🇨🇴\nChiquinquirá, Boyacá 🇨🇴\nPaipa, Boyacá 🇨🇴\nPuerto Boyacá, Boyacá 🇨🇴\nEl Espinal, Tolima 🇨🇴\nMelgar, Tolima 🇨🇴\nHonda, Tolima 🇨🇴\nPitalito, Huila 🇨🇴\nGarzón, Huila 🇨🇴\nLa Plata, Huila 🇨🇴\nAcacías, Meta 🇨🇴\nGranada, Meta 🇨🇴\nPuerto López, Meta 🇨🇴\nAguazul, Casanare 🇨🇴\nPaz de Ariporo, Casanare 🇨🇴\nSaravena, Arauca 🇨🇴\nTame, Arauca 🇨🇴\nPuerto Asís, Putumayo 🇨🇴\nOrito, Putumayo 🇨🇴\nSan Juan del Cesar, La Guajira 🇨🇴\nMaicao, La Guajira 🇨🇴\nUribia, La Guajira 🇨🇴\nAguachica, Cesar 🇨🇴\nBosconia, Cesar 🇨🇴\nCorozal, Sucre 🇨🇴\nSan Marcos, Sucre 🇨🇴\nSan Vicente del Caguán, Caquetá 🇨🇴\nPuerto Rico, Caquetá 🇨🇴\nSanta Rosa de Cabal, Risaralda 🇨🇴\nChinchiná, Caldas 🇨🇴\nLa Dorada, Caldas 🇨🇴\nRiosucio, Caldas 🇨🇴\nCalarcá, Quindío 🇨🇴\nMontenegro, Quindío 🇨🇴\nQuimbaya, Quindío 🇨🇴\nCereté, Córdoba 🇨🇴\nSahagún, Córdoba 🇨🇴\nLorica, Córdoba 🇨🇴\nTierralta, Córdoba 🇨🇴\nSantander de Quilichao, Cauca 🇨🇴\nEl Tambo, Cauca 🇨🇴\nPuerto Tejada, Cauca 🇨🇴\nIstmina, Chocó 🇨🇴\nTadó, Chocó 🇨🇴"
-
-#: includes/render.php:28
+#: includes/render.php:18
 msgid "people are viewing this product right now."
 msgstr "personas están viendo este producto ahora."
 
-#: includes/render.php:39
+#: includes/render.php:29
 msgid "🔥 {count} sold in the last {timeframe} {period}"
 msgstr "🔥 {count} vendidos en las últimas {timeframe} {period}"
 
-#: includes/render.php:51
+#: includes/render.php:41
 msgid "⚡ Only {stock} units left!"
 msgstr "⚡ ¡Solo quedan {stock} unidades!"
 
-#: includes/render.php:65
+#: includes/render.php:55
 msgid "🚚 Add {amount} more to get free shipping!"
 msgstr "🚚 ¡Te faltan {amount} para el envío gratis!"
 
-#: includes/render.php:66
+#: includes/render.php:56
 msgid "🎉 Congratulations! You get free shipping."
 msgstr "🎉 ¡Felicidades! Tienes envío gratis."
 
-#: includes/render.php:100 admin/settings.php:986
+#: includes/render.php:90 admin/settings.php:990
 msgid "🛍️ Someone purchased"
 msgstr "🛍️ Alguien ha comprado"
 
-#: includes/render.php:101 admin/settings.php:987
+#: includes/render.php:91 admin/settings.php:991
 msgid "View product"
 msgstr "Ver producto"
 
-#: includes/render.php:198
+#: includes/render.php:188
 msgid "From %s"
 msgstr "Desde %s"
 
-#: includes/render.php:343
+#: includes/render.php:333
 msgctxt "sales period"
 msgid "minutes"
 msgstr "minutos"
 
-#: includes/render.php:344
+#: includes/render.php:334
 msgctxt "sales period"
 msgid "days"
 msgstr "días"
 
-#: includes/render.php:345
+#: includes/render.php:335
 msgctxt "sales period"
 msgid "weeks"
 msgstr "semanas"
 
-#: includes/render.php:346
+#: includes/render.php:336
 msgctxt "sales period"
 msgid "hours"
 msgstr "horas"
@@ -137,7 +133,7 @@ msgstr "Sales Booster"
 msgid "You do not have permission."
 msgstr "Sin permisos."
 
-#: admin/settings.php:54 admin/settings.php:880
+#: admin/settings.php:54 admin/settings.php:884
 msgid "Settings saved!"
 msgstr "¡Configuración guardada!"
 
@@ -169,11 +165,11 @@ msgstr "Colores"
 msgid "Text"
 msgstr "Texto"
 
-#: admin/settings.php:284 admin/settings.php:980
+#: admin/settings.php:284 admin/settings.php:984
 msgid "Restore default values"
 msgstr "Restaurar valores por defecto"
 
-#: admin/settings.php:285 admin/settings.php:978
+#: admin/settings.php:285 admin/settings.php:982
 msgid "Save changes"
 msgstr "Guardar cambios"
 
@@ -193,7 +189,7 @@ msgstr "Stock bajo"
 msgid "Free shipping"
 msgstr "Envío gratis"
 
-#: admin/settings.php:294 admin/settings.php:873
+#: admin/settings.php:294 admin/settings.php:877
 msgid "Purchase popup"
 msgstr "Popup de compra"
 
@@ -669,75 +665,83 @@ msgstr "Ciudades"
 msgid "One per line. In simulated mode they are always used; in real mode, only when the order has no city."
 msgstr "Una por línea. En modo simulado se usan siempre; en modo real, solo cuando el pedido no tiene ciudad."
 
-#: admin/settings.php:804
+#: admin/settings.php:800
+msgid "The starting list comes from your store country in WooCommerce → Settings → General."
+msgstr "La lista inicial sale del país de tu tienda, en WooCommerce → Ajustes → General."
+
+#: admin/settings.php:802
+msgid "There is no city list for your store country yet. Write the ones that fit your market, one per line: while this is empty the popup shows the time without a city."
+msgstr "Todavía no hay lista de ciudades para el país de tu tienda. Escribe las que encajen con tu mercado, una por línea: mientras esté vacío, el popup muestra la hora sin ciudad."
+
+#: admin/settings.php:808
 msgid "Popup preview"
 msgstr "Vista previa del popup"
 
-#: admin/settings.php:805 admin/settings.php:984
+#: admin/settings.php:809 admin/settings.php:988
 msgid "Width: %dpx"
 msgstr "Ancho: %dpx"
 
-#: admin/settings.php:812 admin/settings.php:985
+#: admin/settings.php:816 admin/settings.php:989
 msgid "Lilac knitted sweater"
 msgstr "Suéter tejido lila"
 
-#: admin/settings.php:814
+#: admin/settings.php:818
 msgid "5 minutes ago · Denver, CO 🇺🇸"
 msgstr "hace 5 minutos · Bogotá, D.C. 🇨🇴"
 
-#: admin/settings.php:820
+#: admin/settings.php:824
 msgid "Changes update the preview in real time."
 msgstr "Los cambios actualizan la vista previa en tiempo real."
 
-#: admin/settings.php:830
+#: admin/settings.php:834
 msgid "Shows the people viewing counter. Place it anywhere on the product page."
 msgstr "Muestra el contador de personas viendo. Colócalo donde quieras en la página de producto."
 
-#: admin/settings.php:832 admin/settings.php:843 admin/settings.php:865
+#: admin/settings.php:836 admin/settings.php:847 admin/settings.php:869
 msgid "Basic:"
 msgstr "Básico:"
 
-#: admin/settings.php:834 admin/settings.php:845 admin/settings.php:856 admin/settings.php:867
+#: admin/settings.php:838 admin/settings.php:849 admin/settings.php:860 admin/settings.php:871
 msgid "Custom:"
 msgstr "Personalizado:"
 
-#: admin/settings.php:837 admin/settings.php:848 admin/settings.php:859 admin/settings.php:870
+#: admin/settings.php:841 admin/settings.php:852 admin/settings.php:863 admin/settings.php:874
 msgid "Also available as an Elementor widget and a Gutenberg block."
 msgstr "También disponible como widget de Elementor y bloque de Gutenberg."
 
-#: admin/settings.php:841
+#: admin/settings.php:845
 msgid "Shows the recent sales text. Place it anywhere on the product page."
 msgstr "Muestra el texto de ventas recientes. Colócalo donde quieras en la página de producto."
 
-#: admin/settings.php:852
+#: admin/settings.php:856
 msgid "Low stock notice with real inventory. It is only shown when few units are left."
 msgstr "Aviso de stock bajo con inventario real. Solo se muestra si quedan pocas unidades."
 
-#: admin/settings.php:854
+#: admin/settings.php:858
 msgid "Basic (current product):"
 msgstr "Básico (producto actual):"
 
-#: admin/settings.php:863
+#: admin/settings.php:867
 msgid "Free shipping progress bar. With the panel locations enabled it inserts itself in the mini cart, the cart and the checkout; use the shortcode only for additional spots."
 msgstr "Barra de progreso de envío gratis. Con las ubicaciones del panel activadas se inserta sola en el mini carrito, el carrito y el checkout; usa el shortcode solo para lugares adicionales."
 
-#: admin/settings.php:874
+#: admin/settings.php:878
 msgid "The popup needs no shortcode: it turns on automatically when it is enabled in the \"Purchase popup\" tab. In Gutenberg look for the \"Sales Booster\" blocks; in Elementor, the widgets with the same name."
 msgstr "El popup no necesita shortcode: se activa automáticamente cuando está habilitado en la pestaña \"Popup de compra\". En Gutenberg busca los bloques \"Sales Booster\"; en Elementor, los widgets con el mismo nombre."
 
-#: admin/settings.php:977
+#: admin/settings.php:981
 msgid "Saving..."
 msgstr "Guardando..."
 
-#: admin/settings.php:979
+#: admin/settings.php:983
 msgid "Restoring..."
 msgstr "Restaurando..."
 
-#: admin/settings.php:981
+#: admin/settings.php:985
 msgid "Restore all settings to their default values? This action cannot be undone."
 msgstr "¿Restaurar toda la configuración a los valores por defecto? Esta acción no se puede deshacer."
 
-#: admin/settings.php:982
+#: admin/settings.php:986
 msgid "Could not save. Check your connection and try again."
 msgstr "No se pudo guardar. Revisa tu conexión e inténtalo de nuevo."
 

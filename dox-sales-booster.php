@@ -38,6 +38,7 @@ add_action( 'init', function () {
 }, 1 );
 
 // ─── Cargar archivos ───────────────────────────────────────────────────────────
+require_once DSB_PATH . 'includes/cities.php';
 require_once DSB_PATH . 'includes/render.php';
 require_once DSB_PATH . 'includes/blocks.php';
 require_once DSB_PATH . 'includes/frontend.php';

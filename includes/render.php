@@ -9,16 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /* ── Valores por defecto ─────────────────────────────────────────────────── */
 
-function dsb_default_locations() {
-    // Lista de ejemplo, traducible: cada idioma trae las ciudades que tienen
-    // sentido para su mercado (en español, las colombianas de siempre). El
-    // dueño de la tienda las cambia desde el panel, una por línea.
-    $cities = explode( "\n", __( "New York, NY 🇺🇸\nLos Angeles, CA 🇺🇸\nChicago, IL 🇺🇸\nHouston, TX 🇺🇸\nPhoenix, AZ 🇺🇸\nPhiladelphia, PA 🇺🇸\nSan Antonio, TX 🇺🇸\nSan Diego, CA 🇺🇸\nDallas, TX 🇺🇸\nJacksonville, FL 🇺🇸\nAustin, TX 🇺🇸\nFort Worth, TX 🇺🇸\nSan Jose, CA 🇺🇸\nColumbus, OH 🇺🇸\nCharlotte, NC 🇺🇸\nIndianapolis, IN 🇺🇸\nSan Francisco, CA 🇺🇸\nSeattle, WA 🇺🇸\nDenver, CO 🇺🇸\nOklahoma City, OK 🇺🇸\nNashville, TN 🇺🇸\nWashington, DC 🇺🇸\nEl Paso, TX 🇺🇸\nLas Vegas, NV 🇺🇸\nBoston, MA 🇺🇸\nDetroit, MI 🇺🇸\nPortland, OR 🇺🇸\nLouisville, KY 🇺🇸\nMemphis, TN 🇺🇸\nBaltimore, MD 🇺🇸\nMilwaukee, WI 🇺🇸\nAlbuquerque, NM 🇺🇸\nTucson, AZ 🇺🇸\nFresno, CA 🇺🇸\nSacramento, CA 🇺🇸\nMesa, AZ 🇺🇸\nAtlanta, GA 🇺🇸\nKansas City, MO 🇺🇸\nColorado Springs, CO 🇺🇸\nOmaha, NE 🇺🇸\nRaleigh, NC 🇺🇸\nMiami, FL 🇺🇸\nVirginia Beach, VA 🇺🇸\nLong Beach, CA 🇺🇸\nOakland, CA 🇺🇸\nMinneapolis, MN 🇺🇸\nBakersfield, CA 🇺🇸\nTulsa, OK 🇺🇸\nTampa, FL 🇺🇸\nArlington, TX 🇺🇸\nNew Orleans, LA 🇺🇸\nWichita, KS 🇺🇸\nCleveland, OH 🇺🇸\nOrlando, FL 🇺🇸\nSt. Louis, MO 🇺🇸\nPittsburgh, PA 🇺🇸\nCincinnati, OH 🇺🇸\nSalt Lake City, UT 🇺🇸\nBoise, ID 🇺🇸\nRichmond, VA 🇺🇸", 'dox-sales-booster' ) );
-    $cities = array_values( array_filter( array_map( 'trim', $cities ) ) );
-
-    return $cities ? $cities : [ 'New York, NY 🇺🇸' ];
-}
-
 function dsb_defaults() {
     return [
         // Personas viendo

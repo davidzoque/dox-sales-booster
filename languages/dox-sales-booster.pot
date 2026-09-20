@@ -2,69 +2,65 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dox Sales Booster 1.5.0\n"
 "Report-Msgid-Bugs-To: https://doxstudio.com\n"
-"POT-Creation-Date: 2026-09-20 18:22\n"
+"POT-Creation-Date: 2026-09-20 18:29\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: dox-sales-booster\n"
 
-#: dox-sales-booster.php:55
+#: dox-sales-booster.php:56
 msgid "WooCommerce is not active. The purchase popup and the low stock notice need WooCommerce; the \"people viewing\" and \"recent sales\" counters keep working."
 msgstr ""
 
-#: includes/render.php:16
-msgid "New York, NY 🇺🇸\nLos Angeles, CA 🇺🇸\nChicago, IL 🇺🇸\nHouston, TX 🇺🇸\nPhoenix, AZ 🇺🇸\nPhiladelphia, PA 🇺🇸\nSan Antonio, TX 🇺🇸\nSan Diego, CA 🇺🇸\nDallas, TX 🇺🇸\nJacksonville, FL 🇺🇸\nAustin, TX 🇺🇸\nFort Worth, TX 🇺🇸\nSan Jose, CA 🇺🇸\nColumbus, OH 🇺🇸\nCharlotte, NC 🇺🇸\nIndianapolis, IN 🇺🇸\nSan Francisco, CA 🇺🇸\nSeattle, WA 🇺🇸\nDenver, CO 🇺🇸\nOklahoma City, OK 🇺🇸\nNashville, TN 🇺🇸\nWashington, DC 🇺🇸\nEl Paso, TX 🇺🇸\nLas Vegas, NV 🇺🇸\nBoston, MA 🇺🇸\nDetroit, MI 🇺🇸\nPortland, OR 🇺🇸\nLouisville, KY 🇺🇸\nMemphis, TN 🇺🇸\nBaltimore, MD 🇺🇸\nMilwaukee, WI 🇺🇸\nAlbuquerque, NM 🇺🇸\nTucson, AZ 🇺🇸\nFresno, CA 🇺🇸\nSacramento, CA 🇺🇸\nMesa, AZ 🇺🇸\nAtlanta, GA 🇺🇸\nKansas City, MO 🇺🇸\nColorado Springs, CO 🇺🇸\nOmaha, NE 🇺🇸\nRaleigh, NC 🇺🇸\nMiami, FL 🇺🇸\nVirginia Beach, VA 🇺🇸\nLong Beach, CA 🇺🇸\nOakland, CA 🇺🇸\nMinneapolis, MN 🇺🇸\nBakersfield, CA 🇺🇸\nTulsa, OK 🇺🇸\nTampa, FL 🇺🇸\nArlington, TX 🇺🇸\nNew Orleans, LA 🇺🇸\nWichita, KS 🇺🇸\nCleveland, OH 🇺🇸\nOrlando, FL 🇺🇸\nSt. Louis, MO 🇺🇸\nPittsburgh, PA 🇺🇸\nCincinnati, OH 🇺🇸\nSalt Lake City, UT 🇺🇸\nBoise, ID 🇺🇸\nRichmond, VA 🇺🇸"
-msgstr ""
-
-#: includes/render.php:28
+#: includes/render.php:18
 msgid "people are viewing this product right now."
 msgstr ""
 
-#: includes/render.php:39
+#: includes/render.php:29
 msgid "🔥 {count} sold in the last {timeframe} {period}"
 msgstr ""
 
-#: includes/render.php:51
+#: includes/render.php:41
 msgid "⚡ Only {stock} units left!"
 msgstr ""
 
-#: includes/render.php:65
+#: includes/render.php:55
 msgid "🚚 Add {amount} more to get free shipping!"
 msgstr ""
 
-#: includes/render.php:66
+#: includes/render.php:56
 msgid "🎉 Congratulations! You get free shipping."
 msgstr ""
 
-#: includes/render.php:100 admin/settings.php:986
+#: includes/render.php:90 admin/settings.php:990
 msgid "🛍️ Someone purchased"
 msgstr ""
 
-#: includes/render.php:101 admin/settings.php:987
+#: includes/render.php:91 admin/settings.php:991
 msgid "View product"
 msgstr ""
 
-#: includes/render.php:198
+#: includes/render.php:188
 msgid "From %s"
 msgstr ""
 
-#: includes/render.php:343
+#: includes/render.php:333
 msgctxt "sales period"
 msgid "minutes"
 msgstr ""
 
-#: includes/render.php:344
+#: includes/render.php:334
 msgctxt "sales period"
 msgid "days"
 msgstr ""
 
-#: includes/render.php:345
+#: includes/render.php:335
 msgctxt "sales period"
 msgid "weeks"
 msgstr ""
 
-#: includes/render.php:346
+#: includes/render.php:336
 msgctxt "sales period"
 msgid "hours"
 msgstr ""
@@ -133,7 +129,7 @@ msgstr ""
 msgid "You do not have permission."
 msgstr ""
 
-#: admin/settings.php:54 admin/settings.php:880
+#: admin/settings.php:54 admin/settings.php:884
 msgid "Settings saved!"
 msgstr ""
 
@@ -165,11 +161,11 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: admin/settings.php:284 admin/settings.php:980
+#: admin/settings.php:284 admin/settings.php:984
 msgid "Restore default values"
 msgstr ""
 
-#: admin/settings.php:285 admin/settings.php:978
+#: admin/settings.php:285 admin/settings.php:982
 msgid "Save changes"
 msgstr ""
 
@@ -189,7 +185,7 @@ msgstr ""
 msgid "Free shipping"
 msgstr ""
 
-#: admin/settings.php:294 admin/settings.php:873
+#: admin/settings.php:294 admin/settings.php:877
 msgid "Purchase popup"
 msgstr ""
 
@@ -665,75 +661,83 @@ msgstr ""
 msgid "One per line. In simulated mode they are always used; in real mode, only when the order has no city."
 msgstr ""
 
-#: admin/settings.php:804
+#: admin/settings.php:800
+msgid "The starting list comes from your store country in WooCommerce → Settings → General."
+msgstr ""
+
+#: admin/settings.php:802
+msgid "There is no city list for your store country yet. Write the ones that fit your market, one per line: while this is empty the popup shows the time without a city."
+msgstr ""
+
+#: admin/settings.php:808
 msgid "Popup preview"
 msgstr ""
 
-#: admin/settings.php:805 admin/settings.php:984
+#: admin/settings.php:809 admin/settings.php:988
 msgid "Width: %dpx"
 msgstr ""
 
-#: admin/settings.php:812 admin/settings.php:985
+#: admin/settings.php:816 admin/settings.php:989
 msgid "Lilac knitted sweater"
 msgstr ""
 
-#: admin/settings.php:814
+#: admin/settings.php:818
 msgid "5 minutes ago · Denver, CO 🇺🇸"
 msgstr ""
 
-#: admin/settings.php:820
+#: admin/settings.php:824
 msgid "Changes update the preview in real time."
 msgstr ""
 
-#: admin/settings.php:830
+#: admin/settings.php:834
 msgid "Shows the people viewing counter. Place it anywhere on the product page."
 msgstr ""
 
-#: admin/settings.php:832 admin/settings.php:843 admin/settings.php:865
+#: admin/settings.php:836 admin/settings.php:847 admin/settings.php:869
 msgid "Basic:"
 msgstr ""
 
-#: admin/settings.php:834 admin/settings.php:845 admin/settings.php:856 admin/settings.php:867
+#: admin/settings.php:838 admin/settings.php:849 admin/settings.php:860 admin/settings.php:871
 msgid "Custom:"
 msgstr ""
 
-#: admin/settings.php:837 admin/settings.php:848 admin/settings.php:859 admin/settings.php:870
+#: admin/settings.php:841 admin/settings.php:852 admin/settings.php:863 admin/settings.php:874
 msgid "Also available as an Elementor widget and a Gutenberg block."
 msgstr ""
 
-#: admin/settings.php:841
+#: admin/settings.php:845
 msgid "Shows the recent sales text. Place it anywhere on the product page."
 msgstr ""
 
-#: admin/settings.php:852
+#: admin/settings.php:856
 msgid "Low stock notice with real inventory. It is only shown when few units are left."
 msgstr ""
 
-#: admin/settings.php:854
+#: admin/settings.php:858
 msgid "Basic (current product):"
 msgstr ""
 
-#: admin/settings.php:863
+#: admin/settings.php:867
 msgid "Free shipping progress bar. With the panel locations enabled it inserts itself in the mini cart, the cart and the checkout; use the shortcode only for additional spots."
 msgstr ""
 
-#: admin/settings.php:874
+#: admin/settings.php:878
 msgid "The popup needs no shortcode: it turns on automatically when it is enabled in the \"Purchase popup\" tab. In Gutenberg look for the \"Sales Booster\" blocks; in Elementor, the widgets with the same name."
 msgstr ""
 
-#: admin/settings.php:977
+#: admin/settings.php:981
 msgid "Saving..."
 msgstr ""
 
-#: admin/settings.php:979
+#: admin/settings.php:983
 msgid "Restoring..."
 msgstr ""
 
-#: admin/settings.php:981
+#: admin/settings.php:985
 msgid "Restore all settings to their default values? This action cannot be undone."
 msgstr ""
 
-#: admin/settings.php:982
+#: admin/settings.php:986
 msgid "Could not save. Check your connection and try again."
 msgstr ""
 
