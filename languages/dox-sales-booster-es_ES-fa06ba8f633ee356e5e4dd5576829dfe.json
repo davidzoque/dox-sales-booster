@@ -1,0 +1,132 @@
+{
+ "translation-revision-date": "2026-09-20 13:26:33+00:00",
+ "generator": "Dox Studio",
+ "source": "assets/js/dsb-blocks.js",
+ "domain": "messages",
+ "locale_data": {
+  "messages": {
+   "": {
+    "domain": "messages",
+    "lang": "es_ES",
+    "plural-forms": "nplurals=2; plural=n != 1;"
+   },
+   "(use global value)": [
+    "(usar valor global)"
+   ],
+   "(use global text)": [
+    "(usar texto global)"
+   ],
+   "Settings": [
+    "Configuración"
+   ],
+   "Empty fields use the values from the Sales Booster panel.": [
+    "Los campos vacíos usan los valores del panel Sales Booster."
+   ],
+   "People viewing (Sales Booster)": [
+    "Personas viendo (Sales Booster)"
+   ],
+   "Counter of people viewing this product.": [
+    "Contador de personas viendo este producto."
+   ],
+   "viewing": [
+    "viendo"
+   ],
+   "urgency": [
+    "urgencia"
+   ],
+   "Minimum people": [
+    "Mínimo personas"
+   ],
+   "Maximum people": [
+    "Máximo personas"
+   ],
+   "Text": [
+    "Texto"
+   ],
+   "Product ID (empty = current product)": [
+    "ID de producto (vacío = producto actual)"
+   ],
+   "Recent sales (Sales Booster)": [
+    "Ventas recientes (Sales Booster)"
+   ],
+   "Units sold within a period of time.": [
+    "Unidades vendidas en un período de tiempo."
+   ],
+   "sales": [
+    "ventas"
+   ],
+   "sold": [
+    "vendidos"
+   ],
+   "Minimum sales": [
+    "Mínimo ventas"
+   ],
+   "Maximum sales": [
+    "Máximo ventas"
+   ],
+   "Time quantity": [
+    "Cantidad de tiempo"
+   ],
+   "Period": [
+    "Período"
+   ],
+   "Minutes": [
+    "Minutos"
+   ],
+   "Hours": [
+    "Horas"
+   ],
+   "Days": [
+    "Días"
+   ],
+   "Weeks": [
+    "Semanas"
+   ],
+   "Free shipping bar (Sales Booster)": [
+    "Barra de envío gratis (Sales Booster)"
+   ],
+   "Progress bar toward free shipping based on the cart total.": [
+    "Barra de progreso hacia el envío gratis según el total del carrito."
+   ],
+   "shipping": [
+    "envío"
+   ],
+   "free": [
+    "gratis"
+   ],
+   "progress": [
+    "progreso"
+   ],
+   "Free shipping amount (empty = panel source)": [
+    "Monto para envío gratis (vacío = fuente del panel)"
+   ],
+   "Progress text (variable {amount})": [
+    "Texto de progreso (variable {amount})"
+   ],
+   "Success text": [
+    "Texto de éxito"
+   ],
+   "The bar uses the real cart of the visitor; in the editor the preview may show an empty cart.": [
+    "La barra usa el carrito real del visitante; en el editor la vista previa puede mostrar el carrito vacío."
+   ],
+   "Low stock (Sales Booster)": [
+    "Stock bajo (Sales Booster)"
+   ],
+   "Urgency based on the REAL WooCommerce inventory: it only appears when few units are left.": [
+    "Urgencia con el inventario REAL de WooCommerce: solo aparece si quedan pocas unidades."
+   ],
+   "inventory": [
+    "inventario"
+   ],
+   "Units threshold": [
+    "Umbral de unidades"
+   ],
+   "Text (variable {stock})": [
+    "Texto (variable {stock})"
+   ],
+   "Shown on product pages when the real stock is below the threshold. Outside a product page the preview may be empty.": [
+    "Se muestra en páginas de producto cuando el stock real está por debajo del umbral. Fuera de una página de producto la vista previa puede quedar vacía."
+   ]
+  }
+ }
+}

@@ -43,8 +43,8 @@
 
     function minutesText(mins) {
         return mins < 2
-            ? t('just_now', 'hace un momento')
-            : t('mins_ago', 'hace %d minutos').replace('%d', mins);
+            ? t('just_now', 'a moment ago')
+            : t('mins_ago', '%d minutes ago').replace('%d', mins);
     }
 
     // "hace X" real a partir del timestamp del pedido (modo de datos reales)
@@ -53,8 +53,8 @@
         var mins = Math.floor(secs / 60);
         if (mins < 60) return minutesText(mins);
         var hours = Math.floor(mins / 60);
-        if (hours < 24) return t('hours_ago', 'hace %d horas').replace('%d', hours);
-        return t('days_ago', 'hace %d días').replace('%d', Math.floor(hours / 24));
+        if (hours < 24) return t('hours_ago', '%d hours ago').replace('%d', hours);
+        return t('days_ago', '%d days ago').replace('%d', Math.floor(hours / 24));
     }
 
     function timeAgoSimulated() {
@@ -169,7 +169,7 @@
 
         // {name} → nombre aleatorio de la lista (o "Alguien" si está vacía)
         if (prefix.indexOf('{name}') !== -1) {
-            var name = (names && names.length) ? randItem(names) : t('someone', 'Alguien');
+            var name = (names && names.length) ? randItem(names) : t('someone', 'Someone');
             prefix = prefix.split('{name}').join(name);
         }
 

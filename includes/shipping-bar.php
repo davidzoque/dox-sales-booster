@@ -100,7 +100,7 @@ function dsb_render_shipping_bar( $args = [], $auto = false ) {
         $message = esc_html( $args['success_text'] );
     } else {
         $price_html = '<span class="dsb-shipbar-amount">' . wc_price( $missing ) . '</span>';
-        $message    = str_replace( [ '{precio}', '{price}' ], $price_html, esc_html( $args['text'] ) );
+        $message    = str_replace( [ '{amount}', '{precio}', '{price}' ], $price_html, esc_html( $args['text'] ) );
     }
 
     // wc_price() genera spans con clase y <bdi> — permitirlos y nada más.
@@ -146,10 +146,14 @@ add_action( 'init', function () {
     $o = dsb_get_settings();
 
     // Shortcode siempre disponible (devuelve '' si la barra está desactivada).
-    add_shortcode( 'dsb_envio_gratis', function ( $atts ) {
-        $atts = shortcode_atts( [ 'threshold' => '', 'text' => '', 'success_text' => '' ], $atts, 'dsb_envio_gratis' );
-        return dsb_render_shipping_bar( $atts );
-    } );
+    // 'dsb_envio_gratis' era el nombre hasta la 1.4.0 y se mantiene como alias
+    // para no romper las páginas que ya lo tienen puesto.
+    foreach ( [ 'dsb_free_shipping', 'dsb_envio_gratis' ] as $dsb_sc_tag ) {
+        add_shortcode( $dsb_sc_tag, function ( $atts, $content = '', $tag = 'dsb_free_shipping' ) {
+            $atts = shortcode_atts( [ 'threshold' => '', 'text' => '', 'success_text' => '' ], $atts, $tag );
+            return dsb_render_shipping_bar( $atts );
+        } );
+    }
 
     if ( empty( $o['shipbar_enabled'] ) ) return; // sin inserción automática
 

@@ -3,6 +3,10 @@ msgstr ""
 "Project-Id-Version: Dox Sales Booster 1.5.0\n"
 "Report-Msgid-Bugs-To: https://doxstudio.com\n"
 "POT-Creation-Date: 2026-09-20 13:26\n"
+"PO-Revision-Date: 2026-09-20 13:26\n"
+"Last-Translator: Dox Studio <hola@doxstudio.com>\n"
+"Language-Team: es_ES\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,860 +15,860 @@ msgstr ""
 
 #: dox-sales-booster.php:54
 msgid "WooCommerce is not active. The purchase popup and the low stock notice need WooCommerce; the \"people viewing\" and \"recent sales\" counters keep working."
-msgstr ""
+msgstr "WooCommerce no está activo. El popup de compras y el aviso de stock necesitan WooCommerce; los contadores de \"personas viendo\" y \"ventas recientes\" siguen funcionando."
 
 #: includes/render.php:16
 msgid "New York, NY 🇺🇸\nLos Angeles, CA 🇺🇸\nChicago, IL 🇺🇸\nHouston, TX 🇺🇸\nPhoenix, AZ 🇺🇸\nPhiladelphia, PA 🇺🇸\nSan Antonio, TX 🇺🇸\nSan Diego, CA 🇺🇸\nDallas, TX 🇺🇸\nJacksonville, FL 🇺🇸\nAustin, TX 🇺🇸\nFort Worth, TX 🇺🇸\nSan Jose, CA 🇺🇸\nColumbus, OH 🇺🇸\nCharlotte, NC 🇺🇸\nIndianapolis, IN 🇺🇸\nSan Francisco, CA 🇺🇸\nSeattle, WA 🇺🇸\nDenver, CO 🇺🇸\nOklahoma City, OK 🇺🇸\nNashville, TN 🇺🇸\nWashington, DC 🇺🇸\nEl Paso, TX 🇺🇸\nLas Vegas, NV 🇺🇸\nBoston, MA 🇺🇸\nDetroit, MI 🇺🇸\nPortland, OR 🇺🇸\nLouisville, KY 🇺🇸\nMemphis, TN 🇺🇸\nBaltimore, MD 🇺🇸\nMilwaukee, WI 🇺🇸\nAlbuquerque, NM 🇺🇸\nTucson, AZ 🇺🇸\nFresno, CA 🇺🇸\nSacramento, CA 🇺🇸\nMesa, AZ 🇺🇸\nAtlanta, GA 🇺🇸\nKansas City, MO 🇺🇸\nColorado Springs, CO 🇺🇸\nOmaha, NE 🇺🇸\nRaleigh, NC 🇺🇸\nMiami, FL 🇺🇸\nVirginia Beach, VA 🇺🇸\nLong Beach, CA 🇺🇸\nOakland, CA 🇺🇸\nMinneapolis, MN 🇺🇸\nBakersfield, CA 🇺🇸\nTulsa, OK 🇺🇸\nTampa, FL 🇺🇸\nArlington, TX 🇺🇸\nNew Orleans, LA 🇺🇸\nWichita, KS 🇺🇸\nCleveland, OH 🇺🇸\nOrlando, FL 🇺🇸\nSt. Louis, MO 🇺🇸\nPittsburgh, PA 🇺🇸\nCincinnati, OH 🇺🇸\nSalt Lake City, UT 🇺🇸\nBoise, ID 🇺🇸\nRichmond, VA 🇺🇸"
-msgstr ""
+msgstr "Bogotá, D.C. 🇨🇴\nMedellín, Antioquia 🇨🇴\nCali, Valle del Cauca 🇨🇴\nBarranquilla, Atlántico 🇨🇴\nCartagena, Bolívar 🇨🇴\nCúcuta, Norte de Santander 🇨🇴\nBucaramanga, Santander 🇨🇴\nPereira, Risaralda 🇨🇴\nManizales, Caldas 🇨🇴\nSanta Marta, Magdalena 🇨🇴\nIbagué, Tolima 🇨🇴\nPasto, Nariño 🇨🇴\nMontería, Córdoba 🇨🇴\nArmenia, Quindío 🇨🇴\nVillavicencio, Meta 🇨🇴\nNeiva, Huila 🇨🇴\nPopayán, Cauca 🇨🇴\nValledupar, Cesar 🇨🇴\nSincelejo, Sucre 🇨🇴\nTunja, Boyacá 🇨🇴\nFlorencia, Caquetá 🇨🇴\nQuibdó, Chocó 🇨🇴\nRiohacha, La Guajira 🇨🇴\nMocoa, Putumayo 🇨🇴\nLeticia, Amazonas 🇨🇴\nSan Andrés, San Andrés y Providencia 🇨🇴\nYopal, Casanare 🇨🇴\nArauca, Arauca 🇨🇴\nSan José del Guaviare, Guaviare 🇨🇴\nInírida, Guainía 🇨🇴\nPuerto Carreño, Vichada 🇨🇴\nMitú, Vaupés 🇨🇴\nEnvigado, Antioquia 🇨🇴\nBello, Antioquia 🇨🇴\nItagüí, Antioquia 🇨🇴\nSoledad, Atlántico 🇨🇴\nSoacha, Cundinamarca 🇨🇴\nPalmira, Valle del Cauca 🇨🇴\nBuenaventura, Valle del Cauca 🇨🇴\nFloridablanca, Santander 🇨🇴\nGirón, Santander 🇨🇴\nDosquebradas, Risaralda 🇨🇴\nTuluá, Valle del Cauca 🇨🇴\nBarrancabermeja, Santander 🇨🇴\nDuitama, Boyacá 🇨🇴\nSogamoso, Boyacá 🇨🇴\nCartago, Valle del Cauca 🇨🇴\nBuga, Valle del Cauca 🇨🇴\nJamundí, Valle del Cauca 🇨🇴\nYumbo, Valle del Cauca 🇨🇴\nRionegro, Antioquia 🇨🇴\nApartadó, Antioquia 🇨🇴\nTurbo, Antioquia 🇨🇴\nCaucasia, Antioquia 🇨🇴\nSabaneta, Antioquia 🇨🇴\nCopacabana, Antioquia 🇨🇴\nLa Estrella, Antioquia 🇨🇴\nCaldas, Antioquia 🇨🇴\nZipaquirá, Cundinamarca 🇨🇴\nChía, Cundinamarca 🇨🇴\nFacatativá, Cundinamarca 🇨🇴\nFusagasugá, Cundinamarca 🇨🇴\nMosquera, Cundinamarca 🇨🇴\nMadrid, Cundinamarca 🇨🇴\nFunza, Cundinamarca 🇨🇴\nCajicá, Cundinamarca 🇨🇴\nGirardot, Cundinamarca 🇨🇴\nMalambo, Atlántico 🇨🇴\nSabanalarga, Atlántico 🇨🇴\nBaranoa, Atlántico 🇨🇴\nMagangué, Bolívar 🇨🇴\nTurbaco, Bolívar 🇨🇴\nEl Carmen de Bolívar, Bolívar 🇨🇴\nCiénaga, Magdalena 🇨🇴\nFundación, Magdalena 🇨🇴\nEl Banco, Magdalena 🇨🇴\nIpiales, Nariño 🇨🇴\nTumaco, Nariño 🇨🇴\nOcaña, Norte de Santander 🇨🇴\nVilla del Rosario, Norte de Santander 🇨🇴\nLos Patios, Norte de Santander 🇨🇴\nPamplona, Norte de Santander 🇨🇴\nPiedecuesta, Santander 🇨🇴\nSan Gil, Santander 🇨🇴\nSocorro, Santander 🇨🇴\nChiquinquirá, Boyacá 🇨🇴\nPaipa, Boyacá 🇨🇴\nPuerto Boyacá, Boyacá 🇨🇴\nEl Espinal, Tolima 🇨🇴\nMelgar, Tolima 🇨🇴\nHonda, Tolima 🇨🇴\nPitalito, Huila 🇨🇴\nGarzón, Huila 🇨🇴\nLa Plata, Huila 🇨🇴\nAcacías, Meta 🇨🇴\nGranada, Meta 🇨🇴\nPuerto López, Meta 🇨🇴\nAguazul, Casanare 🇨🇴\nPaz de Ariporo, Casanare 🇨🇴\nSaravena, Arauca 🇨🇴\nTame, Arauca 🇨🇴\nPuerto Asís, Putumayo 🇨🇴\nOrito, Putumayo 🇨🇴\nSan Juan del Cesar, La Guajira 🇨🇴\nMaicao, La Guajira 🇨🇴\nUribia, La Guajira 🇨🇴\nAguachica, Cesar 🇨🇴\nBosconia, Cesar 🇨🇴\nCorozal, Sucre 🇨🇴\nSan Marcos, Sucre 🇨🇴\nSan Vicente del Caguán, Caquetá 🇨🇴\nPuerto Rico, Caquetá 🇨🇴\nSanta Rosa de Cabal, Risaralda 🇨🇴\nChinchiná, Caldas 🇨🇴\nLa Dorada, Caldas 🇨🇴\nRiosucio, Caldas 🇨🇴\nCalarcá, Quindío 🇨🇴\nMontenegro, Quindío 🇨🇴\nQuimbaya, Quindío 🇨🇴\nCereté, Córdoba 🇨🇴\nSahagún, Córdoba 🇨🇴\nLorica, Córdoba 🇨🇴\nTierralta, Córdoba 🇨🇴\nSantander de Quilichao, Cauca 🇨🇴\nEl Tambo, Cauca 🇨🇴\nPuerto Tejada, Cauca 🇨🇴\nIstmina, Chocó 🇨🇴\nTadó, Chocó 🇨🇴"
 
 #: includes/render.php:28
 msgid "people are viewing this product right now."
-msgstr ""
+msgstr "personas están viendo este producto ahora."
 
 #: includes/render.php:35
 msgid "🔥 {count} sold in the last {timeframe} {period}"
-msgstr ""
+msgstr "🔥 {count} vendidos en las últimas {timeframe} {period}"
 
 #: includes/render.php:43
 msgid "⚡ Only {stock} units left!"
-msgstr ""
+msgstr "⚡ ¡Solo quedan {stock} unidades!"
 
 #: includes/render.php:53
 msgid "🚚 Add {amount} more to get free shipping!"
-msgstr ""
+msgstr "🚚 ¡Te faltan {amount} para el envío gratis!"
 
 #: includes/render.php:54
 msgid "🎉 Congratulations! You get free shipping."
-msgstr ""
+msgstr "🎉 ¡Felicidades! Tienes envío gratis."
 
 #: includes/render.php:88 admin/settings.php:932
 msgid "🛍️ Someone purchased"
-msgstr ""
+msgstr "🛍️ Alguien ha comprado"
 
 #: includes/render.php:89 admin/settings.php:933
 msgid "View product"
-msgstr ""
+msgstr "Ver producto"
 
 #: includes/render.php:186
 msgid "From %s"
-msgstr ""
+msgstr "Desde %s"
 
 #: includes/render.php:331
 msgctxt "sales period"
 msgid "minutes"
-msgstr ""
+msgstr "minutos"
 
 #: includes/render.php:332
 msgctxt "sales period"
 msgid "days"
-msgstr ""
+msgstr "días"
 
 #: includes/render.php:333
 msgctxt "sales period"
 msgid "weeks"
-msgstr ""
+msgstr "semanas"
 
 #: includes/render.php:334
 msgctxt "sales period"
 msgid "hours"
-msgstr ""
+msgstr "horas"
 
 #: includes/frontend.php:92
 msgid "a moment ago"
-msgstr ""
+msgstr "hace un momento"
 
 #: includes/frontend.php:93
 msgid "%d minutes ago"
-msgstr ""
+msgstr "hace %d minutos"
 
 #: includes/frontend.php:94
 msgid "%d hours ago"
-msgstr ""
+msgstr "hace %d horas"
 
 #: includes/frontend.php:95
 msgid "%d days ago"
-msgstr ""
+msgstr "hace %d días"
 
 #: includes/frontend.php:96
 msgid "Someone"
-msgstr ""
+msgstr "Alguien"
 
 #: includes/frontend.php:142
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: admin/settings.php:12
 msgid "Dox Sales Booster"
-msgstr ""
+msgstr "Dox Sales Booster"
 
 #: admin/settings.php:13
 msgid "Sales Booster"
-msgstr ""
+msgstr "Sales Booster"
 
 #: admin/settings.php:39 admin/settings.php:63
 msgid "You do not have permission."
-msgstr ""
+msgstr "Sin permisos."
 
 #: admin/settings.php:54 admin/settings.php:826
 msgid "Settings saved!"
-msgstr ""
+msgstr "¡Configuración guardada!"
 
 #: admin/settings.php:67
 msgid "Default values restored."
-msgstr ""
+msgstr "Valores por defecto restaurados."
 
 #: admin/settings.php:234 admin/settings.php:926
 msgid "Restore default values"
-msgstr ""
+msgstr "Restaurar valores por defecto"
 
 #: admin/settings.php:235 admin/settings.php:924
 msgid "Save changes"
-msgstr ""
+msgstr "Guardar cambios"
 
 #: admin/settings.php:240
 msgid "People viewing"
-msgstr ""
+msgstr "Personas viendo"
 
 #: admin/settings.php:241
 msgid "Recent sales"
-msgstr ""
+msgstr "Ventas recientes"
 
 #: admin/settings.php:242
 msgid "Low stock"
-msgstr ""
+msgstr "Stock bajo"
 
 #: admin/settings.php:243
 msgid "Free shipping"
-msgstr ""
+msgstr "Envío gratis"
 
 #: admin/settings.php:244 admin/settings.php:819
 msgid "Purchase popup"
-msgstr ""
+msgstr "Popup de compra"
 
 #: admin/settings.php:245
 msgid "Shortcodes"
-msgstr ""
+msgstr "Shortcodes"
 
 #: admin/settings.php:256
 msgid "People viewing counter"
-msgstr ""
+msgstr "Contador de personas viendo"
 
 #: admin/settings.php:259
 msgid "A random number of people viewing the product, with gradual variation. Add it with the Elementor widget, the Gutenberg block or the [dsb_viewing] shortcode."
-msgstr ""
+msgstr "Número aleatorio de personas viendo el producto, con variación gradual. Agrégalo con el widget de Elementor, el bloque de Gutenberg o el shortcode [dsb_viewing]."
 
 #: admin/settings.php:261 admin/settings.php:297 admin/settings.php:365 admin/settings.php:476 elementor/widgets.php:66 elementor/widgets.php:129 elementor/widgets.php:311 assets/js/dsb-blocks.js:89 assets/js/dsb-blocks.js:116
 msgid "Text"
-msgstr ""
+msgstr "Texto"
 
 #: admin/settings.php:265 admin/settings.php:312
 msgid "Minimum"
-msgstr ""
+msgstr "Mínimo"
 
 #: admin/settings.php:265 admin/settings.php:266
 msgid "people"
-msgstr ""
+msgstr "personas"
 
 #: admin/settings.php:266 admin/settings.php:313
 msgid "Maximum"
-msgstr ""
+msgstr "Máximo"
 
 #: admin/settings.php:267
 msgid "Refresh every"
-msgstr ""
+msgstr "Refrescar cada"
 
 #: admin/settings.php:267
 msgid "minutes"
-msgstr ""
+msgstr "minutos"
 
 #: admin/settings.php:271 admin/settings.php:330 admin/settings.php:377 admin/settings.php:483
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
 #: admin/settings.php:282 admin/settings.php:350 admin/settings.php:392 admin/settings.php:497
 msgid "Shortcode"
-msgstr ""
+msgstr "Shortcode"
 
 #: admin/settings.php:292
 msgid "Recent sales text"
-msgstr ""
+msgstr "Texto de ventas recientes"
 
 #: admin/settings.php:295
 msgid "Shows the units sold within a period. Add it with the Elementor widget, the Gutenberg block or the [dsb_sales] shortcode."
-msgstr ""
+msgstr "Muestra las unidades vendidas en un período. Agrégalo con el widget de Elementor, el bloque de Gutenberg o el shortcode [dsb_sales]."
 
 #: admin/settings.php:299
 msgid "Variables:"
-msgstr ""
+msgstr "Variables:"
 
 #: admin/settings.php:302 admin/settings.php:584
 msgid "Data mode"
-msgstr ""
+msgstr "Modo de datos"
 
 #: admin/settings.php:304
 msgid "Simulated (a number between the minimum and the maximum)"
-msgstr ""
+msgstr "Simulado (número entre el mínimo y el máximo)"
 
 #: admin/settings.php:305
 msgid "Real (actual units sold)"
-msgstr ""
+msgstr "Real (unidades vendidas de verdad)"
 
 #: admin/settings.php:307
 msgid "Simulated: the number stays fixed for the whole period (it no longer changes when the page is reloaded) and is the same for every visitor. Real: counts the units of the product sold in completed or processing orders within the period; if there were no sales, the text is not shown."
-msgstr ""
+msgstr "Simulado: el número se mantiene fijo durante todo el período (ya no cambia al recargar la página) y es el mismo para todos los visitantes. Real: cuenta las unidades vendidas del producto en pedidos completados o en proceso dentro del período; si no hubo ninguna venta, el texto no se muestra."
 
 #: admin/settings.php:317
 msgid "Quantity"
-msgstr ""
+msgstr "Cantidad"
 
 #: admin/settings.php:319 elementor/widgets.php:151 assets/js/dsb-blocks.js:120
 msgid "Period"
-msgstr ""
+msgstr "Período"
 
 #: admin/settings.php:321 elementor/widgets.php:155 assets/js/dsb-blocks.js:124
 msgid "Minutes"
-msgstr ""
+msgstr "Minutos"
 
 #: admin/settings.php:321 elementor/widgets.php:156 assets/js/dsb-blocks.js:125
 msgid "Hours"
-msgstr ""
+msgstr "Horas"
 
 #: admin/settings.php:321 elementor/widgets.php:157 assets/js/dsb-blocks.js:126
 msgid "Days"
-msgstr ""
+msgstr "Días"
 
 #: admin/settings.php:321 elementor/widgets.php:158 assets/js/dsb-blocks.js:127
 msgid "Weeks"
-msgstr ""
+msgstr "Semanas"
 
 #: admin/settings.php:327
 msgid "The color of the {count} number is set in Elementor → the \"🔥 Recent sales\" widget → Style tab."
-msgstr ""
+msgstr "El color del número {count} se controla desde Elementor → widget \"🔥 Ventas recientes\" → pestaña Estilo."
 
 #: admin/settings.php:360
 msgid "Low stock notice (real data)"
-msgstr ""
+msgstr "Aviso de stock bajo (datos reales)"
 
 #: admin/settings.php:363
 msgid "Urgency based on the REAL WooCommerce inventory: it only appears if the product manages stock and few units are left. Add it with the Elementor widget, the Gutenberg block or the [dsb_stock] shortcode."
-msgstr ""
+msgstr "Urgencia con el inventario REAL de WooCommerce: solo aparece si el producto gestiona stock y quedan pocas unidades. Agrégalo con el widget de Elementor, el bloque de Gutenberg o el shortcode [dsb_stock]."
 
 #: admin/settings.php:367 admin/settings.php:455
 msgid "Variable:"
-msgstr ""
+msgstr "Variable:"
 
 #: admin/settings.php:370 elementor/widgets.php:304 assets/js/dsb-blocks.js:175
 msgid "Units threshold"
-msgstr ""
+msgstr "Umbral de unidades"
 
 #: admin/settings.php:372
 msgid "Shown when the real stock is less than or equal to this number."
-msgstr ""
+msgstr "Se muestra cuando el stock real es menor o igual a este número."
 
 #: admin/settings.php:374
 msgid "Unlike the other elements, this one uses 100% real data: if the product does not manage inventory or has plenty of stock, nothing is shown."
-msgstr ""
+msgstr "A diferencia de los otros elementos, este usa datos 100% reales: si el producto no gestiona inventario o tiene stock de sobra, no se muestra nada."
 
 #: admin/settings.php:402
 msgid "Free shipping bar"
-msgstr ""
+msgstr "Barra de envío gratis"
 
 #: admin/settings.php:405
 msgid "A progress bar with how much the customer still needs to get free shipping. It uses the real cart and updates itself (without reloading) when products are added or removed. Compatible with the standard WooCommerce mini cart, including the UICore Pro offcanvas."
-msgstr ""
+msgstr "Barra de progreso con lo que le falta al cliente para obtener envío gratis. Usa el carrito real y se actualiza sola (sin recargar) al agregar o quitar productos. Compatible con el mini carrito estándar de WooCommerce, incluido el offcanvas de UICore Pro."
 
 #: admin/settings.php:407
 msgid "Where it is shown"
-msgstr ""
+msgstr "Dónde se muestra"
 
 #: admin/settings.php:412
 msgid "Mini cart (offcanvas / widget)"
-msgstr ""
+msgstr "Mini carrito (offcanvas / widget)"
 
 #: admin/settings.php:416
 msgid "Cart page"
-msgstr ""
+msgstr "Página del carrito"
 
 #: admin/settings.php:420
 msgid "Checkout page"
-msgstr ""
+msgstr "Página de pago (checkout)"
 
 #: admin/settings.php:424 elementor/widgets.php:221
 msgid "Free shipping amount"
-msgstr ""
+msgstr "Monto para envío gratis"
 
 #: admin/settings.php:427
 msgid "Amount source"
-msgstr ""
+msgstr "Fuente del monto"
 
 #: admin/settings.php:429
 msgid "Custom amount (set here)"
-msgstr ""
+msgstr "Monto propio (configurado aquí)"
 
 #: admin/settings.php:430
 msgid "WooCommerce \"Free shipping\" method (minimum order)"
-msgstr ""
+msgstr "Método \"Envío gratuito\" de WooCommerce (pedido mínimo)"
 
 #: admin/settings.php:432
 msgid "With the WooCommerce source, the amount is read from the minimum order of the \"Free shipping\" method in the shipping zone that matches the customer. If that zone has no minimum amount set, the custom amount is used as a fallback."
-msgstr ""
+msgstr "Con la fuente WooCommerce, el monto se lee del pedido mínimo del método \"Envío gratuito\" de la zona de envío del cliente. Si esa zona no tiene monto mínimo configurado, se usa el monto propio como respaldo."
 
 #: admin/settings.php:437
 msgid "Custom amount"
-msgstr ""
+msgstr "Monto propio"
 
 #: admin/settings.php:439
 msgid "Numbers only, no currency symbol. E.g. 100"
-msgstr ""
+msgstr "Solo números, sin símbolo de moneda. Ej: 100"
 
 #: admin/settings.php:446
 msgid "Ignore coupons (count the subtotal without discounts)"
-msgstr ""
+msgstr "Ignorar cupones (contar el subtotal sin descuentos)"
 
 #: admin/settings.php:450
 msgid "Texts"
-msgstr ""
+msgstr "Textos"
 
 #: admin/settings.php:453 elementor/widgets.php:227
 msgid "Progress text"
-msgstr ""
+msgstr "Texto de progreso"
 
 #: admin/settings.php:455
 msgid "how much is left to get free shipping."
-msgstr ""
+msgstr "lo que falta para el envío gratis."
 
 #: admin/settings.php:459 elementor/widgets.php:233 assets/js/dsb-blocks.js:154
 msgid "Success text"
-msgstr ""
+msgstr "Texto de éxito"
 
 #: admin/settings.php:461
 msgid "Shown once the cart has reached the amount."
-msgstr ""
+msgstr "Se muestra cuando el carrito ya alcanzó el monto."
 
 #: admin/settings.php:464
 msgid "Colors"
-msgstr ""
+msgstr "Colores"
 
 #: admin/settings.php:468
 msgid "Progress bar"
-msgstr ""
+msgstr "Barra de progreso"
 
 #: admin/settings.php:472
 msgid "Bar background"
-msgstr ""
+msgstr "Fondo de la barra"
 
 #: admin/settings.php:493
 msgid "Simulate cart progress"
-msgstr ""
+msgstr "Simular progreso del carrito"
 
 #: admin/settings.php:495
 msgid "Preview only: when it reaches 100% the success text is shown."
-msgstr ""
+msgstr "Solo para la vista previa: al llegar a 100% se muestra el texto de éxito."
 
 #: admin/settings.php:498
 msgid "With the locations enabled above, the bar inserts itself: you need no shortcode or widget. The shortcode and the Elementor widget are for placing it in additional spots."
-msgstr ""
+msgstr "Con las ubicaciones activadas arriba, la barra se inserta sola: no necesitas shortcode ni widget. El shortcode y el widget de Elementor son para colocarla en lugares adicionales."
 
 #: admin/settings.php:508
 msgid "Recent purchase popup"
-msgstr ""
+msgstr "Popup de compra reciente"
 
 #: admin/settings.php:511
 msgid "It appears automatically across the whole site. No shortcode needed."
-msgstr ""
+msgstr "Aparece automáticamente en todo el sitio. No necesita shortcode."
 
 #: admin/settings.php:513
 msgid "Behavior"
-msgstr ""
+msgstr "Comportamiento"
 
 #: admin/settings.php:517
 msgid "Show every"
-msgstr ""
+msgstr "Mostrar cada"
 
 #: admin/settings.php:519 admin/settings.php:548 admin/settings.php:553
 msgid "seconds"
-msgstr ""
+msgstr "segundos"
 
 #: admin/settings.php:522
 msgid "Animation"
-msgstr ""
+msgstr "Animación"
 
 #: admin/settings.php:524
 msgid "Slide up"
-msgstr ""
+msgstr "Deslizar arriba"
 
 #: admin/settings.php:525
 msgid "Slide in from the side"
-msgstr ""
+msgstr "Deslizar lateral"
 
 #: admin/settings.php:529
 msgid "Position"
-msgstr ""
+msgstr "Posición"
 
 #: admin/settings.php:531
 msgid "Bottom left"
-msgstr ""
+msgstr "Abajo izquierda"
 
 #: admin/settings.php:532
 msgid "Bottom right"
-msgstr ""
+msgstr "Abajo derecha"
 
 #: admin/settings.php:538
 msgid "Popup duration"
-msgstr ""
+msgstr "Duración del popup"
 
 #: admin/settings.php:541
 msgid "How many seconds it stays visible before disappearing. If it exceeds the interval, it is adjusted automatically."
-msgstr ""
+msgstr "Cuántos segundos permanece visible antes de desaparecer. Si supera el intervalo, se ajusta automáticamente."
 
 #: admin/settings.php:546
 msgid "First popup: minimum wait"
-msgstr ""
+msgstr "Primer popup: espera mínima"
 
 #: admin/settings.php:551
 msgid "First popup: maximum wait"
-msgstr ""
+msgstr "Primer popup: espera máxima"
 
 #: admin/settings.php:559
 msgid "Silence after closing"
-msgstr ""
+msgstr "Silencio tras cerrar"
 
 #: admin/settings.php:561
 msgid "minutes without popups if the visitor closes it (0 = disabled)"
-msgstr ""
+msgstr "minutos sin popups si el visitante lo cierra (0 = desactivado)"
 
 #: admin/settings.php:564
 msgid "Maximum per page"
-msgstr ""
+msgstr "Máximo por página"
 
 #: admin/settings.php:566
 msgid "popups per page load (0 = no limit)"
-msgstr ""
+msgstr "popups por carga de página (0 = sin límite)"
 
 #: admin/settings.php:573
 msgid "Show on mobile"
-msgstr ""
+msgstr "Mostrar en móvil"
 
 #: admin/settings.php:577
 msgid "Hide on cart and checkout (recommended: no distractions during payment)"
-msgstr ""
+msgstr "Ocultar en carrito y checkout (recomendado: no distrae durante el pago)"
 
 #: admin/settings.php:581
 msgid "Data"
-msgstr ""
+msgstr "Datos"
 
 #: admin/settings.php:586
 msgid "Simulated (catalog products)"
-msgstr ""
+msgstr "Simulado (productos del catálogo)"
 
 #: admin/settings.php:587
 msgid "Real (orders from the last 30 days)"
-msgstr ""
+msgstr "Real (pedidos de los últimos 30 días)"
 
 #: admin/settings.php:589
 msgid "Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no recent orders, it falls back to simulated mode."
-msgstr ""
+msgstr "Modo real: producto, ciudad y tiempo salen de pedidos reales (completados/en proceso). Nunca se muestran nombres ni datos del cliente. Si no hay pedidos recientes, cae al modo simulado."
 
 #: admin/settings.php:594
 msgid "Product source"
-msgstr ""
+msgstr "Fuente de productos"
 
 #: admin/settings.php:596
 msgid "Random"
-msgstr ""
+msgstr "Aleatorio"
 
 #: admin/settings.php:597
 msgid "Featured"
-msgstr ""
+msgstr "Destacados"
 
 #: admin/settings.php:598
 msgid "On sale"
-msgstr ""
+msgstr "En oferta"
 
 #: admin/settings.php:599
 msgid "Best sellers"
-msgstr ""
+msgstr "Más vendidos"
 
 #: admin/settings.php:606
 msgid "Include only these categories"
-msgstr ""
+msgstr "Incluir solo estas categorías"
 
 #: admin/settings.php:612
 msgid "Empty = all of them. Ctrl/Cmd + click to pick several."
-msgstr ""
+msgstr "Vacío = todas. Ctrl/Cmd + clic para varias."
 
 #: admin/settings.php:615
 msgid "Exclude these categories"
-msgstr ""
+msgstr "Excluir estas categorías"
 
 #: admin/settings.php:621
 msgid "Ctrl/Cmd + click to clear the selection."
-msgstr ""
+msgstr "Ctrl/Cmd + clic para quitar la selección."
 
 #: admin/settings.php:628
 msgid "\"X minutes ago\": minimum"
-msgstr ""
+msgstr "\"Hace X minutos\": mínimo"
 
 #: admin/settings.php:632
 msgid "\"X minutes ago\": maximum"
-msgstr ""
+msgstr "\"Hace X minutos\": máximo"
 
 #: admin/settings.php:640
 msgid "Hide out of stock products"
-msgstr ""
+msgstr "Ocultar productos sin stock"
 
 #: admin/settings.php:648
 msgid "Show the product price"
-msgstr ""
+msgstr "Mostrar el precio del producto"
 
 #: admin/settings.php:653
 msgid "The selected source has no products right now: the popup will not be shown. Check the source, the categories or the data mode."
-msgstr ""
+msgstr "La fuente seleccionada no tiene productos ahora mismo: el popup no se mostrará. Revisa la fuente, las categorías o el modo de datos."
 
 #: admin/settings.php:656
 msgid "Content"
-msgstr ""
+msgstr "Contenido"
 
 #: admin/settings.php:659
 msgid "Title prefix text"
-msgstr ""
+msgstr "Texto prefijo del título"
 
 #: admin/settings.php:661
 msgid "Accepts the {name} variable: it is replaced with a random name from the list below (or \"Someone\" if it is empty). E.g. \"🛍️ {name} purchased\""
-msgstr ""
+msgstr "Acepta la variable {name}: se sustituye por un nombre aleatorio de la lista de abajo (o \"Alguien\" si está vacía). Ej: \"🛍️ {name} ha comprado\""
 
 #: admin/settings.php:665
 msgid "Buyer names (optional)"
-msgstr ""
+msgstr "Nombres de compradores (opcional)"
 
 #: admin/settings.php:666
 msgid "Sarah&#10;James&#10;Emily&#10;Michael"
-msgstr ""
+msgstr "María&#10;Camila&#10;Andrés&#10;Juan Pablo"
 
 #: admin/settings.php:667
 msgid "One per line. They are only used if the prefix contains {name}."
-msgstr ""
+msgstr "Uno por línea. Solo se usan si el prefijo contiene {name}."
 
 #: admin/settings.php:671
 msgid "Link text"
-msgstr ""
+msgstr "Texto del enlace"
 
 #: admin/settings.php:676
 msgid "Maximum title characters"
-msgstr ""
+msgstr "Caracteres máximos del título"
 
 #: admin/settings.php:679
 msgid "If the title is longer than this number of characters, it is cut off with \"…\""
-msgstr ""
+msgstr "Si el título supera este número de caracteres, se corta con \"…\""
 
 #: admin/settings.php:682
 msgid "Appearance"
-msgstr ""
+msgstr "Apariencia"
 
 #: admin/settings.php:686
 msgid "Popup width"
-msgstr ""
+msgstr "Ancho del popup"
 
 #: admin/settings.php:691
 msgid "Image size"
-msgstr ""
+msgstr "Tamaño de imagen"
 
 #: admin/settings.php:697
 msgid "Text size"
-msgstr ""
+msgstr "Tamaño del texto"
 
 #: admin/settings.php:700
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: admin/settings.php:705
 msgid "Price"
-msgstr ""
+msgstr "Precio"
 
 #: admin/settings.php:710
 msgid "Meta (time · city)"
-msgstr ""
+msgstr "Meta (tiempo · ciudad)"
 
 #: admin/settings.php:715
 msgid "Link"
-msgstr ""
+msgstr "Enlace"
 
 #: admin/settings.php:723
 msgid "Background color"
-msgstr ""
+msgstr "Color de fondo"
 
 #: admin/settings.php:727
 msgid "Title color"
-msgstr ""
+msgstr "Color del título"
 
 #: admin/settings.php:731
 msgid "Meta color"
-msgstr ""
+msgstr "Color del meta"
 
 #: admin/settings.php:735
 msgid "Link color"
-msgstr ""
+msgstr "Color del enlace"
 
 #: admin/settings.php:740
 msgid "Locations"
-msgstr ""
+msgstr "Ubicaciones"
 
 #: admin/settings.php:743
 msgid "Cities"
-msgstr ""
+msgstr "Ciudades"
 
 #: admin/settings.php:745
 msgid "One per line. In simulated mode they are always used; in real mode, only when the order has no city."
-msgstr ""
+msgstr "Una por línea. En modo simulado se usan siempre; en modo real, solo cuando el pedido no tiene ciudad."
 
 #: admin/settings.php:750
 msgid "Popup preview"
-msgstr ""
+msgstr "Vista previa del popup"
 
 #: admin/settings.php:751 admin/settings.php:930
 msgid "Width: %dpx"
-msgstr ""
+msgstr "Ancho: %dpx"
 
 #: admin/settings.php:758 admin/settings.php:931
 msgid "Lilac knitted sweater"
-msgstr ""
+msgstr "Suéter tejido lila"
 
 #: admin/settings.php:760
 msgid "5 minutes ago · Denver, CO 🇺🇸"
-msgstr ""
+msgstr "hace 5 minutos · Bogotá, D.C. 🇨🇴"
 
 #: admin/settings.php:766
 msgid "Changes update the preview in real time."
-msgstr ""
+msgstr "Los cambios actualizan la vista previa en tiempo real."
 
 #: admin/settings.php:776
 msgid "Shows the people viewing counter. Place it anywhere on the product page."
-msgstr ""
+msgstr "Muestra el contador de personas viendo. Colócalo donde quieras en la página de producto."
 
 #: admin/settings.php:778 admin/settings.php:789 admin/settings.php:811
 msgid "Basic:"
-msgstr ""
+msgstr "Básico:"
 
 #: admin/settings.php:780 admin/settings.php:791 admin/settings.php:802 admin/settings.php:813
 msgid "Custom:"
-msgstr ""
+msgstr "Personalizado:"
 
 #: admin/settings.php:783 admin/settings.php:794 admin/settings.php:805 admin/settings.php:816
 msgid "Also available as an Elementor widget and a Gutenberg block."
-msgstr ""
+msgstr "También disponible como widget de Elementor y bloque de Gutenberg."
 
 #: admin/settings.php:787
 msgid "Shows the recent sales text. Place it anywhere on the product page."
-msgstr ""
+msgstr "Muestra el texto de ventas recientes. Colócalo donde quieras en la página de producto."
 
 #: admin/settings.php:798
 msgid "Low stock notice with real inventory. It is only shown when few units are left."
-msgstr ""
+msgstr "Aviso de stock bajo con inventario real. Solo se muestra si quedan pocas unidades."
 
 #: admin/settings.php:800
 msgid "Basic (current product):"
-msgstr ""
+msgstr "Básico (producto actual):"
 
 #: admin/settings.php:809
 msgid "Free shipping progress bar. With the panel locations enabled it inserts itself in the mini cart, the cart and the checkout; use the shortcode only for additional spots."
-msgstr ""
+msgstr "Barra de progreso de envío gratis. Con las ubicaciones del panel activadas se inserta sola en el mini carrito, el carrito y el checkout; usa el shortcode solo para lugares adicionales."
 
 #: admin/settings.php:820
 msgid "The popup needs no shortcode: it turns on automatically when it is enabled in the \"Purchase popup\" tab. In Gutenberg look for the \"Sales Booster\" blocks; in Elementor, the widgets with the same name."
-msgstr ""
+msgstr "El popup no necesita shortcode: se activa automáticamente cuando está habilitado en la pestaña \"Popup de compra\". En Gutenberg busca los bloques \"Sales Booster\"; en Elementor, los widgets con el mismo nombre."
 
 #: admin/settings.php:923
 msgid "Saving..."
-msgstr ""
+msgstr "Guardando..."
 
 #: admin/settings.php:925
 msgid "Restoring..."
-msgstr ""
+msgstr "Restaurando..."
 
 #: admin/settings.php:927
 msgid "Restore all settings to their default values? This action cannot be undone."
-msgstr ""
+msgstr "¿Restaurar toda la configuración a los valores por defecto? Esta acción no se puede deshacer."
 
 #: admin/settings.php:928
 msgid "Could not save. Check your connection and try again."
-msgstr ""
+msgstr "No se pudo guardar. Revisa tu conexión e inténtalo de nuevo."
 
 #: elementor/widgets.php:24
 msgid "⚙️ Default values are taken from the <a href=\"%s\" target=\"_blank\">Sales Booster panel</a>. Here you can override them for this widget only."
-msgstr ""
+msgstr "⚙️ Los valores por defecto se toman del <a href=\"%s\" target=\"_blank\">panel Sales Booster</a>. Aquí puedes sobreescribirlos solo para este widget."
 
 #: elementor/widgets.php:37 assets/js/dsb-blocks.js:73
 msgid "People viewing (Sales Booster)"
-msgstr ""
+msgstr "Personas viendo (Sales Booster)"
 
 #: elementor/widgets.php:50 elementor/widgets.php:125 elementor/widgets.php:217 elementor/widgets.php:300 assets/js/dsb-blocks.js:51
 msgid "Settings"
-msgstr ""
+msgstr "Configuración"
 
 #: elementor/widgets.php:54 assets/js/dsb-blocks.js:87
 msgid "Minimum people"
-msgstr ""
+msgstr "Mínimo personas"
 
 #: elementor/widgets.php:60 assets/js/dsb-blocks.js:88
 msgid "Maximum people"
-msgstr ""
+msgstr "Máximo personas"
 
 #: elementor/widgets.php:74 elementor/widgets.php:164 elementor/widgets.php:242 elementor/widgets.php:319
 msgid "Style"
-msgstr ""
+msgstr "Estilo"
 
 #: elementor/widgets.php:76 elementor/widgets.php:166 elementor/widgets.php:254 elementor/widgets.php:321
 msgid "Text color"
-msgstr ""
+msgstr "Color del texto"
 
 #: elementor/widgets.php:81 elementor/widgets.php:171 elementor/widgets.php:326
 msgid "Number color"
-msgstr ""
+msgstr "Color del número"
 
 #: elementor/widgets.php:102
 msgid "The \"People viewing\" counter is disabled in the Sales Booster settings."
-msgstr ""
+msgstr "El contador \"Personas viendo\" está desactivado en los ajustes de Sales Booster."
 
 #: elementor/widgets.php:115 assets/js/dsb-blocks.js:98
 msgid "Recent sales (Sales Booster)"
-msgstr ""
+msgstr "Ventas recientes (Sales Booster)"
 
 #: elementor/widgets.php:134 assets/js/dsb-blocks.js:114
 msgid "Minimum sales"
-msgstr ""
+msgstr "Mínimo ventas"
 
 #: elementor/widgets.php:140 assets/js/dsb-blocks.js:115
 msgid "Maximum sales"
-msgstr ""
+msgstr "Máximo ventas"
 
 #: elementor/widgets.php:146 assets/js/dsb-blocks.js:117
 msgid "Time quantity"
-msgstr ""
+msgstr "Cantidad de tiempo"
 
 #: elementor/widgets.php:194
 msgid "The \"Recent sales\" text is disabled in the Sales Booster settings."
-msgstr ""
+msgstr "El texto de \"Ventas recientes\" está desactivado en los ajustes de Sales Booster."
 
 #: elementor/widgets.php:207 assets/js/dsb-blocks.js:139
 msgid "Free shipping bar (Sales Booster)"
-msgstr ""
+msgstr "Barra de envío gratis (Sales Booster)"
 
 #: elementor/widgets.php:224
 msgid "Empty or 0 = use the source set in the panel (custom amount or WooCommerce method)."
-msgstr ""
+msgstr "Vacío o 0 = usar la fuente configurada en el panel (monto propio o método de WooCommerce)."
 
 #: elementor/widgets.php:230
 msgid "Available variable: {amount} (how much is left to get free shipping)."
-msgstr ""
+msgstr "Variable disponible: {amount} (lo que falta para el envío gratis)."
 
 #: elementor/widgets.php:244
 msgid "Bar color"
-msgstr ""
+msgstr "Color de la barra"
 
 #: elementor/widgets.php:249
 msgid "Bar background color"
-msgstr ""
+msgstr "Color del fondo de la barra"
 
 #: elementor/widgets.php:277
 msgid "The free shipping bar is disabled in the Sales Booster settings, or no free shipping amount is configured."
-msgstr ""
+msgstr "La barra de envío gratis está desactivada en los ajustes de Sales Booster, o no hay un monto de envío gratis configurado."
 
 #: elementor/widgets.php:290 assets/js/dsb-blocks.js:162
 msgid "Low stock (Sales Booster)"
-msgstr ""
+msgstr "Stock bajo (Sales Booster)"
 
 #: elementor/widgets.php:308
 msgid "Only shown if the real stock is less than or equal to this number."
-msgstr ""
+msgstr "Solo se muestra si el stock real es menor o igual a este número."
 
 #: elementor/widgets.php:314
 msgid "Available variable: {stock}"
-msgstr ""
+msgstr "Variable disponible: {stock}"
 
 #: elementor/widgets.php:345
 msgid "Low stock: shown on product pages when the real inventory is below the threshold (nothing to show in this context)."
-msgstr ""
+msgstr "Stock bajo: se muestra en páginas de producto cuando el inventario real está por debajo del umbral (nada que mostrar en este contexto)."
 
 #: assets/js/dsb-blocks.js:27 assets/js/dsb-blocks.js:123
 msgid "(use global value)"
-msgstr ""
+msgstr "(usar valor global)"
 
 #: assets/js/dsb-blocks.js:40
 msgid "(use global text)"
-msgstr ""
+msgstr "(usar texto global)"
 
 #: assets/js/dsb-blocks.js:54
 msgid "Empty fields use the values from the Sales Booster panel."
-msgstr ""
+msgstr "Los campos vacíos usan los valores del panel Sales Booster."
 
 #: assets/js/dsb-blocks.js:74
 msgid "Counter of people viewing this product."
-msgstr ""
+msgstr "Contador de personas viendo este producto."
 
 #: assets/js/dsb-blocks.js:77
 msgid "viewing"
-msgstr ""
+msgstr "viendo"
 
 #: assets/js/dsb-blocks.js:77 assets/js/dsb-blocks.js:166
 msgid "urgency"
-msgstr ""
+msgstr "urgencia"
 
 #: assets/js/dsb-blocks.js:90 assets/js/dsb-blocks.js:131 assets/js/dsb-blocks.js:177
 msgid "Product ID (empty = current product)"
-msgstr ""
+msgstr "ID de producto (vacío = producto actual)"
 
 #: assets/js/dsb-blocks.js:99
 msgid "Units sold within a period of time."
-msgstr ""
+msgstr "Unidades vendidas en un período de tiempo."
 
 #: assets/js/dsb-blocks.js:102
 msgid "sales"
-msgstr ""
+msgstr "ventas"
 
 #: assets/js/dsb-blocks.js:102
 msgid "sold"
-msgstr ""
+msgstr "vendidos"
 
 #: assets/js/dsb-blocks.js:140
 msgid "Progress bar toward free shipping based on the cart total."
-msgstr ""
+msgstr "Barra de progreso hacia el envío gratis según el total del carrito."
 
 #: assets/js/dsb-blocks.js:143
 msgid "shipping"
-msgstr ""
+msgstr "envío"
 
 #: assets/js/dsb-blocks.js:143
 msgid "free"
-msgstr ""
+msgstr "gratis"
 
 #: assets/js/dsb-blocks.js:143
 msgid "progress"
-msgstr ""
+msgstr "progreso"
 
 #: assets/js/dsb-blocks.js:152
 msgid "Free shipping amount (empty = panel source)"
-msgstr ""
+msgstr "Monto para envío gratis (vacío = fuente del panel)"
 
 #: assets/js/dsb-blocks.js:153
 msgid "Progress text (variable {amount})"
-msgstr ""
+msgstr "Texto de progreso (variable {amount})"
 
 #: assets/js/dsb-blocks.js:156
 msgid "The bar uses the real cart of the visitor; in the editor the preview may show an empty cart."
-msgstr ""
+msgstr "La barra usa el carrito real del visitante; en el editor la vista previa puede mostrar el carrito vacío."
 
 #: assets/js/dsb-blocks.js:163
 msgid "Urgency based on the REAL WooCommerce inventory: it only appears when few units are left."
-msgstr ""
+msgstr "Urgencia con el inventario REAL de WooCommerce: solo aparece si quedan pocas unidades."
 
 #: assets/js/dsb-blocks.js:166
 msgid "inventory"
-msgstr ""
+msgstr "inventario"
 
 #: assets/js/dsb-blocks.js:176
 msgid "Text (variable {stock})"
-msgstr ""
+msgstr "Texto (variable {stock})"
 
 #: assets/js/dsb-blocks.js:179
 msgid "Shown on product pages when the real stock is below the threshold. Outside a product page the preview may be empty."
-msgstr ""
+msgstr "Se muestra en páginas de producto cuando el stock real está por debajo del umbral. Fuera de una página de producto la vista previa puede quedar vacía."

@@ -36,7 +36,7 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
 add_action( 'wp_ajax_dsb_save_settings', function () {
     check_ajax_referer( 'dsb_nonce', 'nonce' );
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_send_json_error( [ 'message' => __( 'Sin permisos.', 'dox-sales-booster' ) ], 403 );
+        wp_send_json_error( [ 'message' => __( 'You do not have permission.', 'dox-sales-booster' ) ], 403 );
     }
 
     // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- se sanea campo a campo en dsb_sanitize()
@@ -51,7 +51,7 @@ add_action( 'wp_ajax_dsb_save_settings', function () {
     $feed_count = ! empty( $fresh['popup_enabled'] ) ? count( dsb_get_popup_feed( $fresh ) ) : -1;
 
     wp_send_json_success( [
-        'message'    => __( '¡Configuración guardada!', 'dox-sales-booster' ),
+        'message'    => __( 'Settings saved!', 'dox-sales-booster' ),
         'feed_count' => $feed_count,
     ] );
 } );
@@ -60,11 +60,11 @@ add_action( 'wp_ajax_dsb_save_settings', function () {
 add_action( 'wp_ajax_dsb_reset_settings', function () {
     check_ajax_referer( 'dsb_nonce', 'nonce' );
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_send_json_error( [ 'message' => __( 'Sin permisos.', 'dox-sales-booster' ) ], 403 );
+        wp_send_json_error( [ 'message' => __( 'You do not have permission.', 'dox-sales-booster' ) ], 403 );
     }
     delete_option( 'dsb_settings' );
     dsb_flush_popup_cache();
-    wp_send_json_success( [ 'message' => __( 'Valores por defecto restaurados.', 'dox-sales-booster' ) ] );
+    wp_send_json_success( [ 'message' => __( 'Default values restored.', 'dox-sales-booster' ) ] );
 } );
 
 /* ── Sanitización ─────────────────────────────────────────────────────────── */
@@ -111,7 +111,7 @@ function dsb_sanitize( $input ) {
 
     // Selects: solo valores de la whitelist
     $selects = [
-        'fakesales_period'    => [ 'minutos', 'horas', 'días', 'semanas' ],
+        'fakesales_period'    => [ 'minutes', 'hours', 'days', 'weeks' ],
         'fakesales_data_mode' => [ 'simulated', 'real' ],
         'popup_animation'     => [ 'slide_up', 'slide_right' ],
         'popup_position'      => [ 'left', 'right' ],
@@ -231,17 +231,17 @@ function dsb_render_page() {
                 <span class="dsb-header-version">v<?php echo esc_html( DSB_VERSION ); ?></span>
             </div>
             <div class="dsb-header-actions">
-                <button class="dsb-btn-reset" id="dsb-reset-btn" type="button"><?php esc_html_e( 'Restaurar valores por defecto', 'dox-sales-booster' ); ?></button>
-                <button class="dsb-btn-save" id="dsb-save-btn" type="button"><?php esc_html_e( 'Guardar cambios', 'dox-sales-booster' ); ?></button>
+                <button class="dsb-btn-reset" id="dsb-reset-btn" type="button"><?php esc_html_e( 'Restore default values', 'dox-sales-booster' ); ?></button>
+                <button class="dsb-btn-save" id="dsb-save-btn" type="button"><?php esc_html_e( 'Save changes', 'dox-sales-booster' ); ?></button>
             </div>
         </div>
 
         <div class="dsb-tabs">
-            <button type="button" class="dsb-tab active" data-tab="viewing"><?php echo dsb_icon_eye(); ?> <?php esc_html_e( 'Personas viendo', 'dox-sales-booster' ); ?></button>
-            <button type="button" class="dsb-tab" data-tab="sales"><?php echo dsb_icon_fire(); ?> <?php esc_html_e( 'Ventas recientes', 'dox-sales-booster' ); ?></button>
-            <button type="button" class="dsb-tab" data-tab="stock"><?php echo dsb_icon_bolt(); ?> <?php esc_html_e( 'Stock bajo', 'dox-sales-booster' ); ?></button>
-            <button type="button" class="dsb-tab" data-tab="shipbar"><?php echo dsb_icon_truck(); ?> <?php esc_html_e( 'Envío gratis', 'dox-sales-booster' ); ?></button>
-            <button type="button" class="dsb-tab" data-tab="popup"><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Popup de compra', 'dox-sales-booster' ); ?></button>
+            <button type="button" class="dsb-tab active" data-tab="viewing"><?php echo dsb_icon_eye(); ?> <?php esc_html_e( 'People viewing', 'dox-sales-booster' ); ?></button>
+            <button type="button" class="dsb-tab" data-tab="sales"><?php echo dsb_icon_fire(); ?> <?php esc_html_e( 'Recent sales', 'dox-sales-booster' ); ?></button>
+            <button type="button" class="dsb-tab" data-tab="stock"><?php echo dsb_icon_bolt(); ?> <?php esc_html_e( 'Low stock', 'dox-sales-booster' ); ?></button>
+            <button type="button" class="dsb-tab" data-tab="shipbar"><?php echo dsb_icon_truck(); ?> <?php esc_html_e( 'Free shipping', 'dox-sales-booster' ); ?></button>
+            <button type="button" class="dsb-tab" data-tab="popup"><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Purchase popup', 'dox-sales-booster' ); ?></button>
             <button type="button" class="dsb-tab" data-tab="shortcodes"><?php echo dsb_icon_code(); ?> <?php esc_html_e( 'Shortcodes', 'dox-sales-booster' ); ?></button>
         </div>
 
@@ -253,22 +253,22 @@ function dsb_render_page() {
             <div class="dsb-panel-grid">
                 <div class="dsb-card">
                     <div class="dsb-card-header">
-                        <h2><?php echo dsb_icon_eye(); ?> <?php esc_html_e( 'Contador de personas viendo', 'dox-sales-booster' ); ?></h2>
+                        <h2><?php echo dsb_icon_eye(); ?> <?php esc_html_e( 'People viewing counter', 'dox-sales-booster' ); ?></h2>
                         <label class="dsb-toggle"><input type="checkbox" name="dsb[viewing_enabled]" value="1" <?php checked( $o['viewing_enabled'], 1 ); ?>><span class="dsb-toggle-slider"></span></label>
                     </div>
-                    <p class="dsb-card-desc"><?php esc_html_e( 'Número aleatorio de personas viendo el producto, con variación gradual. Agrégalo con el widget de Elementor, el bloque de Gutenberg o el shortcode [dsb_viewing].', 'dox-sales-booster' ); ?></p>
+                    <p class="dsb-card-desc"><?php esc_html_e( 'A random number of people viewing the product, with gradual variation. Add it with the Elementor widget, the Gutenberg block or the [dsb_viewing] shortcode.', 'dox-sales-booster' ); ?></p>
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Texto', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Text', 'dox-sales-booster' ); ?></label>
                         <input type="text" name="dsb[viewing_text]" value="<?php echo esc_attr( $o['viewing_text'] ); ?>">
                     </div>
                     <div class="dsb-field-row">
-                        <div class="dsb-field"><label><?php esc_html_e( 'Mínimo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_min]" value="<?php echo esc_attr( $o['viewing_min'] ); ?>" min="1" max="50"><span class="dsb-hint"><?php esc_html_e( 'personas', 'dox-sales-booster' ); ?></span></div>
-                        <div class="dsb-field"><label><?php esc_html_e( 'Máximo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_max]" value="<?php echo esc_attr( $o['viewing_max'] ); ?>" min="1" max="200"><span class="dsb-hint"><?php esc_html_e( 'personas', 'dox-sales-booster' ); ?></span></div>
-                        <div class="dsb-field"><label><?php esc_html_e( 'Refrescar cada', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_interval]" value="<?php echo esc_attr( $o['viewing_interval'] ); ?>" min="1" max="60"><span class="dsb-hint"><?php esc_html_e( 'minutos', 'dox-sales-booster' ); ?></span></div>
+                        <div class="dsb-field"><label><?php esc_html_e( 'Minimum', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_min]" value="<?php echo esc_attr( $o['viewing_min'] ); ?>" min="1" max="50"><span class="dsb-hint"><?php esc_html_e( 'people', 'dox-sales-booster' ); ?></span></div>
+                        <div class="dsb-field"><label><?php esc_html_e( 'Maximum', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_max]" value="<?php echo esc_attr( $o['viewing_max'] ); ?>" min="1" max="200"><span class="dsb-hint"><?php esc_html_e( 'people', 'dox-sales-booster' ); ?></span></div>
+                        <div class="dsb-field"><label><?php esc_html_e( 'Refresh every', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[viewing_interval]" value="<?php echo esc_attr( $o['viewing_interval'] ); ?>" min="1" max="60"><span class="dsb-hint"><?php esc_html_e( 'minutes', 'dox-sales-booster' ); ?></span></div>
                     </div>
                 </div>
                 <div class="dsb-card dsb-preview-card">
-                    <h3><?php esc_html_e( 'Vista previa', 'dox-sales-booster' ); ?></h3>
+                    <h3><?php esc_html_e( 'Preview', 'dox-sales-booster' ); ?></h3>
                     <div class="dsb-preview-box">
                         <div class="dsb-preview-product">
                             <div class="dsb-preview-img"></div>
@@ -289,45 +289,45 @@ function dsb_render_page() {
             <div class="dsb-panel-grid">
                 <div class="dsb-card">
                     <div class="dsb-card-header">
-                        <h2><?php echo dsb_icon_fire(); ?> <?php esc_html_e( 'Texto de ventas recientes', 'dox-sales-booster' ); ?></h2>
+                        <h2><?php echo dsb_icon_fire(); ?> <?php esc_html_e( 'Recent sales text', 'dox-sales-booster' ); ?></h2>
                         <label class="dsb-toggle"><input type="checkbox" name="dsb[fakesales_enabled]" value="1" <?php checked( $o['fakesales_enabled'], 1 ); ?>><span class="dsb-toggle-slider"></span></label>
                     </div>
-                    <p class="dsb-card-desc"><?php esc_html_e( 'Muestra las unidades vendidas en un período. Agrégalo con el widget de Elementor, el bloque de Gutenberg o el shortcode [dsb_sales].', 'dox-sales-booster' ); ?></p>
+                    <p class="dsb-card-desc"><?php esc_html_e( 'Shows the units sold within a period. Add it with the Elementor widget, the Gutenberg block or the [dsb_sales] shortcode.', 'dox-sales-booster' ); ?></p>
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Texto', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Text', 'dox-sales-booster' ); ?></label>
                         <input type="text" name="dsb[fakesales_text]" value="<?php echo esc_attr( $o['fakesales_text'] ); ?>">
                         <span class="dsb-hint"><?php esc_html_e( 'Variables:', 'dox-sales-booster' ); ?> <code>{count}</code> <code>{timeframe}</code> <code>{period}</code></span>
                     </div>
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Modo de datos', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Data mode', 'dox-sales-booster' ); ?></label>
                         <select name="dsb[fakesales_data_mode]">
-                            <option value="simulated" <?php selected( $o['fakesales_data_mode'], 'simulated' ); ?>><?php esc_html_e( 'Simulado (número entre el mínimo y el máximo)', 'dox-sales-booster' ); ?></option>
-                            <option value="real" <?php selected( $o['fakesales_data_mode'], 'real' ); ?>><?php esc_html_e( 'Real (unidades vendidas de verdad)', 'dox-sales-booster' ); ?></option>
+                            <option value="simulated" <?php selected( $o['fakesales_data_mode'], 'simulated' ); ?>><?php esc_html_e( 'Simulated (a number between the minimum and the maximum)', 'dox-sales-booster' ); ?></option>
+                            <option value="real" <?php selected( $o['fakesales_data_mode'], 'real' ); ?>><?php esc_html_e( 'Real (actual units sold)', 'dox-sales-booster' ); ?></option>
                         </select>
-                        <span class="dsb-hint"><?php esc_html_e( 'Simulado: el número se mantiene fijo durante todo el período (ya no cambia al recargar la página) y es el mismo para todos los visitantes. Real: cuenta las unidades vendidas del producto en pedidos completados o en proceso dentro del período; si no hubo ninguna venta, el texto no se muestra.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Simulated: the number stays fixed for the whole period (it no longer changes when the page is reloaded) and is the same for every visitor. Real: counts the units of the product sold in completed or processing orders within the period; if there were no sales, the text is not shown.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-sales-sim-only">
                         <div class="dsb-field-row">
-                            <div class="dsb-field"><label><?php esc_html_e( 'Mínimo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_min]" value="<?php echo esc_attr( $o['fakesales_min'] ); ?>" min="1" max="50"></div>
-                            <div class="dsb-field"><label><?php esc_html_e( 'Máximo', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_max]" value="<?php echo esc_attr( $o['fakesales_max'] ); ?>" min="1" max="200"></div>
+                            <div class="dsb-field"><label><?php esc_html_e( 'Minimum', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_min]" value="<?php echo esc_attr( $o['fakesales_min'] ); ?>" min="1" max="50"></div>
+                            <div class="dsb-field"><label><?php esc_html_e( 'Maximum', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_max]" value="<?php echo esc_attr( $o['fakesales_max'] ); ?>" min="1" max="200"></div>
                         </div>
                     </div>
                     <div class="dsb-field-row">
-                        <div class="dsb-field"><label><?php esc_html_e( 'Cantidad', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_timeframe]" value="<?php echo esc_attr( $o['fakesales_timeframe'] ); ?>" min="1" max="999"></div>
+                        <div class="dsb-field"><label><?php esc_html_e( 'Quantity', 'dox-sales-booster' ); ?></label><input type="number" name="dsb[fakesales_timeframe]" value="<?php echo esc_attr( $o['fakesales_timeframe'] ); ?>" min="1" max="999"></div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Período', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Period', 'dox-sales-booster' ); ?></label>
                             <select name="dsb[fakesales_period]">
-                                <?php foreach ( [ 'minutos' => __( 'Minutos', 'dox-sales-booster' ), 'horas' => __( 'Horas', 'dox-sales-booster' ), 'días' => __( 'Días', 'dox-sales-booster' ), 'semanas' => __( 'Semanas', 'dox-sales-booster' ) ] as $v => $l ) : ?>
+                                <?php foreach ( [ 'minutes' => __( 'Minutes', 'dox-sales-booster' ), 'hours' => __( 'Hours', 'dox-sales-booster' ), 'days' => __( 'Days', 'dox-sales-booster' ), 'weeks' => __( 'Weeks', 'dox-sales-booster' ) ] as $v => $l ) : ?>
                                 <option value="<?php echo esc_attr( $v ); ?>" <?php selected( $o['fakesales_period'], $v ); ?>><?php echo esc_html( $l ); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'El color del número {count} se controla desde Elementor → widget "🔥 Ventas recientes" → pestaña Estilo.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'The color of the {count} number is set in Elementor → the "🔥 Recent sales" widget → Style tab.', 'dox-sales-booster' ); ?></div>
                 </div>
                 <div class="dsb-card dsb-preview-card">
-                    <h3><?php esc_html_e( 'Vista previa', 'dox-sales-booster' ); ?></h3>
+                    <h3><?php esc_html_e( 'Preview', 'dox-sales-booster' ); ?></h3>
                     <div class="dsb-preview-box">
                         <div class="dsb-preview-product">
                             <div class="dsb-preview-img"></div>
@@ -357,24 +357,24 @@ function dsb_render_page() {
             <div class="dsb-panel-grid">
                 <div class="dsb-card">
                     <div class="dsb-card-header">
-                        <h2><?php echo dsb_icon_bolt(); ?> <?php esc_html_e( 'Aviso de stock bajo (datos reales)', 'dox-sales-booster' ); ?></h2>
+                        <h2><?php echo dsb_icon_bolt(); ?> <?php esc_html_e( 'Low stock notice (real data)', 'dox-sales-booster' ); ?></h2>
                         <label class="dsb-toggle"><input type="checkbox" name="dsb[stock_enabled]" value="1" <?php checked( $o['stock_enabled'], 1 ); ?>><span class="dsb-toggle-slider"></span></label>
                     </div>
-                    <p class="dsb-card-desc"><?php esc_html_e( 'Urgencia con el inventario REAL de WooCommerce: solo aparece si el producto gestiona stock y quedan pocas unidades. Agrégalo con el widget de Elementor, el bloque de Gutenberg o el shortcode [dsb_stock].', 'dox-sales-booster' ); ?></p>
+                    <p class="dsb-card-desc"><?php esc_html_e( 'Urgency based on the REAL WooCommerce inventory: it only appears if the product manages stock and few units are left. Add it with the Elementor widget, the Gutenberg block or the [dsb_stock] shortcode.', 'dox-sales-booster' ); ?></p>
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Texto', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Text', 'dox-sales-booster' ); ?></label>
                         <input type="text" name="dsb[stock_text]" value="<?php echo esc_attr( $o['stock_text'] ); ?>">
                         <span class="dsb-hint"><?php esc_html_e( 'Variable:', 'dox-sales-booster' ); ?> <code>{stock}</code></span>
                     </div>
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Umbral de unidades', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Units threshold', 'dox-sales-booster' ); ?></label>
                         <input type="number" name="dsb[stock_threshold]" value="<?php echo esc_attr( $o['stock_threshold'] ); ?>" min="1" max="999">
-                        <span class="dsb-hint"><?php esc_html_e( 'Se muestra cuando el stock real es menor o igual a este número.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Shown when the real stock is less than or equal to this number.', 'dox-sales-booster' ); ?></span>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'A diferencia de los otros elementos, este usa datos 100% reales: si el producto no gestiona inventario o tiene stock de sobra, no se muestra nada.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'Unlike the other elements, this one uses 100% real data: if the product does not manage inventory or has plenty of stock, nothing is shown.', 'dox-sales-booster' ); ?></div>
                 </div>
                 <div class="dsb-card dsb-preview-card">
-                    <h3><?php esc_html_e( 'Vista previa', 'dox-sales-booster' ); ?></h3>
+                    <h3><?php esc_html_e( 'Preview', 'dox-sales-booster' ); ?></h3>
                     <div class="dsb-preview-box">
                         <div class="dsb-preview-product">
                             <div class="dsb-preview-img"></div>
@@ -399,88 +399,88 @@ function dsb_render_page() {
             <div class="dsb-panel-grid">
                 <div class="dsb-card">
                     <div class="dsb-card-header">
-                        <h2><?php echo dsb_icon_truck(); ?> <?php esc_html_e( 'Barra de envío gratis', 'dox-sales-booster' ); ?></h2>
+                        <h2><?php echo dsb_icon_truck(); ?> <?php esc_html_e( 'Free shipping bar', 'dox-sales-booster' ); ?></h2>
                         <label class="dsb-toggle"><input type="checkbox" name="dsb[shipbar_enabled]" value="1" <?php checked( $o['shipbar_enabled'], 1 ); ?>><span class="dsb-toggle-slider"></span></label>
                     </div>
-                    <p class="dsb-card-desc"><?php esc_html_e( 'Barra de progreso con lo que le falta al cliente para obtener envío gratis. Usa el carrito real y se actualiza sola (sin recargar) al agregar o quitar productos. Compatible con el mini carrito estándar de WooCommerce, incluido el offcanvas de UICore Pro.', 'dox-sales-booster' ); ?></p>
+                    <p class="dsb-card-desc"><?php esc_html_e( 'A progress bar with how much the customer still needs to get free shipping. It uses the real cart and updates itself (without reloading) when products are added or removed. Compatible with the standard WooCommerce mini cart, including the UICore Pro offcanvas.', 'dox-sales-booster' ); ?></p>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Dónde se muestra', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Where it is shown', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-switches-row">
                         <label class="dsb-switch-label">
                             <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_minicart]" value="1" <?php checked( $o['shipbar_minicart'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                            <?php esc_html_e( 'Mini carrito (offcanvas / widget)', 'dox-sales-booster' ); ?>
+                            <?php esc_html_e( 'Mini cart (offcanvas / widget)', 'dox-sales-booster' ); ?>
                         </label>
                         <label class="dsb-switch-label">
                             <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_cart]" value="1" <?php checked( $o['shipbar_cart'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                            <?php esc_html_e( 'Página del carrito', 'dox-sales-booster' ); ?>
+                            <?php esc_html_e( 'Cart page', 'dox-sales-booster' ); ?>
                         </label>
                         <label class="dsb-switch-label">
                             <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_checkout]" value="1" <?php checked( $o['shipbar_checkout'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                            <?php esc_html_e( 'Página de pago (checkout)', 'dox-sales-booster' ); ?>
+                            <?php esc_html_e( 'Checkout page', 'dox-sales-booster' ); ?>
                         </label>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Monto para envío gratis', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Free shipping amount', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Fuente del monto', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Amount source', 'dox-sales-booster' ); ?></label>
                         <select name="dsb[shipbar_source]">
-                            <option value="custom" <?php selected( $o['shipbar_source'], 'custom' ); ?>><?php esc_html_e( 'Monto propio (configurado aquí)', 'dox-sales-booster' ); ?></option>
-                            <option value="woocommerce" <?php selected( $o['shipbar_source'], 'woocommerce' ); ?>><?php esc_html_e( 'Método "Envío gratuito" de WooCommerce (pedido mínimo)', 'dox-sales-booster' ); ?></option>
+                            <option value="custom" <?php selected( $o['shipbar_source'], 'custom' ); ?>><?php esc_html_e( 'Custom amount (set here)', 'dox-sales-booster' ); ?></option>
+                            <option value="woocommerce" <?php selected( $o['shipbar_source'], 'woocommerce' ); ?>><?php esc_html_e( 'WooCommerce "Free shipping" method (minimum order)', 'dox-sales-booster' ); ?></option>
                         </select>
-                        <span class="dsb-hint"><?php esc_html_e( 'Con la fuente WooCommerce, el monto se lee del pedido mínimo del método "Envío gratuito" de la zona de envío del cliente. Si esa zona no tiene monto mínimo configurado, se usa el monto propio como respaldo.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'With the WooCommerce source, the amount is read from the minimum order of the "Free shipping" method in the shipping zone that matches the customer. If that zone has no minimum amount set, the custom amount is used as a fallback.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-shipbar-custom-only">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Monto propio', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Custom amount', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[shipbar_threshold]" value="<?php echo esc_attr( $o['shipbar_threshold'] ); ?>" min="0" max="999999999">
-                            <span class="dsb-hint"><?php esc_html_e( 'Solo números, sin símbolo de moneda. Ej: 349000', 'dox-sales-booster' ); ?></span>
+                            <span class="dsb-hint"><?php esc_html_e( 'Numbers only, no currency symbol. E.g. 100', 'dox-sales-booster' ); ?></span>
                         </div>
                     </div>
 
                     <div class="dsb-switches-row">
                         <label class="dsb-switch-label">
                             <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[shipbar_ignore_coupons]" value="1" <?php checked( $o['shipbar_ignore_coupons'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                            <?php esc_html_e( 'Ignorar cupones (contar el subtotal sin descuentos)', 'dox-sales-booster' ); ?>
+                            <?php esc_html_e( 'Ignore coupons (count the subtotal without discounts)', 'dox-sales-booster' ); ?>
                         </label>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Textos', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Texts', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Texto de progreso', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Progress text', 'dox-sales-booster' ); ?></label>
                         <textarea name="dsb[shipbar_text]" rows="2"><?php echo esc_textarea( $o['shipbar_text'] ); ?></textarea>
-                        <span class="dsb-hint"><?php esc_html_e( 'Variable:', 'dox-sales-booster' ); ?> <code>{precio}</code> — <?php esc_html_e( 'lo que falta para el envío gratis.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Variable:', 'dox-sales-booster' ); ?> <code>{amount}</code> — <?php esc_html_e( 'how much is left to get free shipping.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Texto de éxito', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Success text', 'dox-sales-booster' ); ?></label>
                         <textarea name="dsb[shipbar_success_text]" rows="2"><?php echo esc_textarea( $o['shipbar_success_text'] ); ?></textarea>
-                        <span class="dsb-hint"><?php esc_html_e( 'Se muestra cuando el carrito ya alcanzó el monto.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Shown once the cart has reached the amount.', 'dox-sales-booster' ); ?></span>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Colores', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Colors', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field-row">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Barra de progreso', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Progress bar', 'dox-sales-booster' ); ?></label>
                             <input type="color" name="dsb[shipbar_bar_color]" value="<?php echo esc_attr( $o['shipbar_bar_color'] ); ?>" class="dsb-color-input">
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Fondo de la barra', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Bar background', 'dox-sales-booster' ); ?></label>
                             <input type="color" name="dsb[shipbar_track_color]" value="<?php echo esc_attr( $o['shipbar_track_color'] ); ?>" class="dsb-color-input">
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Texto', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Text', 'dox-sales-booster' ); ?></label>
                             <input type="color" name="dsb[shipbar_text_color]" value="<?php echo esc_attr( $o['shipbar_text_color'] ); ?>" class="dsb-color-input">
                         </div>
                     </div>
                 </div>
 
                 <div class="dsb-card dsb-preview-card">
-                    <h3><?php esc_html_e( 'Vista previa', 'dox-sales-booster' ); ?></h3>
+                    <h3><?php esc_html_e( 'Preview', 'dox-sales-booster' ); ?></h3>
                     <div class="dsb-preview-box">
                         <div id="dsb-shipbar-preview" style="--dsb-prev-fill:<?php echo esc_attr( $o['shipbar_bar_color'] ); ?>;--dsb-prev-track:<?php echo esc_attr( $o['shipbar_track_color'] ); ?>;--dsb-prev-text:<?php echo esc_attr( $o['shipbar_text_color'] ); ?>;text-align:center;">
                             <p id="dsb-shipbar-preview-msg" style="font-size:13px;margin:0 0 8px;color:var(--dsb-prev-text);"></p>
@@ -490,12 +490,12 @@ function dsb_render_page() {
                         </div>
                     </div>
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Simular progreso del carrito', 'dox-sales-booster' ); ?> — <strong><span id="dsb-shipbar-demo-val">65</span>%</strong></label>
+                        <label><?php esc_html_e( 'Simulate cart progress', 'dox-sales-booster' ); ?> — <strong><span id="dsb-shipbar-demo-val">65</span>%</strong></label>
                         <input type="range" id="dsb-shipbar-demo" value="65" min="0" max="100" step="1" class="dsb-slider">
-                        <span class="dsb-hint"><?php esc_html_e( 'Solo para la vista previa: al llegar a 100% se muestra el texto de éxito.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Preview only: when it reaches 100% the success text is shown.', 'dox-sales-booster' ); ?></span>
                     </div>
                     <p class="dsb-shortcode-box"><?php esc_html_e( 'Shortcode', 'dox-sales-booster' ); ?>: <code>[dsb_envio_gratis]</code></p>
-                    <div class="dsb-info-box"><?php esc_html_e( 'Con las ubicaciones activadas arriba, la barra se inserta sola: no necesitas shortcode ni widget. El shortcode y el widget de Elementor son para colocarla en lugares adicionales.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'With the locations enabled above, the bar inserts itself: you need no shortcode or widget. The shortcode and the Elementor widget are for placing it in additional spots.', 'dox-sales-booster' ); ?></div>
                 </div>
             </div>
         </div>
@@ -505,131 +505,131 @@ function dsb_render_page() {
             <div class="dsb-panel-grid">
                 <div class="dsb-card">
                     <div class="dsb-card-header">
-                        <h2><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Popup de compra reciente', 'dox-sales-booster' ); ?></h2>
+                        <h2><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Recent purchase popup', 'dox-sales-booster' ); ?></h2>
                         <label class="dsb-toggle"><input type="checkbox" name="dsb[popup_enabled]" value="1" <?php checked( $o['popup_enabled'], 1 ); ?>><span class="dsb-toggle-slider"></span></label>
                     </div>
-                    <p class="dsb-card-desc"><?php esc_html_e( 'Aparece automáticamente en todo el sitio. No necesita shortcode.', 'dox-sales-booster' ); ?></p>
+                    <p class="dsb-card-desc"><?php esc_html_e( 'It appears automatically across the whole site. No shortcode needed.', 'dox-sales-booster' ); ?></p>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Comportamiento', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Behavior', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field-row">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Mostrar cada', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Show every', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_interval]" value="<?php echo esc_attr( $o['popup_interval'] ); ?>" min="10" max="300">
-                            <span class="dsb-hint"><?php esc_html_e( 'segundos', 'dox-sales-booster' ); ?></span>
+                            <span class="dsb-hint"><?php esc_html_e( 'seconds', 'dox-sales-booster' ); ?></span>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Animación', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Animation', 'dox-sales-booster' ); ?></label>
                             <select name="dsb[popup_animation]">
-                                <option value="slide_up" <?php selected( $o['popup_animation'], 'slide_up' ); ?>><?php esc_html_e( 'Deslizar arriba', 'dox-sales-booster' ); ?></option>
-                                <option value="slide_right" <?php selected( $o['popup_animation'], 'slide_right' ); ?>><?php esc_html_e( 'Deslizar lateral', 'dox-sales-booster' ); ?></option>
+                                <option value="slide_up" <?php selected( $o['popup_animation'], 'slide_up' ); ?>><?php esc_html_e( 'Slide up', 'dox-sales-booster' ); ?></option>
+                                <option value="slide_right" <?php selected( $o['popup_animation'], 'slide_right' ); ?>><?php esc_html_e( 'Slide in from the side', 'dox-sales-booster' ); ?></option>
                             </select>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Posición', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Position', 'dox-sales-booster' ); ?></label>
                             <select name="dsb[popup_position]">
-                                <option value="left" <?php selected( $o['popup_position'], 'left' ); ?>><?php esc_html_e( 'Abajo izquierda', 'dox-sales-booster' ); ?></option>
-                                <option value="right" <?php selected( $o['popup_position'], 'right' ); ?>><?php esc_html_e( 'Abajo derecha', 'dox-sales-booster' ); ?></option>
+                                <option value="left" <?php selected( $o['popup_position'], 'left' ); ?>><?php esc_html_e( 'Bottom left', 'dox-sales-booster' ); ?></option>
+                                <option value="right" <?php selected( $o['popup_position'], 'right' ); ?>><?php esc_html_e( 'Bottom right', 'dox-sales-booster' ); ?></option>
                             </select>
                         </div>
                     </div>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Duración del popup', 'dox-sales-booster' ); ?> — <strong><span id="dsb-display-secs-val"><?php echo $disp_secs; ?></span> seg</strong></label>
+                        <label><?php esc_html_e( 'Popup duration', 'dox-sales-booster' ); ?> — <strong><span id="dsb-display-secs-val"><?php echo $disp_secs; ?></span> seg</strong></label>
                         <input type="range" id="dsb-display-secs-slider" name="dsb[popup_display_seconds]"
                                value="<?php echo esc_attr( $disp_secs ); ?>" min="3" max="30" step="1" class="dsb-slider">
-                        <span class="dsb-hint"><?php esc_html_e( 'Cuántos segundos permanece visible antes de desaparecer. Si supera el intervalo, se ajusta automáticamente.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'How many seconds it stays visible before disappearing. If it exceeds the interval, it is adjusted automatically.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-field-row">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Primer popup: espera mínima', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'First popup: minimum wait', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_first_delay_min]" value="<?php echo esc_attr( $o['popup_first_delay_min'] ); ?>" min="0" max="120">
-                            <span class="dsb-hint"><?php esc_html_e( 'segundos', 'dox-sales-booster' ); ?></span>
+                            <span class="dsb-hint"><?php esc_html_e( 'seconds', 'dox-sales-booster' ); ?></span>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Primer popup: espera máxima', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'First popup: maximum wait', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_first_delay_max]" value="<?php echo esc_attr( $o['popup_first_delay_max'] ); ?>" min="1" max="180">
-                            <span class="dsb-hint"><?php esc_html_e( 'segundos', 'dox-sales-booster' ); ?></span>
+                            <span class="dsb-hint"><?php esc_html_e( 'seconds', 'dox-sales-booster' ); ?></span>
                         </div>
                     </div>
 
                     <div class="dsb-field-row">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Silencio tras cerrar', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Silence after closing', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_close_silence]" value="<?php echo esc_attr( $o['popup_close_silence'] ); ?>" min="0" max="1440">
-                            <span class="dsb-hint"><?php esc_html_e( 'minutos sin popups si el visitante lo cierra (0 = desactivado)', 'dox-sales-booster' ); ?></span>
+                            <span class="dsb-hint"><?php esc_html_e( 'minutes without popups if the visitor closes it (0 = disabled)', 'dox-sales-booster' ); ?></span>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Máximo por página', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Maximum per page', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_max_per_page]" value="<?php echo esc_attr( $o['popup_max_per_page'] ); ?>" min="0" max="50">
-                            <span class="dsb-hint"><?php esc_html_e( 'popups por carga de página (0 = sin límite)', 'dox-sales-booster' ); ?></span>
+                            <span class="dsb-hint"><?php esc_html_e( 'popups per page load (0 = no limit)', 'dox-sales-booster' ); ?></span>
                         </div>
                     </div>
 
                     <div class="dsb-switches-row">
                         <label class="dsb-switch-label">
                             <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[popup_show_mobile]" value="1" <?php checked( $o['popup_show_mobile'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                            <?php esc_html_e( 'Mostrar en móvil', 'dox-sales-booster' ); ?>
+                            <?php esc_html_e( 'Show on mobile', 'dox-sales-booster' ); ?>
                         </label>
                         <label class="dsb-switch-label">
                             <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[popup_exclude_checkout]" value="1" <?php checked( $o['popup_exclude_checkout'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                            <?php esc_html_e( 'Ocultar en carrito y checkout (recomendado: no distrae durante el pago)', 'dox-sales-booster' ); ?>
+                            <?php esc_html_e( 'Hide on cart and checkout (recommended: no distractions during payment)', 'dox-sales-booster' ); ?>
                         </label>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Datos', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Data', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Modo de datos', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Data mode', 'dox-sales-booster' ); ?></label>
                         <select name="dsb[popup_data_mode]">
-                            <option value="simulated" <?php selected( $o['popup_data_mode'], 'simulated' ); ?>><?php esc_html_e( 'Simulado (productos del catálogo)', 'dox-sales-booster' ); ?></option>
-                            <option value="real" <?php selected( $o['popup_data_mode'], 'real' ); ?>><?php esc_html_e( 'Real (pedidos de los últimos 30 días)', 'dox-sales-booster' ); ?></option>
+                            <option value="simulated" <?php selected( $o['popup_data_mode'], 'simulated' ); ?>><?php esc_html_e( 'Simulated (catalog products)', 'dox-sales-booster' ); ?></option>
+                            <option value="real" <?php selected( $o['popup_data_mode'], 'real' ); ?>><?php esc_html_e( 'Real (orders from the last 30 days)', 'dox-sales-booster' ); ?></option>
                         </select>
-                        <span class="dsb-hint"><?php esc_html_e( 'Modo real: producto, ciudad y tiempo salen de pedidos reales (completados/en proceso). Nunca se muestran nombres ni datos del cliente. Si no hay pedidos recientes, cae al modo simulado.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no recent orders, it falls back to simulated mode.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-sim-only">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Fuente de productos', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Product source', 'dox-sales-booster' ); ?></label>
                             <select name="dsb[popup_products_type]">
-                                <option value="random"      <?php selected( $o['popup_products_type'], 'random' ); ?>><?php esc_html_e( 'Aleatorio', 'dox-sales-booster' ); ?></option>
-                                <option value="featured"    <?php selected( $o['popup_products_type'], 'featured' ); ?>><?php esc_html_e( 'Destacados', 'dox-sales-booster' ); ?></option>
-                                <option value="sale"        <?php selected( $o['popup_products_type'], 'sale' ); ?>><?php esc_html_e( 'En oferta', 'dox-sales-booster' ); ?></option>
-                                <option value="bestsellers" <?php selected( $o['popup_products_type'], 'bestsellers' ); ?>><?php esc_html_e( 'Más vendidos', 'dox-sales-booster' ); ?></option>
+                                <option value="random"      <?php selected( $o['popup_products_type'], 'random' ); ?>><?php esc_html_e( 'Random', 'dox-sales-booster' ); ?></option>
+                                <option value="featured"    <?php selected( $o['popup_products_type'], 'featured' ); ?>><?php esc_html_e( 'Featured', 'dox-sales-booster' ); ?></option>
+                                <option value="sale"        <?php selected( $o['popup_products_type'], 'sale' ); ?>><?php esc_html_e( 'On sale', 'dox-sales-booster' ); ?></option>
+                                <option value="bestsellers" <?php selected( $o['popup_products_type'], 'bestsellers' ); ?>><?php esc_html_e( 'Best sellers', 'dox-sales-booster' ); ?></option>
                             </select>
                         </div>
 
                         <?php if ( $cats ) : ?>
                         <div class="dsb-field-row">
                             <div class="dsb-field">
-                                <label><?php esc_html_e( 'Incluir solo estas categorías', 'dox-sales-booster' ); ?></label>
+                                <label><?php esc_html_e( 'Include only these categories', 'dox-sales-booster' ); ?></label>
                                 <select name="dsb[popup_cats_include][]" multiple size="5" class="dsb-multiselect">
                                     <?php foreach ( $cats as $t ) : ?>
                                     <option value="<?php echo (int) $t->term_id; ?>" <?php selected( in_array( (int) $t->term_id, $cats_incl, true ) ); ?>><?php echo esc_html( $t->name ); ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <span class="dsb-hint"><?php esc_html_e( 'Vacío = todas. Ctrl/Cmd + clic para varias.', 'dox-sales-booster' ); ?></span>
+                                <span class="dsb-hint"><?php esc_html_e( 'Empty = all of them. Ctrl/Cmd + click to pick several.', 'dox-sales-booster' ); ?></span>
                             </div>
                             <div class="dsb-field">
-                                <label><?php esc_html_e( 'Excluir estas categorías', 'dox-sales-booster' ); ?></label>
+                                <label><?php esc_html_e( 'Exclude these categories', 'dox-sales-booster' ); ?></label>
                                 <select name="dsb[popup_cats_exclude][]" multiple size="5" class="dsb-multiselect">
                                     <?php foreach ( $cats as $t ) : ?>
                                     <option value="<?php echo (int) $t->term_id; ?>" <?php selected( in_array( (int) $t->term_id, $cats_excl, true ) ); ?>><?php echo esc_html( $t->name ); ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <span class="dsb-hint"><?php esc_html_e( 'Ctrl/Cmd + clic para quitar la selección.', 'dox-sales-booster' ); ?></span>
+                                <span class="dsb-hint"><?php esc_html_e( 'Ctrl/Cmd + click to clear the selection.', 'dox-sales-booster' ); ?></span>
                             </div>
                         </div>
                         <?php endif; ?>
 
                         <div class="dsb-field-row">
                             <div class="dsb-field">
-                                <label><?php esc_html_e( '"Hace X minutos": mínimo', 'dox-sales-booster' ); ?></label>
+                                <label><?php esc_html_e( '"X minutes ago": minimum', 'dox-sales-booster' ); ?></label>
                                 <input type="number" name="dsb[popup_ago_min]" value="<?php echo esc_attr( $o['popup_ago_min'] ); ?>" min="1" max="999">
                             </div>
                             <div class="dsb-field">
-                                <label><?php esc_html_e( '"Hace X minutos": máximo', 'dox-sales-booster' ); ?></label>
+                                <label><?php esc_html_e( '"X minutes ago": maximum', 'dox-sales-booster' ); ?></label>
                                 <input type="number" name="dsb[popup_ago_max]" value="<?php echo esc_attr( $o['popup_ago_max'] ); ?>" min="1" max="999">
                             </div>
                         </div>
@@ -637,7 +637,7 @@ function dsb_render_page() {
                         <div class="dsb-switches-row">
                             <label class="dsb-switch-label">
                                 <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[popup_hide_outofstock]" value="1" <?php checked( $o['popup_hide_outofstock'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                                <?php esc_html_e( 'Ocultar productos sin stock', 'dox-sales-booster' ); ?>
+                                <?php esc_html_e( 'Hide out of stock products', 'dox-sales-booster' ); ?>
                             </label>
                         </div>
                     </div><!-- /.dsb-sim-only -->
@@ -645,74 +645,74 @@ function dsb_render_page() {
                     <div class="dsb-switches-row">
                         <label class="dsb-switch-label">
                             <span class="dsb-toggle dsb-toggle-sm"><input type="checkbox" name="dsb[popup_show_price]" value="1" <?php checked( $o['popup_show_price'], 1 ); ?>><span class="dsb-toggle-slider"></span></span>
-                            <?php esc_html_e( 'Mostrar el precio del producto', 'dox-sales-booster' ); ?>
+                            <?php esc_html_e( 'Show the product price', 'dox-sales-booster' ); ?>
                         </label>
                     </div>
 
                     <div class="dsb-warn-box" id="dsb-source-warning" <?php echo 0 === $feed_count ? '' : 'style="display:none"'; ?>>
-                        ⚠️ <?php esc_html_e( 'La fuente seleccionada no tiene productos ahora mismo: el popup no se mostrará. Revisa la fuente, las categorías o el modo de datos.', 'dox-sales-booster' ); ?>
+                        ⚠️ <?php esc_html_e( 'The selected source has no products right now: the popup will not be shown. Check the source, the categories or the data mode.', 'dox-sales-booster' ); ?>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Contenido', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Content', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Texto prefijo del título', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Title prefix text', 'dox-sales-booster' ); ?></label>
                         <input type="text" name="dsb[popup_prefix_text]" value="<?php echo esc_attr( $o['popup_prefix_text'] ); ?>" placeholder="🛍️ Alguien ha comprado">
-                        <span class="dsb-hint"><?php esc_html_e( 'Acepta la variable {name}: se sustituye por un nombre aleatorio de la lista de abajo (o "Alguien" si está vacía). Ej: "🛍️ {name} ha comprado"', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Accepts the {name} variable: it is replaced with a random name from the list below (or "Someone" if it is empty). E.g. "🛍️ {name} purchased"', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Nombres de compradores (opcional)', 'dox-sales-booster' ); ?></label>
-                        <textarea name="dsb[popup_names]" rows="3" placeholder="María&#10;Camila&#10;Andrés&#10;Juan Pablo"><?php echo esc_textarea( $o['popup_names'] ); ?></textarea>
-                        <span class="dsb-hint"><?php esc_html_e( 'Uno por línea. Solo se usan si el prefijo contiene {name}.', 'dox-sales-booster' ); ?></span>
+                        <label><?php esc_html_e( 'Buyer names (optional)', 'dox-sales-booster' ); ?></label>
+                        <textarea name="dsb[popup_names]" rows="3" placeholder="<?php echo esc_attr__( 'Sarah&#10;James&#10;Emily&#10;Michael', 'dox-sales-booster' ); ?>"><?php echo esc_textarea( $o['popup_names'] ); ?></textarea>
+                        <span class="dsb-hint"><?php esc_html_e( 'One per line. They are only used if the prefix contains {name}.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Texto del enlace', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Link text', 'dox-sales-booster' ); ?></label>
                         <input type="text" name="dsb[popup_link_text]" value="<?php echo esc_attr( $o['popup_link_text'] ); ?>" placeholder="Ver producto">
                     </div>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Caracteres máximos del título', 'dox-sales-booster' ); ?> — <strong><span id="dsb-maxchars-val"><?php echo $maxchars; ?></span></strong></label>
+                        <label><?php esc_html_e( 'Maximum title characters', 'dox-sales-booster' ); ?> — <strong><span id="dsb-maxchars-val"><?php echo $maxchars; ?></span></strong></label>
                         <input type="range" id="dsb-maxchars-slider" name="dsb[popup_title_maxchars]"
                                value="<?php echo esc_attr( $maxchars ); ?>" min="20" max="100" step="1" class="dsb-slider">
-                        <span class="dsb-hint"><?php esc_html_e( 'Si el título supera este número de caracteres, se corta con "…"', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'If the title is longer than this number of characters, it is cut off with "…"', 'dox-sales-booster' ); ?></span>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Apariencia', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Appearance', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field-row">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Ancho del popup', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Popup width', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_width]" value="<?php echo esc_attr( $o['popup_width'] ); ?>" min="200" max="500">
                             <span class="dsb-hint">px</span>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Tamaño de imagen', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Image size', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_img_size]" value="<?php echo esc_attr( $o['popup_img_size'] ); ?>" min="40" max="120">
                             <span class="dsb-hint">px</span>
                         </div>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Tamaño del texto', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Text size', 'dox-sales-booster' ); ?></h4>
                     <div class="dsb-field-row">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Título', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Title', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_font_title]" value="<?php echo esc_attr( $font_title ); ?>" min="8" max="30">
                             <span class="dsb-hint">px</span>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Precio', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Price', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_font_price]" value="<?php echo esc_attr( $font_price ); ?>" min="8" max="28">
                             <span class="dsb-hint">px</span>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Meta (tiempo · ciudad)', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Meta (time · city)', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_font_meta]" value="<?php echo esc_attr( $font_meta ); ?>" min="8" max="24">
                             <span class="dsb-hint">px</span>
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Enlace', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Link', 'dox-sales-booster' ); ?></label>
                             <input type="number" name="dsb[popup_font_link]" value="<?php echo esc_attr( $font_link ); ?>" min="8" max="24">
                             <span class="dsb-hint">px</span>
                         </div>
@@ -720,50 +720,50 @@ function dsb_render_page() {
 
                     <div class="dsb-field-row">
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Color de fondo', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Background color', 'dox-sales-booster' ); ?></label>
                             <input type="color" name="dsb[popup_bg_color]" value="<?php echo esc_attr( $o['popup_bg_color'] ); ?>" class="dsb-color-input">
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Color del título', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Title color', 'dox-sales-booster' ); ?></label>
                             <input type="color" name="dsb[popup_title_color]" value="<?php echo esc_attr( $o['popup_title_color'] ); ?>" class="dsb-color-input">
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Color del meta', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Meta color', 'dox-sales-booster' ); ?></label>
                             <input type="color" name="dsb[popup_meta_color]" value="<?php echo esc_attr( $o['popup_meta_color'] ); ?>" class="dsb-color-input">
                         </div>
                         <div class="dsb-field">
-                            <label><?php esc_html_e( 'Color del enlace', 'dox-sales-booster' ); ?></label>
+                            <label><?php esc_html_e( 'Link color', 'dox-sales-booster' ); ?></label>
                             <input type="color" name="dsb[popup_link_color]" value="<?php echo esc_attr( $o['popup_link_color'] ); ?>" class="dsb-color-input">
                         </div>
                     </div>
 
-                    <h4 class="dsb-subsection"><?php esc_html_e( 'Ubicaciones', 'dox-sales-booster' ); ?></h4>
+                    <h4 class="dsb-subsection"><?php esc_html_e( 'Locations', 'dox-sales-booster' ); ?></h4>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Ciudades', 'dox-sales-booster' ); ?></label>
+                        <label><?php esc_html_e( 'Cities', 'dox-sales-booster' ); ?></label>
                         <textarea name="dsb[popup_locations]" rows="8"><?php echo esc_textarea( $loc_display ); ?></textarea>
-                        <span class="dsb-hint"><?php esc_html_e( 'Una por línea. En modo simulado se usan siempre; en modo real, solo cuando el pedido no tiene ciudad.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'One per line. In simulated mode they are always used; in real mode, only when the order has no city.', 'dox-sales-booster' ); ?></span>
                     </div>
                 </div>
 
                 <div class="dsb-card dsb-preview-card">
-                    <h3><?php esc_html_e( 'Vista previa del popup', 'dox-sales-booster' ); ?></h3>
-                    <p class="dsb-preview-popup-scale-note" id="dsb-popup-width-note"><?php printf( esc_html__( 'Ancho: %dpx', 'dox-sales-booster' ), (int) $o['popup_width'] ); ?></p>
+                    <h3><?php esc_html_e( 'Popup preview', 'dox-sales-booster' ); ?></h3>
+                    <p class="dsb-preview-popup-scale-note" id="dsb-popup-width-note"><?php printf( esc_html__( 'Width: %dpx', 'dox-sales-booster' ), (int) $o['popup_width'] ); ?></p>
                     <div class="dsb-preview-popup-wrap">
                         <div class="dsb-preview-popup" id="dsb-popup-preview" style="width:<?php echo (int) $o['popup_width']; ?>px;background:<?php echo esc_attr( $o['popup_bg_color'] ); ?>;">
                             <button type="button" class="dsb-preview-popup-close" onclick="return false;">✕</button>
                             <div style="display:flex;align-items:center;gap:15px;">
                                 <div class="dsb-preview-popup-img" id="dsb-prev-img" style="width:<?php echo (int) $o['popup_img_size']; ?>px;height:<?php echo (int) $o['popup_img_size']; ?>px;flex-shrink:0;"></div>
                                 <div style="min-width:0;flex:1;overflow:hidden;">
-                                    <p class="dsb-prev-title" style="font-weight:500;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:<?php echo $font_title; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;"><?php echo esc_html( $o['popup_prefix_text'] ); ?> <span style="font-weight:600;text-decoration:underline;"><?php esc_html_e( 'Suéter tejido lila', 'dox-sales-booster' ); ?></span></p>
-                                    <p class="dsb-prev-price" id="dsb-prev-price" style="margin:0 0 2px;font-weight:600;font-size:<?php echo $font_price; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;<?php echo empty( $o['popup_show_price'] ) ? 'display:none;' : ''; ?>">$ 89.900</p>
-                                    <p class="dsb-prev-meta" style="margin:0 0 6px;font-size:<?php echo $font_meta; ?>px;color:<?php echo esc_attr( $o['popup_meta_color'] ); ?>;"><?php esc_html_e( 'hace 5 minutos · Bogotá, D.C. 🇨🇴', 'dox-sales-booster' ); ?></p>
+                                    <p class="dsb-prev-title" style="font-weight:500;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:<?php echo $font_title; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;"><?php echo esc_html( $o['popup_prefix_text'] ); ?> <span style="font-weight:600;text-decoration:underline;"><?php esc_html_e( 'Lilac knitted sweater', 'dox-sales-booster' ); ?></span></p>
+                                    <p class="dsb-prev-price" id="dsb-prev-price" style="margin:0 0 2px;font-weight:600;font-size:<?php echo $font_price; ?>px;color:<?php echo esc_attr( $o['popup_title_color'] ); ?>;<?php echo empty( $o['popup_show_price'] ) ? 'display:none;' : ''; ?>">$89.90</p>
+                                    <p class="dsb-prev-meta" style="margin:0 0 6px;font-size:<?php echo $font_meta; ?>px;color:<?php echo esc_attr( $o['popup_meta_color'] ); ?>;"><?php esc_html_e( '5 minutes ago · Denver, CO 🇺🇸', 'dox-sales-booster' ); ?></p>
                                     <a href="#" class="dsb-prev-link" onclick="return false;" style="font-size:<?php echo $font_link; ?>px;font-weight:500;color:<?php echo esc_attr( $o['popup_link_color'] ); ?>;text-decoration:none;"><?php echo esc_html( $o['popup_link_text'] ); ?></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'Los cambios actualizan la vista previa en tiempo real.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'Changes update the preview in real time.', 'dox-sales-booster' ); ?></div>
                 </div>
             </div>
         </div>
@@ -773,57 +773,57 @@ function dsb_render_page() {
             <div class="dsb-sc-grid">
                 <div class="dsb-card">
                     <h2><?php echo dsb_icon_eye(); ?> <code>[dsb_viewing]</code></h2>
-                    <p><?php esc_html_e( 'Muestra el contador de personas viendo. Colócalo donde quieras en la página de producto.', 'dox-sales-booster' ); ?></p>
+                    <p><?php esc_html_e( 'Shows the people viewing counter. Place it anywhere on the product page.', 'dox-sales-booster' ); ?></p>
                     <div class="dsb-sc-examples">
-                        <p><strong><?php esc_html_e( 'Básico:', 'dox-sales-booster' ); ?></strong></p>
+                        <p><strong><?php esc_html_e( 'Basic:', 'dox-sales-booster' ); ?></strong></p>
                         <code>[dsb_viewing]</code>
-                        <p><strong><?php esc_html_e( 'Personalizado:', 'dox-sales-booster' ); ?></strong></p>
+                        <p><strong><?php esc_html_e( 'Custom:', 'dox-sales-booster' ); ?></strong></p>
                         <code>[dsb_viewing min="5" max="20" text="personas mirando esto."]</code>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'También disponible como widget de Elementor y bloque de Gutenberg.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'Also available as an Elementor widget and a Gutenberg block.', 'dox-sales-booster' ); ?></div>
                 </div>
                 <div class="dsb-card">
                     <h2><?php echo dsb_icon_fire(); ?> <code>[dsb_sales]</code></h2>
-                    <p><?php esc_html_e( 'Muestra el texto de ventas recientes. Colócalo donde quieras en la página de producto.', 'dox-sales-booster' ); ?></p>
+                    <p><?php esc_html_e( 'Shows the recent sales text. Place it anywhere on the product page.', 'dox-sales-booster' ); ?></p>
                     <div class="dsb-sc-examples">
-                        <p><strong><?php esc_html_e( 'Básico:', 'dox-sales-booster' ); ?></strong></p>
+                        <p><strong><?php esc_html_e( 'Basic:', 'dox-sales-booster' ); ?></strong></p>
                         <code>[dsb_sales]</code>
-                        <p><strong><?php esc_html_e( 'Personalizado:', 'dox-sales-booster' ); ?></strong></p>
+                        <p><strong><?php esc_html_e( 'Custom:', 'dox-sales-booster' ); ?></strong></p>
                         <code>[dsb_sales min="4" max="18" timeframe="24" period="horas"]</code>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'También disponible como widget de Elementor y bloque de Gutenberg.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'Also available as an Elementor widget and a Gutenberg block.', 'dox-sales-booster' ); ?></div>
                 </div>
                 <div class="dsb-card">
                     <h2><?php echo dsb_icon_bolt(); ?> <code>[dsb_stock]</code></h2>
-                    <p><?php esc_html_e( 'Aviso de stock bajo con inventario real. Solo se muestra si quedan pocas unidades.', 'dox-sales-booster' ); ?></p>
+                    <p><?php esc_html_e( 'Low stock notice with real inventory. It is only shown when few units are left.', 'dox-sales-booster' ); ?></p>
                     <div class="dsb-sc-examples">
-                        <p><strong><?php esc_html_e( 'Básico (producto actual):', 'dox-sales-booster' ); ?></strong></p>
+                        <p><strong><?php esc_html_e( 'Basic (current product):', 'dox-sales-booster' ); ?></strong></p>
                         <code>[dsb_stock]</code>
-                        <p><strong><?php esc_html_e( 'Personalizado:', 'dox-sales-booster' ); ?></strong></p>
-                        <code>[dsb_stock threshold="5" text="⚡ ¡Últimas {stock} unidades!" product_id="123"]</code>
+                        <p><strong><?php esc_html_e( 'Custom:', 'dox-sales-booster' ); ?></strong></p>
+                        <code>[dsb_stock threshold="5" text="⚡ Only {stock} units left!" product_id="123"]</code>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'También disponible como widget de Elementor y bloque de Gutenberg.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'Also available as an Elementor widget and a Gutenberg block.', 'dox-sales-booster' ); ?></div>
                 </div>
                 <div class="dsb-card">
-                    <h2><?php echo dsb_icon_truck(); ?> <code>[dsb_envio_gratis]</code></h2>
-                    <p><?php esc_html_e( 'Barra de progreso de envío gratis. Con las ubicaciones del panel activadas se inserta sola en el mini carrito, el carrito y el checkout; usa el shortcode solo para lugares adicionales.', 'dox-sales-booster' ); ?></p>
+                    <h2><?php echo dsb_icon_truck(); ?> <code>[dsb_free_shipping]</code></h2>
+                    <p><?php esc_html_e( 'Free shipping progress bar. With the panel locations enabled it inserts itself in the mini cart, the cart and the checkout; use the shortcode only for additional spots.', 'dox-sales-booster' ); ?></p>
                     <div class="dsb-sc-examples">
-                        <p><strong><?php esc_html_e( 'Básico:', 'dox-sales-booster' ); ?></strong></p>
-                        <code>[dsb_envio_gratis]</code>
-                        <p><strong><?php esc_html_e( 'Personalizado:', 'dox-sales-booster' ); ?></strong></p>
-                        <code>[dsb_envio_gratis threshold="349000" text="¡Te faltan {precio} para el envío gratis!"]</code>
+                        <p><strong><?php esc_html_e( 'Basic:', 'dox-sales-booster' ); ?></strong></p>
+                        <code>[dsb_free_shipping]</code>
+                        <p><strong><?php esc_html_e( 'Custom:', 'dox-sales-booster' ); ?></strong></p>
+                        <code>[dsb_free_shipping threshold="100" text="🚚 Add {amount} more to get free shipping!"]</code>
                     </div>
-                    <div class="dsb-info-box"><?php esc_html_e( 'También disponible como widget de Elementor y bloque de Gutenberg.', 'dox-sales-booster' ); ?></div>
+                    <div class="dsb-info-box"><?php esc_html_e( 'Also available as an Elementor widget and a Gutenberg block.', 'dox-sales-booster' ); ?></div>
                 </div>
                 <div class="dsb-card dsb-card-full">
-                    <h2><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Popup de compra', 'dox-sales-booster' ); ?></h2>
-                    <p><?php esc_html_e( 'El popup no necesita shortcode: se activa automáticamente cuando está habilitado en la pestaña "Popup de compra". En Gutenberg busca los bloques "Sales Booster"; en Elementor, los widgets con el mismo nombre.', 'dox-sales-booster' ); ?></p>
+                    <h2><?php echo dsb_icon_bag(); ?> <?php esc_html_e( 'Purchase popup', 'dox-sales-booster' ); ?></h2>
+                    <p><?php esc_html_e( 'The popup needs no shortcode: it turns on automatically when it is enabled in the "Purchase popup" tab. In Gutenberg look for the "Sales Booster" blocks; in Elementor, the widgets with the same name.', 'dox-sales-booster' ); ?></p>
                 </div>
             </div>
         </div>
 
         </form>
-        <div id="dsb-toast" class="dsb-toast">✓ <?php esc_html_e( '¡Configuración guardada!', 'dox-sales-booster' ); ?></div>
+        <div id="dsb-toast" class="dsb-toast">✓ <?php esc_html_e( 'Settings saved!', 'dox-sales-booster' ); ?></div>
     </div>
     <?php
 }
@@ -920,24 +920,24 @@ function dsb_admin_css() { return '
 /* ══ JS ══════════════════════════════════════════════════════════════════════ */
 function dsb_admin_js() {
     $i18n = wp_json_encode( [
-        'saving'        => __( 'Guardando...', 'dox-sales-booster' ),
-        'saveLabel'     => __( 'Guardar cambios', 'dox-sales-booster' ),
-        'resetting'     => __( 'Restaurando...', 'dox-sales-booster' ),
-        'resetLabel'    => __( 'Restaurar valores por defecto', 'dox-sales-booster' ),
-        'confirmReset'  => __( '¿Restaurar toda la configuración a los valores por defecto? Esta acción no se puede deshacer.', 'dox-sales-booster' ),
-        'saveError'     => __( 'No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.', 'dox-sales-booster' ),
+        'saving'        => __( 'Saving...', 'dox-sales-booster' ),
+        'saveLabel'     => __( 'Save changes', 'dox-sales-booster' ),
+        'resetting'     => __( 'Restoring...', 'dox-sales-booster' ),
+        'resetLabel'    => __( 'Restore default values', 'dox-sales-booster' ),
+        'confirmReset'  => __( 'Restore all settings to their default values? This action cannot be undone.', 'dox-sales-booster' ),
+        'saveError'     => __( 'Could not save. Check your connection and try again.', 'dox-sales-booster' ),
         /* translators: %d: ancho del popup en píxeles */
-        'widthLabel'    => __( 'Ancho: %dpx', 'dox-sales-booster' ),
-        'demoProduct'   => __( 'Suéter tejido lila', 'dox-sales-booster' ),
-        'defaultPrefix' => __( '🛍️ Alguien ha comprado', 'dox-sales-booster' ),
-        'defaultLink'   => __( 'Ver producto', 'dox-sales-booster' ),
+        'widthLabel'    => __( 'Width: %dpx', 'dox-sales-booster' ),
+        'demoProduct'   => __( 'Lilac knitted sweater', 'dox-sales-booster' ),
+        'defaultPrefix' => __( '🛍️ Someone purchased', 'dox-sales-booster' ),
+        'defaultLink'   => __( 'View product', 'dox-sales-booster' ),
     ] );
 
     return 'window.dsbAdminI18n = ' . $i18n . ';' . <<<'JS'
 
 jQuery(function($){
     var I     = window.dsbAdminI18n || {};
-    var DEMO  = I.demoProduct || 'Suéter tejido lila';
+    var DEMO  = I.demoProduct || 'Lilac knitted sweater';
     var dirty = false;
 
     /* Tabs (con deep-link por hash) */
@@ -1095,7 +1095,7 @@ jQuery(function($){
     /* Restaurar valores por defecto */
     $('#dsb-reset-btn').on('click',function(e){
         e.preventDefault();
-        if(!window.confirm(I.confirmReset||'¿Restaurar los valores por defecto?')) return;
+        if(!window.confirm(I.confirmReset||'Restore the default values?')) return;
         var $btn=$(this);
         $btn.addClass('loading').text(I.resetting||'Restaurando...');
         $.post(ajaxurl,{action:'dsb_reset_settings',nonce:$('input[name="dsb[_nonce]"]').val()})

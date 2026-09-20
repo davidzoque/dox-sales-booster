@@ -89,11 +89,11 @@ class DSB_Frontend {
             'viewing_interval' => (int) $this->opts['viewing_interval'],
             'popup_enabled'    => $popup_on,
             'i18n'             => [
-                'just_now'  => __( 'hace un momento', 'dox-sales-booster' ),
-                'mins_ago'  => __( 'hace %d minutos', 'dox-sales-booster' ),
-                'hours_ago' => __( 'hace %d horas', 'dox-sales-booster' ),
-                'days_ago'  => __( 'hace %d días', 'dox-sales-booster' ),
-                'someone'   => __( 'Alguien', 'dox-sales-booster' ),
+                'just_now'  => __( 'a moment ago', 'dox-sales-booster' ),
+                'mins_ago'  => __( '%d minutes ago', 'dox-sales-booster' ),
+                'hours_ago' => __( '%d hours ago', 'dox-sales-booster' ),
+                'days_ago'  => __( '%d days ago', 'dox-sales-booster' ),
+                'someone'   => __( 'Someone', 'dox-sales-booster' ),
             ],
         ];
 
@@ -139,7 +139,7 @@ class DSB_Frontend {
         if ( empty( $this->opts['popup_show_mobile'] ) ) $classes[] = 'dsb-hide-mobile';
         ?>
         <div id="dsb-popup" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="display:none;">
-            <button type="button" class="dsb-popup-close" aria-label="<?php esc_attr_e( 'Cerrar', 'dox-sales-booster' ); ?>">&#10005;</button>
+            <button type="button" class="dsb-popup-close" aria-label="<?php esc_attr_e( 'Close', 'dox-sales-booster' ); ?>">&#10005;</button>
             <div class="dsb-popup-inner"></div>
         </div>
         <?php

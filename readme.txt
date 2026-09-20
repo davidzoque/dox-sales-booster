@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Boost WooCommerce conversions with a live viewing counter, recent sales counter,
 * **Recent Sales Counter** — Displays how many units have been sold in a given time period (minutes, hours, days, or weeks). Runs on **simulated data** (a stable number within your range, not re-randomised on every page load) or on **real sales** for that product.
 * **Low Stock Alert** — Real urgency based on the actual WooCommerce inventory: "Only {stock} left!" appears only when a product's real stock falls below your threshold.
 * **Purchase Popup** — An animated notification popup showing a recent purchase: product image, name, price, location, and time. Can run on **simulated data** or on **real recent orders** (product, city and real time ago — never customer names).
-* **Free Shipping Progress Bar** — "You're only {precio} away from free shipping!" with a progress bar based on the real cart total. Auto-inserted into the standard WooCommerce mini cart (including off-canvas carts like UICore Pro's), the cart page and the checkout, refreshing via cart fragments without page reloads. The threshold can be a custom amount or read from the WooCommerce Free Shipping method's minimum order amount for the customer's zone.
+* **Free Shipping Progress Bar** — "You're only {amount} away from free shipping!" with a progress bar based on the real cart total. Auto-inserted into the standard WooCommerce mini cart (including off-canvas carts like UICore Pro's), the cart page and the checkout, refreshing via cart fragments without page reloads. The threshold can be a custom amount or read from the WooCommerce Free Shipping method's minimum order amount for the customer's zone.
 
 All elements are controlled from a dedicated admin panel under **Sales Booster** in the WordPress menu, and can be placed via **shortcodes**, **Elementor widgets**, or **Gutenberg blocks**.
 
@@ -43,14 +43,15 @@ All elements are controlled from a dedicated admin panel under **Sales Booster**
 `[dsb_viewing]` — Displays the live viewing counter.
 `[dsb_sales]` — Displays the recent sales counter.
 `[dsb_stock]` — Displays the real low-stock alert (product pages).
-`[dsb_envio_gratis]` — Displays the free shipping progress bar (auto-inserted locations don't need it).
+`[dsb_free_shipping]` — Displays the free shipping progress bar (auto-inserted locations don't need it).
+`[dsb_envio_gratis]` — Alias kept from versions before 1.5.0.
 
 = Elementor Widgets =
 
-* 👁️ Personas viendo (Sales Booster)
-* 🔥 Ventas recientes (Sales Booster)
-* ⚡ Stock bajo (Sales Booster)
-* 🚚 Barra de envío gratis (Sales Booster)
+* 👁️ People viewing (Sales Booster)
+* 🔥 Recent sales (Sales Booster)
+* ⚡ Low stock (Sales Booster)
+* 🚚 Free shipping bar (Sales Booster)
 
 = Gutenberg Blocks =
 
@@ -111,6 +112,15 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 5. Elementor widgets panel
 
 == Changelog ==
+
+= 1.5.0 =
+* **The plugin is now in English.** Every interface string was written in Spanish, so an English site had nothing to translate and the whole admin panel, the widgets and the storefront texts showed up in Spanish. The source language is now English and Spanish ships as a full translation (`languages/dox-sales-booster-es_ES.po` / `.mo`, plus the JSON catalogue the Gutenberg blocks need), so each site follows its own WordPress language.
+* Fixed: the recent sales counter printed the period as a raw Spanish word, so an English store read "12 sold in the last 24 horas". Periods are now stored as `minutes` / `hours` / `days` / `weeks` and displayed translated. Sites and blocks that saved the old Spanish values keep working: they are converted when read.
+* New: `[dsb_free_shipping]` shortcode, replacing the Spanish `[dsb_envio_gratis]`. The old name still works as an alias, so pages that already use it are untouched.
+* New: `{amount}` placeholder for the free shipping texts. `{precio}` and `{price}` are still accepted.
+* Fixed: the default free shipping threshold was 150000, an amount that only makes sense in Colombian pesos. New installs now start at 100. Stores that already saved a threshold keep theirs.
+* Fixed: the Gutenberg block keywords were Spanish, so the blocks could not be found by searching "shipping", "sales" or "inventory" in the inserter. They are now English and translatable.
+* Fixed: the admin preview used a Spanish demo product and a price written in Colombian format.
 
 = 1.4.0 =
 * New: **Data mode for the recent sales counter** (Simulated / Real), like the purchase popup already had. In **Real** mode it counts the units actually sold for that product within the configured period (completed and processing orders, cached 15 minutes); if there were no sales, the element is hidden instead of inventing a number.
@@ -184,14 +194,17 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 
 == Upgrade Notice ==
 
+= 1.5.0 =
+The interface is now in English, with Spanish included as a translation — each site follows its own WordPress language. The free shipping shortcode is now `[dsb_free_shipping]` (the old `[dsb_envio_gratis]` still works), and the default free shipping threshold changed to 100 for new installs only.
+
 = 1.4.0 =
-The sales and viewing counters no longer change on every page reload, and the sales counter can now use real WooCommerce sales. Review the new "Modo de datos" option under Sales Booster → Ventas recientes.
+The sales and viewing counters no longer change on every page reload, and the sales counter can now use real WooCommerce sales. Review the new "Data mode" option under Sales Booster → Recent sales.
 
 = 1.3.1 =
 Fixes the free shipping bar not showing on block-based Cart/Checkout pages, and adds an animated (moving) progress bar.
 
 = 1.3.0 =
-New free shipping progress bar for the mini cart, cart and checkout — enable it under Sales Booster → Envío gratis (off by default).
+New free shipping progress bar for the mini cart, cart and checkout — enable it under Sales Booster → Free shipping (off by default).
 
 = 1.2.3 =
 Per-element text sizes for the purchase popup (title, price, meta, link) and an admin preview that fits without horizontal scroll.

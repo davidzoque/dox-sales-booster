@@ -10,41 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /* ── Valores por defecto ─────────────────────────────────────────────────── */
 
 function dsb_default_locations() {
-    $cities = [
-        'Bogotá, D.C.', 'Medellín, Antioquia', 'Cali, Valle del Cauca', 'Barranquilla, Atlántico',
-        'Cartagena, Bolívar', 'Cúcuta, Norte de Santander', 'Bucaramanga, Santander', 'Pereira, Risaralda',
-        'Manizales, Caldas', 'Santa Marta, Magdalena', 'Ibagué, Tolima', 'Pasto, Nariño',
-        'Montería, Córdoba', 'Armenia, Quindío', 'Villavicencio, Meta', 'Neiva, Huila',
-        'Popayán, Cauca', 'Valledupar, Cesar', 'Sincelejo, Sucre', 'Tunja, Boyacá',
-        'Florencia, Caquetá', 'Quibdó, Chocó', 'Riohacha, La Guajira', 'Mocoa, Putumayo',
-        'Leticia, Amazonas', 'San Andrés, San Andrés y Providencia', 'Yopal, Casanare', 'Arauca, Arauca',
-        'San José del Guaviare, Guaviare', 'Inírida, Guainía', 'Puerto Carreño, Vichada', 'Mitú, Vaupés',
-        'Envigado, Antioquia', 'Bello, Antioquia', 'Itagüí, Antioquia', 'Soledad, Atlántico',
-        'Soacha, Cundinamarca', 'Palmira, Valle del Cauca', 'Buenaventura, Valle del Cauca', 'Floridablanca, Santander',
-        'Girón, Santander', 'Dosquebradas, Risaralda', 'Tuluá, Valle del Cauca', 'Barrancabermeja, Santander',
-        'Duitama, Boyacá', 'Sogamoso, Boyacá', 'Cartago, Valle del Cauca', 'Buga, Valle del Cauca',
-        'Jamundí, Valle del Cauca', 'Yumbo, Valle del Cauca', 'Rionegro, Antioquia', 'Apartadó, Antioquia',
-        'Turbo, Antioquia', 'Caucasia, Antioquia', 'Sabaneta, Antioquia', 'Copacabana, Antioquia',
-        'La Estrella, Antioquia', 'Caldas, Antioquia', 'Zipaquirá, Cundinamarca', 'Chía, Cundinamarca',
-        'Facatativá, Cundinamarca', 'Fusagasugá, Cundinamarca', 'Mosquera, Cundinamarca', 'Madrid, Cundinamarca',
-        'Funza, Cundinamarca', 'Cajicá, Cundinamarca', 'Girardot, Cundinamarca', 'Malambo, Atlántico',
-        'Sabanalarga, Atlántico', 'Baranoa, Atlántico', 'Magangué, Bolívar', 'Turbaco, Bolívar',
-        'El Carmen de Bolívar, Bolívar', 'Ciénaga, Magdalena', 'Fundación, Magdalena', 'El Banco, Magdalena',
-        'Ipiales, Nariño', 'Tumaco, Nariño', 'Ocaña, Norte de Santander', 'Villa del Rosario, Norte de Santander',
-        'Los Patios, Norte de Santander', 'Pamplona, Norte de Santander', 'Piedecuesta, Santander', 'San Gil, Santander',
-        'Socorro, Santander', 'Chiquinquirá, Boyacá', 'Paipa, Boyacá', 'Puerto Boyacá, Boyacá',
-        'El Espinal, Tolima', 'Melgar, Tolima', 'Honda, Tolima', 'Pitalito, Huila',
-        'Garzón, Huila', 'La Plata, Huila', 'Acacías, Meta', 'Granada, Meta',
-        'Puerto López, Meta', 'Aguazul, Casanare', 'Paz de Ariporo, Casanare', 'Saravena, Arauca',
-        'Tame, Arauca', 'Puerto Asís, Putumayo', 'Orito, Putumayo', 'San Juan del Cesar, La Guajira',
-        'Maicao, La Guajira', 'Uribia, La Guajira', 'Aguachica, Cesar', 'Bosconia, Cesar',
-        'Corozal, Sucre', 'San Marcos, Sucre', 'San Vicente del Caguán, Caquetá', 'Puerto Rico, Caquetá',
-        'Santa Rosa de Cabal, Risaralda', 'Chinchiná, Caldas', 'La Dorada, Caldas', 'Riosucio, Caldas',
-        'Calarcá, Quindío', 'Montenegro, Quindío', 'Quimbaya, Quindío', 'Cereté, Córdoba',
-        'Sahagún, Córdoba', 'Lorica, Córdoba', 'Tierralta, Córdoba', 'Santander de Quilichao, Cauca',
-        'El Tambo, Cauca', 'Puerto Tejada, Cauca', 'Istmina, Chocó', 'Tadó, Chocó',
-    ];
-    return array_map( function ( $c ) { return $c . ' 🇨🇴'; }, $cities );
+    // Lista de ejemplo, traducible: cada idioma trae las ciudades que tienen
+    // sentido para su mercado (en español, las colombianas de siempre). El
+    // dueño de la tienda las cambia desde el panel, una por línea.
+    $cities = explode( "\n", __( "New York, NY 🇺🇸\nLos Angeles, CA 🇺🇸\nChicago, IL 🇺🇸\nHouston, TX 🇺🇸\nPhoenix, AZ 🇺🇸\nPhiladelphia, PA 🇺🇸\nSan Antonio, TX 🇺🇸\nSan Diego, CA 🇺🇸\nDallas, TX 🇺🇸\nJacksonville, FL 🇺🇸\nAustin, TX 🇺🇸\nFort Worth, TX 🇺🇸\nSan Jose, CA 🇺🇸\nColumbus, OH 🇺🇸\nCharlotte, NC 🇺🇸\nIndianapolis, IN 🇺🇸\nSan Francisco, CA 🇺🇸\nSeattle, WA 🇺🇸\nDenver, CO 🇺🇸\nOklahoma City, OK 🇺🇸\nNashville, TN 🇺🇸\nWashington, DC 🇺🇸\nEl Paso, TX 🇺🇸\nLas Vegas, NV 🇺🇸\nBoston, MA 🇺🇸\nDetroit, MI 🇺🇸\nPortland, OR 🇺🇸\nLouisville, KY 🇺🇸\nMemphis, TN 🇺🇸\nBaltimore, MD 🇺🇸\nMilwaukee, WI 🇺🇸\nAlbuquerque, NM 🇺🇸\nTucson, AZ 🇺🇸\nFresno, CA 🇺🇸\nSacramento, CA 🇺🇸\nMesa, AZ 🇺🇸\nAtlanta, GA 🇺🇸\nKansas City, MO 🇺🇸\nColorado Springs, CO 🇺🇸\nOmaha, NE 🇺🇸\nRaleigh, NC 🇺🇸\nMiami, FL 🇺🇸\nVirginia Beach, VA 🇺🇸\nLong Beach, CA 🇺🇸\nOakland, CA 🇺🇸\nMinneapolis, MN 🇺🇸\nBakersfield, CA 🇺🇸\nTulsa, OK 🇺🇸\nTampa, FL 🇺🇸\nArlington, TX 🇺🇸\nNew Orleans, LA 🇺🇸\nWichita, KS 🇺🇸\nCleveland, OH 🇺🇸\nOrlando, FL 🇺🇸\nSt. Louis, MO 🇺🇸\nPittsburgh, PA 🇺🇸\nCincinnati, OH 🇺🇸\nSalt Lake City, UT 🇺🇸\nBoise, ID 🇺🇸\nRichmond, VA 🇺🇸", 'dox-sales-booster' ) );
+    $cities = array_values( array_filter( array_map( 'trim', $cities ) ) );
+
+    return $cities ? $cities : [ 'New York, NY 🇺🇸' ];
 }
 
 function dsb_defaults() {
@@ -53,22 +25,22 @@ function dsb_defaults() {
         'viewing_enabled'        => 1,
         'viewing_min'            => 3,
         'viewing_max'            => 12,
-        'viewing_text'           => __( 'personas están viendo este producto ahora.', 'dox-sales-booster' ),
+        'viewing_text'           => __( 'people are viewing this product right now.', 'dox-sales-booster' ),
         'viewing_interval'       => 2,
 
         // Ventas recientes
         'fakesales_enabled'      => 1,
         'fakesales_min'          => 3,
         'fakesales_max'          => 15,
-        'fakesales_text'         => __( '🔥 {count} vendidos en las últimas {timeframe} {period}', 'dox-sales-booster' ),
+        'fakesales_text'         => __( '🔥 {count} sold in the last {timeframe} {period}', 'dox-sales-booster' ),
         'fakesales_timeframe'    => 24,
-        'fakesales_period'       => 'horas',
+        'fakesales_period'       => 'hours',
         'fakesales_data_mode'    => 'simulated', // simulated | real
 
         // Stock bajo (datos reales de WooCommerce)
         'stock_enabled'          => 1,
         'stock_threshold'        => 10,
-        'stock_text'             => __( '⚡ ¡Solo quedan {stock} unidades!', 'dox-sales-booster' ),
+        'stock_text'             => __( '⚡ Only {stock} units left!', 'dox-sales-booster' ),
 
         // Barra de envío gratis
         'shipbar_enabled'        => 0,
@@ -76,10 +48,10 @@ function dsb_defaults() {
         'shipbar_cart'           => 1,
         'shipbar_checkout'       => 1,
         'shipbar_source'         => 'custom', // custom | woocommerce
-        'shipbar_threshold'      => 150000,
+        'shipbar_threshold'      => 100,
         'shipbar_ignore_coupons' => 1,
-        'shipbar_text'           => __( '🚚 ¡Te faltan {precio} para el envío gratis!', 'dox-sales-booster' ),
-        'shipbar_success_text'   => __( '🎉 ¡Felicidades! Tienes envío gratis.', 'dox-sales-booster' ),
+        'shipbar_text'           => __( '🚚 Add {amount} more to get free shipping!', 'dox-sales-booster' ),
+        'shipbar_success_text'   => __( '🎉 Congratulations! You get free shipping.', 'dox-sales-booster' ),
         'shipbar_bar_color'      => '#4caf50',
         'shipbar_track_color'    => '#e9e9f0',
         'shipbar_text_color'     => '#333333',
@@ -113,8 +85,8 @@ function dsb_defaults() {
         'popup_font_price'       => 13,
         'popup_font_meta'        => 12,
         'popup_font_link'        => 12,
-        'popup_prefix_text'      => __( '🛍️ Alguien ha comprado', 'dox-sales-booster' ),
-        'popup_link_text'        => __( 'Ver producto', 'dox-sales-booster' ),
+        'popup_prefix_text'      => __( '🛍️ Someone purchased', 'dox-sales-booster' ),
+        'popup_link_text'        => __( 'View product', 'dox-sales-booster' ),
         'popup_width'            => 400,
         'popup_img_size'         => 75,
         'popup_title_maxchars'   => 45,
@@ -132,6 +104,9 @@ function dsb_get_settings( $fresh = false ) {
     static $opts = null;
     if ( $fresh || null === $opts ) {
         $opts = wp_parse_args( get_option( 'dsb_settings', [] ), dsb_defaults() );
+        // Hasta la 1.4.0 el período se guardaba en español; se normaliza al leer
+        // para que los sitios que actualizan sigan funcionando sin tocar nada.
+        $opts['fakesales_period'] = dsb_normalize_period( $opts['fakesales_period'] );
     }
     return $opts;
 }
@@ -208,7 +183,7 @@ function dsb_price_text( $product ) {
         if ( '' === $min ) return '';
         $price = ( $min < $max )
             /* translators: %s: minimum price of a variable product. */
-            ? sprintf( __( 'Desde %s', 'dox-sales-booster' ), wc_price( $min ) )
+            ? sprintf( __( 'From %s', 'dox-sales-booster' ), wc_price( $min ) )
             : wc_price( $min );
     } else {
         if ( '' === $product->get_price() ) return '';
@@ -342,12 +317,30 @@ function dsb_get_popup_feed( $opts ) {
 
 /* ── Contador de ventas: número estable y ventas reales ──────────────────── */
 
-// Segundos que representa el período configurado ("horas", "días"...).
+// Período guardado, normalizado. Hasta la 1.4.0 se guardaba en español
+// ("horas", "días"): los valores viejos se siguen entendiendo.
+function dsb_normalize_period( $period ) {
+    $legacy = [ 'minutos' => 'minutes', 'horas' => 'hours', 'días' => 'days', 'dias' => 'days', 'semanas' => 'weeks' ];
+    $period = $legacy[ (string) $period ] ?? (string) $period;
+    return in_array( $period, [ 'minutes', 'hours', 'days', 'weeks' ], true ) ? $period : 'hours';
+}
+
+// Etiqueta del período tal como la lee el visitante dentro de {period}.
+function dsb_period_label( $period ) {
+    switch ( dsb_normalize_period( $period ) ) {
+        case 'minutes': return _x( 'minutes', 'sales period', 'dox-sales-booster' );
+        case 'days':    return _x( 'days', 'sales period', 'dox-sales-booster' );
+        case 'weeks':   return _x( 'weeks', 'sales period', 'dox-sales-booster' );
+        default:        return _x( 'hours', 'sales period', 'dox-sales-booster' );
+    }
+}
+
+// Segundos que representa el período configurado ("hours", "days"...).
 function dsb_period_seconds( $period ) {
-    switch ( $period ) {
-        case 'minutos': return MINUTE_IN_SECONDS;
-        case 'días':    return DAY_IN_SECONDS;
-        case 'semanas': return WEEK_IN_SECONDS;
+    switch ( dsb_normalize_period( $period ) ) {
+        case 'minutes': return MINUTE_IN_SECONDS;
+        case 'days':    return DAY_IN_SECONDS;
+        case 'weeks':   return WEEK_IN_SECONDS;
         default:        return HOUR_IN_SECONDS;
     }
 }
@@ -490,7 +483,7 @@ function dsb_render_sales( $args = [] ) {
 
     $text = str_replace(
         [ '{count}', '{timeframe}', '{period}' ],
-        [ '<strong class="dsb-sales-count">' . (int) $count . '</strong>', esc_html( $args['timeframe'] ), esc_html( $args['period'] ) ],
+        [ '<strong class="dsb-sales-count">' . (int) $count . '</strong>', esc_html( $args['timeframe'] ), esc_html( dsb_period_label( $args['period'] ) ) ],
         esc_html( $args['text'] )
     );
 

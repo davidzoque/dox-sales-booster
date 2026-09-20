@@ -3,7 +3,7 @@
  * Plugin Name:       Dox Sales Booster
  * Plugin URI:        https://doxstudio.com
  * Description:       Adds purchase notifications, live viewing counter, recent sales counter, real low-stock urgency and a free-shipping progress bar to WooCommerce to boost conversions with social proof.
- * Version:           1.4.0
+ * Version:           1.5.0
  * Author:            Dox Studio
  * Author URI:        https://doxstudio.com
  * License:           GPL v2 or later
@@ -20,7 +20,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'DSB_VERSION', '1.4.0' );
+define( 'DSB_VERSION', '1.5.0' );
 define( 'DSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DSB_URL',  plugin_dir_url( __FILE__ ) );
 
@@ -51,7 +51,7 @@ add_action( 'admin_notices', function () {
     if ( class_exists( 'WooCommerce' ) ) return;
     if ( ! current_user_can( 'activate_plugins' ) ) return;
     echo '<div class="notice notice-warning"><p><strong>Dox Sales Booster:</strong> '
-        . esc_html__( 'WooCommerce no está activo. El popup de compras y el aviso de stock necesitan WooCommerce; los contadores de "personas viendo" y "ventas recientes" siguen funcionando.', 'dox-sales-booster' )
+        . esc_html__( 'WooCommerce is not active. The purchase popup and the low stock notice need WooCommerce; the "people viewing" and "recent sales" counters keep working.', 'dox-sales-booster' )
         . '</p></div>';
 } );
 

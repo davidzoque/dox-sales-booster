@@ -24,7 +24,7 @@
             label: label,
             type: 'number',
             value: (value === undefined || value === null) ? '' : value,
-            placeholder: __('(usar valor global)', 'dox-sales-booster'),
+            placeholder: __('(use global value)', 'dox-sales-booster'),
             onChange: function (v) {
                 var n = parseInt(v, 10);
                 onChange(isNaN(n) ? undefined : n);
@@ -37,7 +37,7 @@
             key: key,
             label: label,
             value: value || '',
-            placeholder: __('(usar texto global)', 'dox-sales-booster'),
+            placeholder: __('(use global text)', 'dox-sales-booster'),
             onChange: function (v) {
                 onChange(v === '' ? undefined : v);
             }
@@ -48,10 +48,10 @@
         return function (props) {
             var children = [
                 el(InspectorControls, { key: 'inspector' },
-                    el(PanelBody, { title: __('Ajustes', 'dox-sales-booster'), initialOpen: true },
+                    el(PanelBody, { title: __('Settings', 'dox-sales-booster'), initialOpen: true },
                         fieldsFn(props),
                         el('p', { key: 'hint', style: { fontSize: '11px', color: '#888' } },
-                            __('Los campos vacíos usan los valores del panel Sales Booster.', 'dox-sales-booster'))
+                            __('Empty fields use the values from the Sales Booster panel.', 'dox-sales-booster'))
                     )
                 )
             ];
@@ -70,11 +70,11 @@
 
     /* 👁️ Personas viendo */
     registerBlockType('dox-sales-booster/viewing', {
-        title: '👁️ ' + __('Personas viendo (Sales Booster)', 'dox-sales-booster'),
-        description: __('Contador de personas viendo este producto.', 'dox-sales-booster'),
+        title: '👁️ ' + __('People viewing (Sales Booster)', 'dox-sales-booster'),
+        description: __('Counter of people viewing this product.', 'dox-sales-booster'),
         icon: 'visibility',
         category: 'widgets',
-        keywords: [ 'dox', 'sales booster', 'viendo', 'urgencia' ],
+        keywords: [ 'dox', 'sales booster', __('viewing', 'dox-sales-booster'), __('urgency', 'dox-sales-booster') ],
         attributes: {
             min:        { type: 'number' },
             max:        { type: 'number' },
@@ -84,10 +84,10 @@
         edit: makeEdit('dox-sales-booster/viewing', function (props) {
             var a = props.attributes, set = props.setAttributes;
             return [
-                numField('min', __('Mínimo personas', 'dox-sales-booster'), a.min, function (v) { set({ min: v }); }),
-                numField('max', __('Máximo personas', 'dox-sales-booster'), a.max, function (v) { set({ max: v }); }),
-                textField('text', __('Texto', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
-                numField('product_id', __('ID de producto (vacío = producto actual)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
+                numField('min', __('Minimum people', 'dox-sales-booster'), a.min, function (v) { set({ min: v }); }),
+                numField('max', __('Maximum people', 'dox-sales-booster'), a.max, function (v) { set({ max: v }); }),
+                textField('text', __('Text', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
+                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
             ];
         }),
         save: function () { return null; }
@@ -95,11 +95,11 @@
 
     /* 🔥 Ventas recientes */
     registerBlockType('dox-sales-booster/sales', {
-        title: '🔥 ' + __('Ventas recientes (Sales Booster)', 'dox-sales-booster'),
-        description: __('Unidades vendidas en un período de tiempo.', 'dox-sales-booster'),
+        title: '🔥 ' + __('Recent sales (Sales Booster)', 'dox-sales-booster'),
+        description: __('Units sold within a period of time.', 'dox-sales-booster'),
         icon: 'chart-line',
         category: 'widgets',
-        keywords: [ 'dox', 'sales booster', 'ventas', 'vendidos' ],
+        keywords: [ 'dox', 'sales booster', __('sales', 'dox-sales-booster'), __('sold', 'dox-sales-booster') ],
         attributes: {
             min:        { type: 'number' },
             max:        { type: 'number' },
@@ -111,24 +111,24 @@
         edit: makeEdit('dox-sales-booster/sales', function (props) {
             var a = props.attributes, set = props.setAttributes;
             return [
-                numField('min', __('Mínimo ventas', 'dox-sales-booster'), a.min, function (v) { set({ min: v }); }),
-                numField('max', __('Máximo ventas', 'dox-sales-booster'), a.max, function (v) { set({ max: v }); }),
-                textField('text', __('Texto', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
-                numField('timeframe', __('Cantidad de tiempo', 'dox-sales-booster'), a.timeframe, function (v) { set({ timeframe: v }); }),
+                numField('min', __('Minimum sales', 'dox-sales-booster'), a.min, function (v) { set({ min: v }); }),
+                numField('max', __('Maximum sales', 'dox-sales-booster'), a.max, function (v) { set({ max: v }); }),
+                textField('text', __('Text', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
+                numField('timeframe', __('Time quantity', 'dox-sales-booster'), a.timeframe, function (v) { set({ timeframe: v }); }),
                 el(SelectControl, {
                     key: 'period',
-                    label: __('Período', 'dox-sales-booster'),
+                    label: __('Period', 'dox-sales-booster'),
                     value: a.period || '',
                     options: [
-                        { label: __('(usar valor global)', 'dox-sales-booster'), value: '' },
-                        { label: __('Minutos', 'dox-sales-booster'), value: 'minutos' },
-                        { label: __('Horas', 'dox-sales-booster'), value: 'horas' },
-                        { label: __('Días', 'dox-sales-booster'), value: 'días' },
-                        { label: __('Semanas', 'dox-sales-booster'), value: 'semanas' }
+                        { label: __('(use global value)', 'dox-sales-booster'), value: '' },
+                        { label: __('Minutes', 'dox-sales-booster'), value: 'minutes' },
+                        { label: __('Hours', 'dox-sales-booster'), value: 'hours' },
+                        { label: __('Days', 'dox-sales-booster'), value: 'days' },
+                        { label: __('Weeks', 'dox-sales-booster'), value: 'weeks' }
                     ],
                     onChange: function (v) { set({ period: v === '' ? undefined : v }); }
                 }),
-                numField('product_id', __('ID de producto (vacío = producto actual)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
+                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
             ];
         }),
         save: function () { return null; }
@@ -136,11 +136,11 @@
 
     /* 🚚 Barra de envío gratis */
     registerBlockType('dox-sales-booster/shipbar', {
-        title: '🚚 ' + __('Barra de envío gratis (Sales Booster)', 'dox-sales-booster'),
-        description: __('Barra de progreso hacia el envío gratis según el total del carrito.', 'dox-sales-booster'),
+        title: '🚚 ' + __('Free shipping bar (Sales Booster)', 'dox-sales-booster'),
+        description: __('Progress bar toward free shipping based on the cart total.', 'dox-sales-booster'),
         icon: 'car',
         category: 'widgets',
-        keywords: [ 'dox', 'sales booster', 'envío', 'gratis', 'progreso' ],
+        keywords: [ 'dox', 'sales booster', __('shipping', 'dox-sales-booster'), __('free', 'dox-sales-booster'), __('progress', 'dox-sales-booster') ],
         attributes: {
             threshold:    { type: 'number' },
             text:         { type: 'string' },
@@ -149,21 +149,21 @@
         edit: makeEdit('dox-sales-booster/shipbar', function (props) {
             var a = props.attributes, set = props.setAttributes;
             return [
-                numField('threshold', __('Monto para envío gratis (vacío = fuente del panel)', 'dox-sales-booster'), a.threshold, function (v) { set({ threshold: v }); }),
-                textField('text', __('Texto de progreso (variable {precio})', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
-                textField('success_text', __('Texto de éxito', 'dox-sales-booster'), a.success_text, function (v) { set({ success_text: v }); })
+                numField('threshold', __('Free shipping amount (empty = panel source)', 'dox-sales-booster'), a.threshold, function (v) { set({ threshold: v }); }),
+                textField('text', __('Progress text (variable {amount})', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
+                textField('success_text', __('Success text', 'dox-sales-booster'), a.success_text, function (v) { set({ success_text: v }); })
             ];
-        }, __('La barra usa el carrito real del visitante; en el editor la vista previa puede mostrar el carrito vacío.', 'dox-sales-booster')),
+        }, __('The bar uses the real cart of the visitor; in the editor the preview may show an empty cart.', 'dox-sales-booster')),
         save: function () { return null; }
     });
 
     /* ⚡ Stock bajo (datos reales) */
     registerBlockType('dox-sales-booster/stock', {
-        title: '⚡ ' + __('Stock bajo (Sales Booster)', 'dox-sales-booster'),
-        description: __('Urgencia con el inventario REAL de WooCommerce: solo aparece si quedan pocas unidades.', 'dox-sales-booster'),
+        title: '⚡ ' + __('Low stock (Sales Booster)', 'dox-sales-booster'),
+        description: __('Urgency based on the REAL WooCommerce inventory: it only appears when few units are left.', 'dox-sales-booster'),
         icon: 'warning',
         category: 'widgets',
-        keywords: [ 'dox', 'sales booster', 'stock', 'inventario', 'urgencia' ],
+        keywords: [ 'dox', 'sales booster', 'stock', __('inventory', 'dox-sales-booster'), __('urgency', 'dox-sales-booster') ],
         attributes: {
             threshold:  { type: 'number' },
             text:       { type: 'string' },
@@ -172,11 +172,11 @@
         edit: makeEdit('dox-sales-booster/stock', function (props) {
             var a = props.attributes, set = props.setAttributes;
             return [
-                numField('threshold', __('Umbral de unidades', 'dox-sales-booster'), a.threshold, function (v) { set({ threshold: v }); }),
-                textField('text', __('Texto (variable {stock})', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
-                numField('product_id', __('ID de producto (vacío = producto actual)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
+                numField('threshold', __('Units threshold', 'dox-sales-booster'), a.threshold, function (v) { set({ threshold: v }); }),
+                textField('text', __('Text (variable {stock})', 'dox-sales-booster'), a.text, function (v) { set({ text: v }); }),
+                numField('product_id', __('Product ID (empty = current product)', 'dox-sales-booster'), a.product_id, function (v) { set({ product_id: v }); })
             ];
-        }, __('Se muestra en páginas de producto cuando el stock real está por debajo del umbral. Fuera de una página de producto la vista previa puede quedar vacía.', 'dox-sales-booster')),
+        }, __('Shown on product pages when the real stock is below the threshold. Outside a product page the preview may be empty.', 'dox-sales-booster')),
         save: function () { return null; }
     });
 

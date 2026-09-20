@@ -21,7 +21,7 @@ function dsb_widget_note_control( $widget ) {
         'type' => \Elementor\Controls_Manager::RAW_HTML,
         'raw'  => sprintf(
             /* translators: %s: URL del panel de ajustes */
-            __( '⚙️ Los valores por defecto se toman del <a href="%s" target="_blank">panel Sales Booster</a>. Aquí puedes sobreescribirlos solo para este widget.', 'dox-sales-booster' ),
+            __( '⚙️ Default values are taken from the <a href="%s" target="_blank">Sales Booster panel</a>. Here you can override them for this widget only.', 'dox-sales-booster' ),
             esc_url( admin_url( 'admin.php?page=dox-sales-booster' ) )
         ),
         'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
@@ -34,7 +34,7 @@ function dsb_widget_note_control( $widget ) {
 class DSB_Widget_Viewing extends \Elementor\Widget_Base {
 
     public function get_name()       { return 'dsb_viewing'; }
-    public function get_title()      { return '👁️ ' . __( 'Personas viendo (Sales Booster)', 'dox-sales-booster' ); }
+    public function get_title()      { return '👁️ ' . __( 'People viewing (Sales Booster)', 'dox-sales-booster' ); }
     public function get_icon()       { return 'eicon-eye'; }
     public function get_keywords()   { return [ 'ventas', 'urgencia', 'viendo', 'sales booster', 'dox' ]; }
     public function get_categories() { return [ 'woocommerce-elements', 'general' ]; }
@@ -47,23 +47,23 @@ class DSB_Widget_Viewing extends \Elementor\Widget_Base {
     protected function register_controls() {
         $opts = dsb_get_settings();
 
-        $this->start_controls_section( 'section_content', [ 'label' => __( 'Configuración', 'dox-sales-booster' ) ] );
+        $this->start_controls_section( 'section_content', [ 'label' => __( 'Settings', 'dox-sales-booster' ) ] );
         dsb_widget_note_control( $this );
 
         $this->add_control( 'min', [
-            'label'   => __( 'Mínimo personas', 'dox-sales-booster' ),
+            'label'   => __( 'Minimum people', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => $opts['viewing_min'],
             'min'     => 1, 'max' => 100,
         ] );
         $this->add_control( 'max', [
-            'label'   => __( 'Máximo personas', 'dox-sales-booster' ),
+            'label'   => __( 'Maximum people', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => $opts['viewing_max'],
             'min'     => 1, 'max' => 200,
         ] );
         $this->add_control( 'text', [
-            'label'   => __( 'Texto', 'dox-sales-booster' ),
+            'label'   => __( 'Text', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::TEXT,
             'default' => $opts['viewing_text'],
         ] );
@@ -71,14 +71,14 @@ class DSB_Widget_Viewing extends \Elementor\Widget_Base {
         $this->end_controls_section();
 
         // Estilo
-        $this->start_controls_section( 'section_style', [ 'label' => __( 'Estilo', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
+        $this->start_controls_section( 'section_style', [ 'label' => __( 'Style', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
         $this->add_control( 'text_color', [
-            'label'     => __( 'Color del texto', 'dox-sales-booster' ),
+            'label'     => __( 'Text color', 'dox-sales-booster' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .dsb-live-viewing' => 'color: {{VALUE}}' ],
         ] );
         $this->add_control( 'count_color', [
-            'label'     => __( 'Color del número', 'dox-sales-booster' ),
+            'label'     => __( 'Number color', 'dox-sales-booster' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'default'   => '#e44c4c',
             'selectors' => [ '{{WRAPPER}} .dsb-viewing-count' => 'color: {{VALUE}}' ],
@@ -99,7 +99,7 @@ class DSB_Widget_Viewing extends \Elementor\Widget_Base {
         ] );
 
         if ( '' === $html ) {
-            dsb_widget_placeholder( __( 'El contador "Personas viendo" está desactivado en los ajustes de Sales Booster.', 'dox-sales-booster' ) );
+            dsb_widget_placeholder( __( 'The "People viewing" counter is disabled in the Sales Booster settings.', 'dox-sales-booster' ) );
             return;
         }
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_viewing()
@@ -112,7 +112,7 @@ class DSB_Widget_Viewing extends \Elementor\Widget_Base {
 class DSB_Widget_Sales extends \Elementor\Widget_Base {
 
     public function get_name()       { return 'dsb_sales'; }
-    public function get_title()      { return '🔥 ' . __( 'Ventas recientes (Sales Booster)', 'dox-sales-booster' ); }
+    public function get_title()      { return '🔥 ' . __( 'Recent sales (Sales Booster)', 'dox-sales-booster' ); }
     public function get_icon()       { return 'eicon-cart-medium'; }
     public function get_keywords()   { return [ 'ventas', 'urgencia', 'vendidos', 'sales booster', 'dox' ]; }
     public function get_categories() { return [ 'woocommerce-elements', 'general' ]; }
@@ -122,53 +122,53 @@ class DSB_Widget_Sales extends \Elementor\Widget_Base {
     protected function register_controls() {
         $opts = dsb_get_settings();
 
-        $this->start_controls_section( 'section_content', [ 'label' => __( 'Configuración', 'dox-sales-booster' ) ] );
+        $this->start_controls_section( 'section_content', [ 'label' => __( 'Settings', 'dox-sales-booster' ) ] );
         dsb_widget_note_control( $this );
 
         $this->add_control( 'text', [
-            'label'   => __( 'Texto', 'dox-sales-booster' ),
+            'label'   => __( 'Text', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::TEXT,
             'default' => $opts['fakesales_text'],
         ] );
         $this->add_control( 'min', [
-            'label'   => __( 'Mínimo ventas', 'dox-sales-booster' ),
+            'label'   => __( 'Minimum sales', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => $opts['fakesales_min'],
             'min' => 1, 'max' => 100,
         ] );
         $this->add_control( 'max', [
-            'label'   => __( 'Máximo ventas', 'dox-sales-booster' ),
+            'label'   => __( 'Maximum sales', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => $opts['fakesales_max'],
             'min' => 1, 'max' => 200,
         ] );
         $this->add_control( 'timeframe', [
-            'label'   => __( 'Cantidad de tiempo', 'dox-sales-booster' ),
+            'label'   => __( 'Time quantity', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => $opts['fakesales_timeframe'],
         ] );
         $this->add_control( 'period', [
-            'label'   => __( 'Período', 'dox-sales-booster' ),
+            'label'   => __( 'Period', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => $opts['fakesales_period'],
             'options' => [
-                'minutos' => __( 'Minutos', 'dox-sales-booster' ),
-                'horas'   => __( 'Horas', 'dox-sales-booster' ),
-                'días'    => __( 'Días', 'dox-sales-booster' ),
-                'semanas' => __( 'Semanas', 'dox-sales-booster' ),
+                'minutos' => __( 'Minutes', 'dox-sales-booster' ),
+                'horas'   => __( 'Hours', 'dox-sales-booster' ),
+                'días'    => __( 'Days', 'dox-sales-booster' ),
+                'semanas' => __( 'Weeks', 'dox-sales-booster' ),
             ],
         ] );
 
         $this->end_controls_section();
 
-        $this->start_controls_section( 'section_style', [ 'label' => __( 'Estilo', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
+        $this->start_controls_section( 'section_style', [ 'label' => __( 'Style', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
         $this->add_control( 'text_color', [
-            'label'     => __( 'Color del texto', 'dox-sales-booster' ),
+            'label'     => __( 'Text color', 'dox-sales-booster' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .dsb-fake-sales' => 'color: {{VALUE}}' ],
         ] );
         $this->add_control( 'count_color', [
-            'label'     => __( 'Color del número', 'dox-sales-booster' ),
+            'label'     => __( 'Number color', 'dox-sales-booster' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'default'   => '#e44c4c',
             'selectors' => [ '{{WRAPPER}} .dsb-sales-count' => 'color: {{VALUE}}' ],
@@ -191,7 +191,7 @@ class DSB_Widget_Sales extends \Elementor\Widget_Base {
         ] );
 
         if ( '' === $html ) {
-            dsb_widget_placeholder( __( 'El texto de "Ventas recientes" está desactivado en los ajustes de Sales Booster.', 'dox-sales-booster' ) );
+            dsb_widget_placeholder( __( 'The "Recent sales" text is disabled in the Sales Booster settings.', 'dox-sales-booster' ) );
             return;
         }
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_sales()
@@ -204,7 +204,7 @@ class DSB_Widget_Sales extends \Elementor\Widget_Base {
 class DSB_Widget_Shipbar extends \Elementor\Widget_Base {
 
     public function get_name()       { return 'dsb_shipbar'; }
-    public function get_title()      { return '🚚 ' . __( 'Barra de envío gratis (Sales Booster)', 'dox-sales-booster' ); }
+    public function get_title()      { return '🚚 ' . __( 'Free shipping bar (Sales Booster)', 'dox-sales-booster' ); }
     public function get_icon()       { return 'eicon-skill-bar'; }
     public function get_keywords()   { return [ 'envío', 'gratis', 'shipping', 'barra', 'progreso', 'sales booster', 'dox' ]; }
     public function get_categories() { return [ 'woocommerce-elements', 'general' ]; }
@@ -214,23 +214,23 @@ class DSB_Widget_Shipbar extends \Elementor\Widget_Base {
     protected function register_controls() {
         $opts = dsb_get_settings();
 
-        $this->start_controls_section( 'section_content', [ 'label' => __( 'Configuración', 'dox-sales-booster' ) ] );
+        $this->start_controls_section( 'section_content', [ 'label' => __( 'Settings', 'dox-sales-booster' ) ] );
         dsb_widget_note_control( $this );
 
         $this->add_control( 'threshold', [
-            'label'       => __( 'Monto para envío gratis', 'dox-sales-booster' ),
+            'label'       => __( 'Free shipping amount', 'dox-sales-booster' ),
             'type'        => \Elementor\Controls_Manager::NUMBER,
             'min'         => 0,
-            'description' => __( 'Vacío o 0 = usar la fuente configurada en el panel (monto propio o método de WooCommerce).', 'dox-sales-booster' ),
+            'description' => __( 'Empty or 0 = use the source set in the panel (custom amount or WooCommerce method).', 'dox-sales-booster' ),
         ] );
         $this->add_control( 'text', [
-            'label'       => __( 'Texto de progreso', 'dox-sales-booster' ),
+            'label'       => __( 'Progress text', 'dox-sales-booster' ),
             'type'        => \Elementor\Controls_Manager::TEXTAREA,
             'default'     => $opts['shipbar_text'],
-            'description' => __( 'Variable disponible: {precio} (lo que falta para el envío gratis).', 'dox-sales-booster' ),
+            'description' => __( 'Available variable: {amount} (how much is left to get free shipping).', 'dox-sales-booster' ),
         ] );
         $this->add_control( 'success_text', [
-            'label'   => __( 'Texto de éxito', 'dox-sales-booster' ),
+            'label'   => __( 'Success text', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::TEXTAREA,
             'default' => $opts['shipbar_success_text'],
         ] );
@@ -239,19 +239,19 @@ class DSB_Widget_Shipbar extends \Elementor\Widget_Base {
 
         // Estilo — los colores se pasan al render (la barra usa variables CSS
         // inline, así que un selector de Elementor no podría sobreescribirlas).
-        $this->start_controls_section( 'section_style', [ 'label' => __( 'Estilo', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
+        $this->start_controls_section( 'section_style', [ 'label' => __( 'Style', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
         $this->add_control( 'bar_color', [
-            'label'   => __( 'Color de la barra', 'dox-sales-booster' ),
+            'label'   => __( 'Bar color', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::COLOR,
             'default' => $opts['shipbar_bar_color'],
         ] );
         $this->add_control( 'track_color', [
-            'label'   => __( 'Color del fondo de la barra', 'dox-sales-booster' ),
+            'label'   => __( 'Bar background color', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::COLOR,
             'default' => $opts['shipbar_track_color'],
         ] );
         $this->add_control( 'text_color', [
-            'label'   => __( 'Color del texto', 'dox-sales-booster' ),
+            'label'   => __( 'Text color', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::COLOR,
             'default' => $opts['shipbar_text_color'],
         ] );
@@ -274,7 +274,7 @@ class DSB_Widget_Shipbar extends \Elementor\Widget_Base {
         ] );
 
         if ( '' === $html ) {
-            dsb_widget_placeholder( __( 'La barra de envío gratis está desactivada en los ajustes de Sales Booster, o no hay un monto de envío gratis configurado.', 'dox-sales-booster' ) );
+            dsb_widget_placeholder( __( 'The free shipping bar is disabled in the Sales Booster settings, or no free shipping amount is configured.', 'dox-sales-booster' ) );
             return;
         }
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_shipping_bar()
@@ -287,7 +287,7 @@ class DSB_Widget_Shipbar extends \Elementor\Widget_Base {
 class DSB_Widget_Stock extends \Elementor\Widget_Base {
 
     public function get_name()       { return 'dsb_stock'; }
-    public function get_title()      { return '⚡ ' . __( 'Stock bajo (Sales Booster)', 'dox-sales-booster' ); }
+    public function get_title()      { return '⚡ ' . __( 'Low stock (Sales Booster)', 'dox-sales-booster' ); }
     public function get_icon()       { return 'eicon-alert'; }
     public function get_keywords()   { return [ 'stock', 'inventario', 'urgencia', 'sales booster', 'dox' ]; }
     public function get_categories() { return [ 'woocommerce-elements', 'general' ]; }
@@ -297,33 +297,33 @@ class DSB_Widget_Stock extends \Elementor\Widget_Base {
     protected function register_controls() {
         $opts = dsb_get_settings();
 
-        $this->start_controls_section( 'section_content', [ 'label' => __( 'Configuración', 'dox-sales-booster' ) ] );
+        $this->start_controls_section( 'section_content', [ 'label' => __( 'Settings', 'dox-sales-booster' ) ] );
         dsb_widget_note_control( $this );
 
         $this->add_control( 'threshold', [
-            'label'   => __( 'Umbral de unidades', 'dox-sales-booster' ),
+            'label'   => __( 'Units threshold', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => $opts['stock_threshold'],
             'min'     => 1, 'max' => 999,
-            'description' => __( 'Solo se muestra si el stock real es menor o igual a este número.', 'dox-sales-booster' ),
+            'description' => __( 'Only shown if the real stock is less than or equal to this number.', 'dox-sales-booster' ),
         ] );
         $this->add_control( 'text', [
-            'label'       => __( 'Texto', 'dox-sales-booster' ),
+            'label'       => __( 'Text', 'dox-sales-booster' ),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'default'     => $opts['stock_text'],
-            'description' => __( 'Variable disponible: {stock}', 'dox-sales-booster' ),
+            'description' => __( 'Available variable: {stock}', 'dox-sales-booster' ),
         ] );
 
         $this->end_controls_section();
 
-        $this->start_controls_section( 'section_style', [ 'label' => __( 'Estilo', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
+        $this->start_controls_section( 'section_style', [ 'label' => __( 'Style', 'dox-sales-booster' ), 'tab' => \Elementor\Controls_Manager::TAB_STYLE ] );
         $this->add_control( 'text_color', [
-            'label'     => __( 'Color del texto', 'dox-sales-booster' ),
+            'label'     => __( 'Text color', 'dox-sales-booster' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .dsb-low-stock' => 'color: {{VALUE}}' ],
         ] );
         $this->add_control( 'count_color', [
-            'label'     => __( 'Color del número', 'dox-sales-booster' ),
+            'label'     => __( 'Number color', 'dox-sales-booster' ),
             'type'      => \Elementor\Controls_Manager::COLOR,
             'selectors' => [ '{{WRAPPER}} .dsb-stock-count' => 'color: {{VALUE}}' ],
         ] );
@@ -342,7 +342,7 @@ class DSB_Widget_Stock extends \Elementor\Widget_Base {
         ] );
 
         if ( '' === $html ) {
-            dsb_widget_placeholder( __( 'Stock bajo: se muestra en páginas de producto cuando el inventario real está por debajo del umbral (nada que mostrar en este contexto).', 'dox-sales-booster' ) );
+            dsb_widget_placeholder( __( 'Low stock: shown on product pages when the real inventory is below the threshold (nothing to show in this context).', 'dox-sales-booster' ) );
             return;
         }
         echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en dsb_render_stock()
