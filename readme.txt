@@ -119,6 +119,7 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 * **New: the free shipping bar works in the block Mini Cart.** The bar was inserted through the classic mini cart hook, which the `woocommerce/mini-cart` block does not fire, so it never showed up in block-based side carts. It is now injected into the drawer and kept in sync with the Store API, like the cart and checkout blocks.
 * Fixed: the script that refreshes the bar in the block cart did not recognise the new `{amount}` placeholder, so the message could be left unreplaced after changing quantities.
 * Fixed: the admin preview of the recent sales counter printed the period untranslated.
+* Fixed: emptying the popup city list fell back to five hardcoded Colombian cities. It now falls back to the default list, which follows the site language.
 
 = 1.5.0 =
 * **The plugin is now in English.** Every interface string was written in Spanish, so an English site had nothing to translate and the whole admin panel, the widgets and the storefront texts showed up in Spanish. The source language is now English and Spanish ships as a full translation (`languages/dox-sales-booster-es_ES.po` / `.mo`, plus the JSON catalogue the Gutenberg blocks need), so each site follows its own WordPress language.

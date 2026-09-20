@@ -176,10 +176,10 @@ function dsb_parse_locations( $raw ) {
     }
     $lines = dsb_parse_list_lines( $raw );
     if ( $lines ) return $lines;
-    return [
-        'Bogotá, D.C. 🇨🇴', 'Medellín, Antioquia 🇨🇴', 'Cali, Valle del Cauca 🇨🇴',
-        'Barranquilla, Atlántico 🇨🇴', 'Cartagena, Bolívar 🇨🇴',
-    ];
+
+    // Campo vacío: se cae a la lista por defecto, que es traducible y trae las
+    // ciudades del idioma del sitio.
+    return dsb_default_locations();
 }
 
 /* ── Feed de productos del popup ──────────────────────────────────────────── */
