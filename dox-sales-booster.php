@@ -67,8 +67,16 @@ add_filter( 'load_script_translation_file', function ( $file, $handle, $domain )
 // ─── Menú común de los plugins de Dox Studio ──────────────────────────────────
 // Cada plugin Dox lleva su copia de dox-core y se carga solo la más nueva de
 // todas las instaladas, así que esto no pisa nada si hay más plugins Dox.
-require_once DSB_PATH . 'dox-core/loader.php';
-Dox_Core_Loader::register( require DSB_PATH . 'dox-core/version.php', DSB_PATH . 'dox-core/dox-core.php' );
+// Con file_exists: si la carpeta llegara a medias (una subida cortada), el plugin
+// sigue en pie en vez de tumbar el sitio con un error fatal. Se apunta igual en
+// Dox Plugins si otro plugin Dox trae el core y, si no, usa su propio menú (el
+// respaldo de admin/settings.php).
+if ( file_exists( DSB_PATH . 'dox-core/loader.php' ) && file_exists( DSB_PATH . 'dox-core/version.php' ) ) {
+    require_once DSB_PATH . 'dox-core/loader.php';
+    if ( class_exists( 'Dox_Core_Loader' ) ) { // Un loader.php vacío (la subida se cortó ahí) existe pero no define nada.
+        Dox_Core_Loader::register( require DSB_PATH . 'dox-core/version.php', DSB_PATH . 'dox-core/dox-core.php' );
+    }
+}
 
 // ─── Cargar archivos ───────────────────────────────────────────────────────────
 require_once DSB_PATH . 'includes/cities.php';
