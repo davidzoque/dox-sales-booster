@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ Boost WooCommerce conversions with a live viewing counter, recent sales counter,
 * **Purchase Popup** — An animated notification popup showing a recent purchase: product image, name, price, location, and time. Can run on **simulated data** or on **real recent orders** (product, city and real time ago — never customer names).
 * **Free Shipping Progress Bar** — "You're only {amount} away from free shipping!" with a progress bar based on the real cart total. Auto-inserted into the standard WooCommerce mini cart (including off-canvas carts like UICore Pro's), the cart page and the checkout, refreshing via cart fragments without page reloads. The threshold can be a custom amount or read from the WooCommerce Free Shipping method's minimum order amount for the customer's zone.
 
-All elements are controlled from a dedicated admin panel under **Sales Booster** in the WordPress menu. The product elements can be inserted **automatically** into the WooCommerce product page at the position you choose, or placed by hand via **shortcodes**, **Elementor widgets** or **Gutenberg blocks**. No page builder required.
+All elements are controlled from a dedicated admin panel under **Dox Plugins → Sales Booster** in the WordPress menu. The product elements can be inserted **automatically** into the WooCommerce product page at the position you choose, or placed by hand via **shortcodes**, **Elementor widgets** or **Gutenberg blocks**. No page builder required.
 
 = Features =
 
@@ -67,7 +67,7 @@ Search for "Sales Booster" in the block inserter: viewing counter, recent sales,
 
 1. Upload the `dox-sales-booster` folder to the `/wp-content/plugins/` directory, or install the ZIP via the WordPress plugin uploader.
 2. Activate the plugin through the **Plugins** menu in WordPress.
-3. Go to **Sales Booster** in the admin menu to configure the plugin.
+3. Go to **Dox Plugins → Sales Booster** in the admin menu to configure the plugin.
 4. (Optional) Place the shortcodes, Elementor widgets or Gutenberg blocks on your product pages.
 5. Updates are automatic from this plugin's public GitHub releases — nothing to configure.
 
@@ -93,7 +93,7 @@ The plugin checks this project's public GitHub releases (via Plugin Update Check
 
 = Can I change the popup locations? =
 
-Yes. In the admin panel under "Popup de compra" there is a Locations field — one city per line. The legacy `{{{City}}};` format from 1.x is still understood.
+Yes. In the admin panel, the "Purchase popup" tab has a Cities field under Locations, one city per line. The legacy `{{{City}}};` format from 1.x is still understood.
 
 = Is the popup shown on mobile? =
 
@@ -112,6 +112,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 5. Elementor widgets panel
 
 == Changelog ==
+
+= 1.7.2 =
+* Docs: the readme still sent you to a "Sales Booster" entry in the admin menu, which has been **Dox Plugins → Sales Booster** since 1.7.0, and the FAQ called the popup settings tab by its Spanish name from before 1.5.0. Both are fixed. The plugin itself does not change.
 
 = 1.7.1 =
 * Fixed: an upload cut short (a half-copied `dox-core` folder, or an empty `loader.php`) took the whole site down with a fatal error. The plugin now checks that the shared code arrived whole before loading it. If it did not, the settings stay reachable: under "Dox Plugins" when another Dox plugin brings that code, and under their own "Sales Booster" menu otherwise.
@@ -215,6 +218,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.7.2 =
+Documentation only: the readme now points to Dox Plugins → Sales Booster. The plugin itself does not change.
 
 = 1.7.1 =
 An interrupted plugin upload no longer takes the site down, and the "Dox Plugins" menu lists its plugins in alphabetical order.

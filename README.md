@@ -8,7 +8,7 @@ Plugin de WooCommerce (Dox Studio) que añade prueba social para mejorar la conv
 - **🛍️ Popup de compra** — notificación animada con producto, precio, ciudad y tiempo. Modo **simulado** (catálogo) o **real** (pedidos recientes, siempre anónimo: solo ciudad y tiempo).
 - **🚚 Barra de envío gratis** — "¡Te faltan {amount} para el envío gratis!" con barra de progreso según el carrito real (`[dsb_free_shipping]`, widget, bloque). Se inserta sola en el mini carrito estándar de WooCommerce (incluido el offcanvas de UICore Pro), el carrito y el checkout, y se refresca por cart fragments sin recargar. El monto puede ser propio o leerse del método "Envío gratuito" de WooCommerce de la zona del cliente.
 
-Todo se configura en **wp-admin → Sales Booster**.
+Todo se configura en **wp-admin → Dox Plugins → Sales Booster**.
 
 > ℹ️ Distribución propia de Dox Studio — este plugin no se publica en WordPress.org (la prueba social simulada incumple su guideline 9). Se instala subiendo el ZIP de la última release y **se actualiza solo** desde este repositorio.
 
@@ -22,7 +22,7 @@ Todo se configura en **wp-admin → Sales Booster**.
 
 1. Descarga el ZIP de la [última release](https://github.com/davidzoque/dox-sales-booster/releases/latest) (`dox-sales-booster.zip`).
 2. En WordPress: **Plugins → Añadir nuevo → Subir plugin**, elige el ZIP y actívalo.
-3. Configúralo en **wp-admin → Sales Booster**.
+3. Configúralo en **wp-admin → Dox Plugins → Sales Booster**.
 
 ## Actualizaciones automáticas
 
