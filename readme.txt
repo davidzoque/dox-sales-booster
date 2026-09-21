@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,10 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 
 == Changelog ==
 
+= 1.7.1 =
+* Fixed: an upload cut short (a half-copied `dox-core` folder, or an empty `loader.php`) took the whole site down with a fatal error. The plugin now checks that the shared code arrived whole before loading it. If it did not, the settings stay reachable: under "Dox Plugins" when another Dox plugin brings that code, and under their own "Sales Booster" menu otherwise.
+* Changed: the "Dox Plugins" menu and its front page list the plugins in alphabetical order, instead of in whatever order they happened to load, and the button on each card now reads "Open".
+
 = 1.7.0 =
 * **New: the settings screen now lives under a shared "Dox Plugins" menu.** Every Dox Studio plugin used to add its own top-level entry, so a site with three of them had three separate menus. They now share one, with a front page listing what is installed and a link to each plugin's settings. Nothing depends on anything else: each plugin carries its own copy of the shared code and only the newest one runs.
 * **Fixed: sites in a Spanish variant other than Spain got the plugin in English.** The bundled translation is es_ES and WordPress does not fall back between variants on its own, so a store set to Spanish (Colombia) or Spanish (Mexico) lost its Spanish when 1.5.0 moved the source language to English. Any Spanish variant now gets the Spanish translation, block editor included, unless the site has its own translation for that variant.
@@ -211,6 +215,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.7.1 =
+An interrupted plugin upload no longer takes the site down, and the "Dox Plugins" menu lists its plugins in alphabetical order.
 
 = 1.7.0 =
 The settings screen moved from its own menu entry to Sales Booster inside the new "Dox Plugins" menu. Same screen, same settings.
