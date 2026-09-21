@@ -186,11 +186,13 @@ class Dox_Core {
 	}
 
 	/**
-	 * Logo horizontal de la marca, para la cabecera del panel. Va en línea y no
-	 * como <img> para que herede el tamaño por CSS sin pedir otro archivo.
+	 * Lockup "dox plugins" para la cabecera del panel: el isotipo de la marca y
+	 * las dos palabras en Poppins, la tipografía del logo, ya convertidas en
+	 * curvas para no depender de ninguna fuente instalada. Va en línea y no como
+	 * <img> para que herede el tamaño por CSS sin pedir otro archivo.
 	 */
 	public function logo_svg() {
-		return $this->asset( 'logo.svg' );
+		return $this->asset( 'logo-plugins.svg' );
 	}
 
 	private function asset( $file ) {

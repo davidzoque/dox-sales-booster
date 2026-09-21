@@ -19,9 +19,8 @@ $logo      = $this->logo_svg();
 		<?php if ( $logo ) : ?>
 			<span class="dox-core-logo"><?php echo $logo; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG propio del plugin ?></span>
 		<?php else : ?>
-			<span class="dox-core-logo-text">Dox Studio</span>
+			<span class="dox-core-logo-text">Dox Plugins</span>
 		<?php endif; ?>
-		<span class="dox-core-head-word"><?php esc_html_e( 'Plugins', 'dox-core' ); ?></span>
 	</div>
 
 	<p class="dox-core-lead"><?php esc_html_e( 'Every Dox Studio plugin on this site, in one place.', 'dox-core' ); ?></p>
@@ -50,11 +49,10 @@ $logo      = $this->logo_svg();
 
 <style>
 .dox-core-wrap { --dox-accent: #ff8d27; --dox-accent-deep: #ea780f; --dox-ink: #141313; max-width: 1120px; }
-.dox-core-head { display: flex; align-items: baseline; gap: 10px; margin: 20px 0 4px; }
+.dox-core-head { display: flex; align-items: center; margin: 22px 0 6px; }
 .dox-core-logo { display: block; line-height: 0; }
-.dox-core-logo svg { height: 26px; width: auto; display: block; }
+.dox-core-logo svg { height: 30px; width: auto; display: block; }
 .dox-core-logo-text { font-size: 22px; font-weight: 700; color: var(--dox-ink); }
-.dox-core-head-word { font-size: 22px; font-weight: 400; color: #646970; letter-spacing: -.01em; }
 .dox-core-lead { color: #646970; margin: 0 0 26px; font-size: 14px; }
 .dox-core-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
 .dox-core-card { background: #fff; border: 1px solid #e2e4e7; border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }

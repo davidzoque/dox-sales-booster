@@ -34,6 +34,3 @@ msgstr "Ajustes"
 msgid "Code snippets with no risk of breaking the site editing functions.php."
 msgstr "Fragmentos de código sin el riesgo de romper el sitio editando functions.php."
 
-#: views/dashboard.php
-msgid "Plugins"
-msgstr "Plugins"
