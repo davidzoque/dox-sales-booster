@@ -1,5 +1,5 @@
 /**
- * Dox Sales Booster — barra de envío gratis en el carrito, el checkout y el
+ * Dox Sales Booster: barra de envío gratis en el carrito, el checkout y el
  * mini carrito construidos con BLOQUES.
  *
  * Los bloques de WooCommerce (woocommerce/cart, woocommerce/checkout,
@@ -13,7 +13,7 @@
  * aquí con el mismo marcado que genera dsb_render_shipping_bar().
  *
  * Config vía window.dsbShipbar: { threshold, text, successText, ignoreCoupons,
- * miniCart, barColor, trackColor, textColor }.
+ * inclTax, miniCart, barColor, trackColor, textColor }.
  */
 (function () {
     'use strict';
@@ -127,10 +127,18 @@
         if (!store || typeof store.getCartTotals !== 'function') return null;
         var t = store.getCartTotals();
         if (!t) return null;
-        var minor  = Math.pow(10, (t.currency_minor_unit != null ? t.currency_minor_unit : 2));
-        var amount = parseInt(t.total_items || 0, 10) / minor;
-        if (cfg.ignoreCoupons) amount += parseInt(t.total_discount || 0, 10) / minor;
-        return { amount: amount, totals: t };
+        var minor = Math.pow(10, (t.currency_minor_unit != null ? t.currency_minor_unit : 2));
+        var num   = function (v) { return parseInt(v || 0, 10) / minor; };
+
+        // La misma cuenta que dsb_shipbar_cart_amount() en PHP, que es la de
+        // WooCommerce: el subtotal tal como se muestra y, si los cupones
+        // cuentan, menos el descuento. total_items ya es ANTES de cupones, así
+        // que sumarle el descuento (lo que se hacía) inflaba el importe.
+        var amount = num(t.total_items) + (cfg.inclTax ? num(t.total_items_tax) : 0);
+        if (!cfg.ignoreCoupons) {
+            amount -= num(t.total_discount) + (cfg.inclTax ? num(t.total_discount_tax) : 0);
+        }
+        return { amount: Math.max(0, amount), totals: t };
     }
 
     function update(force) {

@@ -13,21 +13,24 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /* ── Umbral ───────────────────────────────────────────────────────────────── */
 
-// Pedido mínimo del método free_shipping de la zona que aplica al cliente
-// actual. Devuelve 0 si la zona no tiene envío gratis por monto mínimo.
-function dsb_wc_free_shipping_min() {
-    static $min = null;
-    if ( null !== $min ) return $min;
-    $min = 0;
+// Método free_shipping de la zona que aplica al cliente actual, si depende de
+// un pedido mínimo: [ 'min' => monto, 'ignore_discounts' => bool ]. Null si la
+// zona no tiene envío gratis por monto mínimo.
+function dsb_wc_free_shipping_method() {
+    static $found = false; // false = todavía sin calcular
+    if ( false !== $found ) return $found;
 
-    if ( ! function_exists( 'WC' ) || null === WC()->cart || ! class_exists( 'WC_Shipping_Zones' ) ) return $min;
+    // Sin carrito todavía no se puede saber la zona: no se guarda nada, para
+    // que una llamada temprana no deje el resultado vacío el resto de la carga.
+    if ( ! function_exists( 'WC' ) || null === WC()->cart || ! class_exists( 'WC_Shipping_Zones' ) ) return null;
 
+    $found    = null;
     $packages = WC()->cart->get_shipping_packages();
     $package  = $packages ? reset( $packages ) : null;
-    if ( ! $package ) return $min;
+    if ( ! $package ) return $found;
 
     $zone = WC_Shipping_Zones::get_zone_matching_package( $package );
-    if ( ! $zone ) return $min;
+    if ( ! $zone ) return $found;
 
     foreach ( $zone->get_shipping_methods( true ) as $method ) {
         if ( 'free_shipping' !== $method->id ) continue;
@@ -35,11 +38,51 @@ function dsb_wc_free_shipping_min() {
         if ( ! in_array( $method->get_option( 'requires' ), [ 'min_amount', 'either', 'both' ], true ) ) continue;
         $amount = (float) $method->get_option( 'min_amount' );
         if ( $amount > 0 ) {
-            $min = $amount;
+            $found = [
+                'min'              => $amount,
+                'ignore_discounts' => 'yes' === $method->get_option( 'ignore_discounts' ),
+            ];
             break;
         }
     }
-    return $min;
+    return $found;
+}
+
+// Pedido mínimo de ese método. Devuelve 0 si la zona no lo tiene.
+function dsb_wc_free_shipping_min() {
+    $method = dsb_wc_free_shipping_method();
+    return $method ? $method['min'] : 0;
+}
+
+// ¿El importe se cuenta antes de los cupones? Cuando el umbral sale del método
+// de WooCommerce manda SU casilla ("aplicar el mínimo antes del cupón"), para
+// que la barra y el checkout no puedan decir cosas distintas; con monto propio
+// o con un umbral puesto a mano en el shortcode, manda la del panel.
+function dsb_shipbar_ignores_coupons( $opts, $override = 0 ) {
+    if ( (float) $override <= 0 && 'woocommerce' === ( $opts['shipbar_source'] ?? 'custom' ) ) {
+        $method = dsb_wc_free_shipping_method();
+        if ( $method ) return $method['ignore_discounts'];
+    }
+    return ! empty( $opts['shipbar_ignore_coupons'] );
+}
+
+// Importe del carrito que cuenta para el envío gratis. Es la misma cuenta que
+// hace WC_Shipping_Free_Shipping::is_available(): el subtotal tal como se
+// muestra (con o sin impuestos) y, si los cupones cuentan, menos el descuento
+// con su impuesto. Hasta la 1.6.0 con los impuestos activos se partía del
+// subtotal ANTES de cupones y encima se le sumaba el descuento, así que con un
+// cupón puesto la barra felicitaba por un envío gratis que el checkout no daba.
+function dsb_shipbar_cart_amount( $ignore_coupons ) {
+    $cart   = WC()->cart;
+    $amount = (float) $cart->get_displayed_subtotal();
+
+    if ( ! $ignore_coupons ) {
+        $amount -= (float) $cart->get_discount_total();
+        if ( $cart->display_prices_including_tax() ) {
+            $amount -= (float) $cart->get_discount_tax();
+        }
+    }
+    return max( 0, round( $amount, wc_get_price_decimals() ) );
 }
 
 // Resuelve el umbral efectivo: override del shortcode/widget > fuente
@@ -82,14 +125,7 @@ function dsb_render_shipping_bar( $args = [], $auto = false ) {
     $threshold = dsb_shipbar_threshold( $o, $args['threshold'] );
     if ( $threshold <= 0 ) return '';
 
-    // Mismo cálculo que usa WooCommerce para el pedido mínimo: subtotal
-    // mostrado (con/sin impuestos según la tienda), opcionalmente sin cupones.
-    $amount = wc_tax_enabled()
-        ? (float) WC()->cart->get_displayed_subtotal()
-        : (float) WC()->cart->cart_contents_total;
-    if ( ! empty( $o['shipbar_ignore_coupons'] ) ) {
-        $amount += (float) WC()->cart->get_discount_total();
-    }
+    $amount = dsb_shipbar_cart_amount( dsb_shipbar_ignores_coupons( $o, $args['threshold'] ) );
     $amount = (float) apply_filters( 'dsb_shipbar_amount', $amount );
 
     $done    = $amount >= $threshold;
@@ -231,7 +267,8 @@ add_action( 'wp_enqueue_scripts', function () {
         'threshold'     => dsb_shipbar_threshold( $o ),
         'text'          => $o['shipbar_text'],
         'successText'   => $o['shipbar_success_text'],
-        'ignoreCoupons' => ! empty( $o['shipbar_ignore_coupons'] ),
+        'ignoreCoupons' => dsb_shipbar_ignores_coupons( $o ),
+        'inclTax'       => ( function_exists( 'WC' ) && WC()->cart ) ? WC()->cart->display_prices_including_tax() : false,
         'miniCart'      => $mini,
         'barColor'      => sanitize_hex_color( $o['shipbar_bar_color'] )   ?: '#4caf50',
         'trackColor'    => sanitize_hex_color( $o['shipbar_track_color'] ) ?: '#e9e9f0',
