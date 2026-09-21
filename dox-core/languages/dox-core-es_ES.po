@@ -29,25 +29,11 @@ msgid "Settings"
 msgstr "Ajustes"
 
 #: views/dashboard.php
-msgid "More from Dox Studio"
-msgstr "Más de Dox Studio"
-
-#: views/dashboard.php
-msgid "Learn more"
-msgstr "Saber más"
-
-#: dox-core.php
-msgid "Purchase notifications, live viewing counter, low stock urgency and a free shipping bar for WooCommerce."
-msgstr "Avisos de compra, contador de personas viendo, urgencia por stock bajo y barra de envío gratis para WooCommerce."
-
-#: dox-core.php
-msgid "A point of sale for WooCommerce: sell in person with the same catalogue and stock."
-msgstr "Una caja para WooCommerce: vende en persona con el mismo catálogo y el mismo inventario."
-
-#: dox-core.php
-msgid "Collect reviews and feedback from your customers."
-msgstr "Recoge las reseñas y la opinión de tus clientes."
 
 #: dox-core.php
 msgid "Code snippets with no risk of breaking the site editing functions.php."
 msgstr "Fragmentos de código sin el riesgo de romper el sitio editando functions.php."
+
+#: views/dashboard.php
+msgid "Plugins"
+msgstr "Plugins"

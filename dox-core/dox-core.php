@@ -173,40 +173,30 @@ class Dox_Core {
 		}
 	}
 
-	/**
-	 * Catálogo para la portada: lo que hay, esté instalado o no.
-	 */
-	public function catalog() {
-		return [
-			'dox-sales-booster' => [
-				'name'    => 'Dox Sales Booster',
-				'summary' => __( 'Purchase notifications, live viewing counter, low stock urgency and a free shipping bar for WooCommerce.', 'dox-core' ),
-				'url'     => 'https://doxstudio.com/plugins/',
-			],
-			'dox-pos' => [
-				'name'    => 'Dox POS',
-				'summary' => __( 'A point of sale for WooCommerce: sell in person with the same catalogue and stock.', 'dox-core' ),
-				'url'     => 'https://doxstudio.com/dox-pos/',
-			],
-			'dox-feedback' => [
-				'name'    => 'Dox Feedback',
-				'summary' => __( 'Collect reviews and feedback from your customers.', 'dox-core' ),
-				'url'     => 'https://doxstudio.com/plugins/',
-			],
-			'dox-functions' => [
-				'name'    => 'Dox Functions',
-				'summary' => __( 'Code snippets with no risk of breaking the site editing functions.php.', 'dox-core' ),
-				'url'     => 'https://doxstudio.com/plugins/',
-			],
-		];
-	}
-
 	private function menu_icon() {
-		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-			. '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>'
-			. '<rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>';
+		$svg = $this->asset( 'icon-menu.svg' );
+
+		if ( ! $svg ) {
+			// Respaldo por si el archivo no viajara en el zip: un cuadrado naranja
+			// es preferible a que WordPress pinte el icono roto por defecto.
+			$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#ff8d27"/></svg>';
+		}
 
 		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+	}
+
+	/**
+	 * Logo horizontal de la marca, para la cabecera del panel. Va en línea y no
+	 * como <img> para que herede el tamaño por CSS sin pedir otro archivo.
+	 */
+	public function logo_svg() {
+		return $this->asset( 'logo.svg' );
+	}
+
+	private function asset( $file ) {
+		$path = $this->path . 'assets/' . $file;
+
+		return file_exists( $path ) ? (string) file_get_contents( $path ) : '';
 	}
 }
 
