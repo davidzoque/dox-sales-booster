@@ -108,13 +108,20 @@ add_action( 'init', function () {
     $stored   = get_option( 'dsb_version' );
     $settings = get_option( 'dsb_settings' );
 
-    // Sin dsb_version (no existía antes de la 1.6.0) pero con ajustes guardados
-    // = viene de la 1.5.0 o anterior.
-    if ( ! $stored && is_array( $settings ) ) {
+    // Sin dsb_version (no existía antes de la 1.6.0) = viene de la 1.5.0 o
+    // anterior, o es una instalación nueva. Las distingue cualquiera de estas
+    // dos huellas: los ajustes guardados, o dsb_cache_ver, que el popup crea
+    // solo en la primera visita desde la 1.2.0. Mirar solo los ajustes dejaba
+    // fuera a la tienda que usa el plugin con los valores de fábrica y nunca
+    // pulsó Guardar: se habría encontrado los contadores repetidos.
+    $was_installed = is_array( $settings ) || false !== get_option( 'dsb_cache_ver' );
+
+    if ( ! $stored && $was_installed ) {
+        $settings = is_array( $settings ) ? $settings : [];
         $settings['viewing_auto']   = 0;
         $settings['fakesales_auto'] = 0;
         $settings['stock_auto']     = 0;
-        update_option( 'dsb_settings', $settings );
+        update_option( 'dsb_settings', $settings ); // lo que falte lo completa dsb_get_settings()
         dsb_get_settings( true ); // refrescar la copia en memoria
     }
 

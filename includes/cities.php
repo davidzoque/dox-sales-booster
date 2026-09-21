@@ -78,7 +78,7 @@ function dsb_city_lists() {
             'Minneapolis, MN', 'Bakersfield, CA', 'Tulsa, OK', 'Tampa, FL', 'Arlington, TX',
             'New Orleans, LA', 'Wichita, KS', 'Cleveland, OH', 'Orlando, FL', 'St. Louis, MO',
             'Pittsburgh, PA', 'Cincinnati, OH', 'Salt Lake City, UT', 'Boise, ID', 'Richmond, VA',
-            'West Palm Beach, FL', 'Fort Lauderdale, FL', 'Charleston, SC', 'Savannah, GA', 'Austin, TX',
+            'West Palm Beach, FL', 'Fort Lauderdale, FL', 'Charleston, SC', 'Savannah, GA', 'Honolulu, HI',
         ] ],
         'MX' => [ 'flag' => '🇲🇽', 'cities' => [
             'Ciudad de México', 'Guadalajara, Jalisco', 'Monterrey, Nuevo León', 'Puebla, Puebla',

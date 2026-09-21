@@ -150,12 +150,19 @@ class DSB_Widget_Sales extends \Elementor\Widget_Base {
         $this->add_control( 'period', [
             'label'   => __( 'Period', 'dox-sales-booster' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
-            'default' => $opts['fakesales_period'],
+            // Claves en inglés, como en el panel y en el bloque. Hasta la 1.4.0
+            // eran 'horas', 'días'...: un widget que guardó una de esas sigue
+            // pintando bien (dsb_normalize_period() las entiende), solo que aquí
+            // el desplegable sale sin marcar hasta que se vuelva a elegir. Con las
+            // claves viejas pasaba lo contrario y peor: el valor por defecto ya
+            // llega normalizado ('hours') y el desplegable salía vacío en TODOS
+            // los widgets nuevos.
+            'default' => dsb_normalize_period( $opts['fakesales_period'] ),
             'options' => [
-                'minutos' => __( 'Minutes', 'dox-sales-booster' ),
-                'horas'   => __( 'Hours', 'dox-sales-booster' ),
-                'días'    => __( 'Days', 'dox-sales-booster' ),
-                'semanas' => __( 'Weeks', 'dox-sales-booster' ),
+                'minutes' => __( 'Minutes', 'dox-sales-booster' ),
+                'hours'   => __( 'Hours', 'dox-sales-booster' ),
+                'days'    => __( 'Days', 'dox-sales-booster' ),
+                'weeks'   => __( 'Weeks', 'dox-sales-booster' ),
             ],
         ] );
 

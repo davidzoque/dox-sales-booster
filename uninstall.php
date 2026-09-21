@@ -7,6 +7,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) exit;
 
 delete_option( 'dsb_settings' );
 delete_option( 'dsb_cache_ver' );
+delete_option( 'dsb_version' );
 
 global $wpdb;
 // Transients propios: dsb_pp_* (caché de productos), dsb_stock_flush_lock

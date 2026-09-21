@@ -115,6 +115,12 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 
 = 1.7.0 =
 * **New: the settings screen now lives under a shared "Dox Plugins" menu.** Every Dox Studio plugin used to add its own top-level entry, so a site with three of them had three separate menus. They now share one, with a front page listing what is installed and a link to each plugin's settings. Nothing depends on anything else: each plugin carries its own copy of the shared code and only the newest one runs.
+* **Fixed: sites in a Spanish variant other than Spain got the plugin in English.** The bundled translation is es_ES and WordPress does not fall back between variants on its own, so a store set to Spanish (Colombia) or Spanish (Mexico) lost its Spanish when 1.5.0 moved the source language to English. Any Spanish variant now gets the Spanish translation, block editor included, unless the site has its own translation for that variant.
+* **Fixed: with a coupon applied, the free shipping bar could congratulate the customer on a free shipping the checkout did not give.** With taxes enabled the bar started from the subtotal before coupons and then added the discount on top, and the block cart and checkout did the same on every store. The amount is now worked out exactly as WooCommerce does for its own "Free shipping" method, taxes and coupons included. When the amount comes from that WooCommerce method, the bar also follows its "apply minimum order rule before coupon discount" box instead of the switch in this panel, so the two can never disagree.
+* Fixed: updating from 1.5.0 or earlier could show the counters twice on a store that had never pressed "Save" in the settings, because automatic placement was only switched off when saved settings were found. It is now also recognised by the popup cache the plugin has created since 1.2.0.
+* Fixed: the "Period" dropdown of the Recent sales Elementor widget came up blank on every new widget.
+* Fixed: after emptying the city list on a store whose country has one, the panel warned that the popup would show no city, when it actually falls back to the list for that country.
+* Fixed: removing the plugin left the `dsb_version` option behind.
 
 = 1.6.0 =
 * **New: automatic placement on the product page.** The viewing counter, the recent sales counter and the low stock notice can now be inserted on their own, with a position of your choice (after the price, above or below the add to cart button, after the product meta...). Until now they could only be placed with a shortcode, an Elementor widget or a Gutenberg block, which left out any store whose product page uses the plain WooCommerce template. It is on for new installs and off when you update, so nothing you already placed by hand appears twice.
@@ -213,7 +219,7 @@ The settings screen moved from its own menu entry to Sales Booster inside the ne
 Adds automatic placement on the product page, colour settings for the three product elements and support for the block Mini Cart, so the plugin no longer needs Elementor to be fully configurable. Automatic placement stays off on existing installs.
 
 = 1.5.0 =
-The interface is now in English, with Spanish included as a translation — each site follows its own WordPress language. The free shipping shortcode is now `[dsb_free_shipping]` (the old `[dsb_envio_gratis]` still works), and the default free shipping threshold changed to 100 for new installs only.
+The interface is now in English, with Spanish included as a translation: each site follows its own WordPress language. The free shipping shortcode is now `[dsb_free_shipping]` (the old `[dsb_envio_gratis]` still works), and the default free shipping threshold changed to 100 for new installs only.
 
 = 1.4.0 =
 The sales and viewing counters no longer change on every page reload, and the sales counter can now use real WooCommerce sales. Review the new "Data mode" option under Sales Booster → Recent sales.

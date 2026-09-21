@@ -167,8 +167,8 @@ function dsb_parse_locations( $raw ) {
     $lines = dsb_parse_list_lines( $raw );
     if ( $lines ) return $lines;
 
-    // Campo vacío: se cae a la lista por defecto, que es traducible y trae las
-    // ciudades del idioma del sitio.
+    // Campo vacío: se cae a la lista del país de la tienda (includes/cities.php),
+    // que a su vez viene vacía si ese país no tiene lista.
     return dsb_default_locations();
 }
 
@@ -502,7 +502,7 @@ function dsb_render_sales( $args = [] ) {
 
     $text = str_replace(
         [ '{count}', '{timeframe}', '{period}' ],
-        [ '<strong class="dsb-sales-count">' . (int) $count . '</strong>', esc_html( $args['timeframe'] ), esc_html( dsb_period_label( $args['period'] ) ) ],
+        [ '<strong class="dsb-sales-count">' . (int) $count . '</strong>', (int) $timeframe, esc_html( dsb_period_label( $args['period'] ) ) ],
         esc_html( $args['text'] )
     );
 

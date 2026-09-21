@@ -529,6 +529,7 @@ function dsb_render_page() {
                             <?php esc_html_e( 'Ignore coupons (count the subtotal without discounts)', 'dox-sales-booster' ); ?>
                         </label>
                     </div>
+                    <span class="dsb-hint"><?php esc_html_e( 'With the WooCommerce source this follows the "apply minimum order rule before coupon discount" box of that shipping method, so the bar and the checkout always agree. This switch only applies to the custom amount.', 'dox-sales-booster' ); ?></span>
 
                     <h4 class="dsb-subsection"><?php esc_html_e( 'Texts', 'dox-sales-booster' ); ?></h4>
 
@@ -828,7 +829,11 @@ function dsb_render_page() {
                         <span class="dsb-hint"><?php esc_html_e( 'One per line. In simulated mode they are always used; in real mode, only when the order has no city.', 'dox-sales-booster' ); ?></span>
                         <span class="dsb-hint"><?php esc_html_e( 'The starting list comes from your store country in WooCommerce → Settings → General.', 'dox-sales-booster' ); ?></span>
                         <?php if ( '' === trim( (string) $loc_display ) ) : ?>
-                        <span class="dsb-hint" style="color:#b3261e;"><?php esc_html_e( 'There is no city list for your store country yet. Write the ones that fit your market, one per line: while this is empty the popup shows the time without a city.', 'dox-sales-booster' ); ?></span>
+                            <?php if ( dsb_default_locations() ) : // vacío a mano en un país con lista: el popup sigue teniendo ciudades ?>
+                            <span class="dsb-hint"><?php esc_html_e( 'While this is empty the popup uses the list of your store country.', 'dox-sales-booster' ); ?></span>
+                            <?php else : ?>
+                            <span class="dsb-hint" style="color:#b3261e;"><?php esc_html_e( 'There is no city list for your store country yet. Write the ones that fit your market, one per line: while this is empty the popup shows the time without a city.', 'dox-sales-booster' ); ?></span>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>
