@@ -14,7 +14,7 @@
  * Tested up to:      7.0
  * Requires PHP:      7.4
  * WC requires at least: 6.0
- * WC tested up to:   10.9
+ * WC tested up to:   11.1
  * Update URI:        https://github.com/davidzoque/dox-sales-booster
  */
 
@@ -37,11 +37,38 @@ add_action( 'init', function () {
     load_plugin_textdomain( 'dox-sales-booster', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }, 1 );
 
+// El plugin trae un solo español (es_ES) y WordPress no pasa de es_CO, es_MX o
+// es_AR a es_ES por su cuenta. Hasta la 1.4.0 el plugin estaba escrito en
+// español y se veía así en cualquier sitio; desde que el código va en inglés,
+// una tienda colombiana se lo encontraría en inglés sin esto. Solo actúa cuando
+// WordPress no encuentra el archivo de la variante: una traducción propia (Loco
+// Translate, un paquete en wp-content/languages) sigue mandando.
+add_filter( 'load_textdomain_mofile', function ( $mofile, $domain ) {
+    if ( 'dox-sales-booster' !== $domain ) return $mofile;
+    if ( ! preg_match( '/dox-sales-booster-es(_[A-Za-z]+)?\.mo$/', (string) $mofile ) ) return $mofile;
+    if ( is_readable( $mofile ) || is_readable( substr( $mofile, 0, -3 ) . '.l10n.php' ) ) return $mofile;
+
+    $es = DSB_PATH . 'languages/dox-sales-booster-es_ES.mo';
+    return is_readable( $es ) ? $es : $mofile;
+}, 10, 2 );
+
+// Lo mismo para las cadenas de los bloques de Gutenberg, que viajan en un JSON
+// con el locale en el nombre.
+add_filter( 'load_script_translation_file', function ( $file, $handle, $domain ) {
+    if ( 'dox-sales-booster' !== $domain || ! $file || is_readable( $file ) ) return $file;
+
+    $name = preg_replace( '/^dox-sales-booster-es(_[A-Za-z]+)?-/', 'dox-sales-booster-es_ES-', basename( $file ), 1, $hits );
+    if ( ! $hits ) return $file;
+
+    $es = DSB_PATH . 'languages/' . $name;
+    return is_readable( $es ) ? $es : $file;
+}, 10, 3 );
+
 // ─── Menú común de los plugins de Dox Studio ──────────────────────────────────
 // Cada plugin Dox lleva su copia de dox-core y se carga solo la más nueva de
 // todas las instaladas, así que esto no pisa nada si hay más plugins Dox.
 require_once DSB_PATH . 'dox-core/loader.php';
-Dox_Core_Loader::register( '1.0.0', DSB_PATH . 'dox-core/dox-core.php' );
+Dox_Core_Loader::register( require DSB_PATH . 'dox-core/version.php', DSB_PATH . 'dox-core/dox-core.php' );
 
 // ─── Cargar archivos ───────────────────────────────────────────────────────────
 require_once DSB_PATH . 'includes/cities.php';
