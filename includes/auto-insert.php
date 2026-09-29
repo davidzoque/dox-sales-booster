@@ -125,5 +125,25 @@ add_action( 'init', function () {
         dsb_get_settings( true ); // refrescar la copia en memoria
     }
 
+    // La 1.7.3 cambió los valores de fábrica a datos reales (Ventas recientes y
+    // popup en modo Real, Personas viendo apagado). Una tienda que ya lo usaba
+    // con los de antes y nunca guardó esos campos seguiría viéndolos cambiar
+    // solos al actualizar: se le escriben los de antes y decide ella en el panel.
+    if ( $was_installed && ( ! $stored || version_compare( $stored, '1.7.3', '<' ) ) ) {
+        $s       = get_option( 'dsb_settings' );
+        $s       = is_array( $s ) ? $s : [];
+        $changed = false;
+        foreach ( [ 'viewing_enabled' => 1, 'fakesales_data_mode' => 'simulated', 'popup_data_mode' => 'simulated' ] as $k => $v ) {
+            if ( ! array_key_exists( $k, $s ) ) {
+                $s[ $k ] = $v;
+                $changed = true;
+            }
+        }
+        if ( $changed ) {
+            update_option( 'dsb_settings', $s );
+            dsb_get_settings( true );
+        }
+    }
+
     update_option( 'dsb_version', DSB_VERSION, false );
 }, 2 );

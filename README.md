@@ -15,7 +15,7 @@ Todo se configura en **wp-admin → Dox Plugins → Sales Booster**.
 ## Requisitos
 
 - WordPress 5.9+ (probado hasta 7.0)
-- WooCommerce 6.0+ (probado hasta 10.9) — solo para popup y stock; los contadores funcionan sin Woo
+- WooCommerce 6.0+ (probado hasta 11.1) — solo para popup y stock; los contadores funcionan sin Woo
 - PHP 7.4+
 
 ## Instalación

@@ -420,7 +420,7 @@ function dsb_render_page() {
                                     $preview_text = esc_html( $o['fakesales_text'] );
                                     $preview_text = str_replace(
                                         [ '{count}', '{timeframe}', '{period}' ],
-                                        [ '<strong class="dsb-sales-count">' . $cnt . '</strong>', esc_html( $o['fakesales_timeframe'] ), esc_html( dsb_period_label( $o['fakesales_period'] ) ) ],
+                                        [ '<strong class="dsb-sales-count">' . $cnt . '</strong>', esc_html( $o['fakesales_timeframe'] ), esc_html( dsb_period_label( $o['fakesales_period'], $o['fakesales_timeframe'] ) ) ],
                                         $preview_text
                                     );
                                     echo wp_kses( $preview_text, [ 'strong' => [ 'class' => [] ] ] );
@@ -578,7 +578,7 @@ function dsb_render_page() {
                         <input type="range" id="dsb-shipbar-demo" value="65" min="0" max="100" step="1" class="dsb-slider">
                         <span class="dsb-hint"><?php esc_html_e( 'Preview only: when it reaches 100% the success text is shown.', 'dox-sales-booster' ); ?></span>
                     </div>
-                    <p class="dsb-shortcode-box"><?php esc_html_e( 'Shortcode', 'dox-sales-booster' ); ?>: <code>[dsb_envio_gratis]</code></p>
+                    <p class="dsb-shortcode-box"><?php esc_html_e( 'Shortcode', 'dox-sales-booster' ); ?>: <code>[dsb_free_shipping]</code></p>
                     <div class="dsb-info-box"><?php esc_html_e( 'With the locations enabled above, the bar inserts itself: you need no shortcode or widget. The shortcode and the Elementor widget are for placing it in additional spots.', 'dox-sales-booster' ); ?></div>
                 </div>
             </div>
@@ -619,7 +619,7 @@ function dsb_render_page() {
                     </div>
 
                     <div class="dsb-field">
-                        <label><?php esc_html_e( 'Popup duration', 'dox-sales-booster' ); ?> — <strong><span id="dsb-display-secs-val"><?php echo $disp_secs; ?></span> seg</strong></label>
+                        <label><?php esc_html_e( 'Popup duration', 'dox-sales-booster' ); ?> — <strong><span id="dsb-display-secs-val"><?php echo $disp_secs; ?></span> <?php esc_html_e( 'sec', 'dox-sales-booster' ); ?></strong></label>
                         <input type="range" id="dsb-display-secs-slider" name="dsb[popup_display_seconds]"
                                value="<?php echo esc_attr( $disp_secs ); ?>" min="3" max="30" step="1" class="dsb-slider">
                         <span class="dsb-hint"><?php esc_html_e( 'How many seconds it stays visible before disappearing. If it exceeds the interval, it is adjusted automatically.', 'dox-sales-booster' ); ?></span>
@@ -741,7 +741,7 @@ function dsb_render_page() {
 
                     <div class="dsb-field">
                         <label><?php esc_html_e( 'Title prefix text', 'dox-sales-booster' ); ?></label>
-                        <input type="text" name="dsb[popup_prefix_text]" value="<?php echo esc_attr( $o['popup_prefix_text'] ); ?>" placeholder="🛍️ Alguien ha comprado">
+                        <input type="text" name="dsb[popup_prefix_text]" value="<?php echo esc_attr( $o['popup_prefix_text'] ); ?>" placeholder="<?php echo esc_attr__( '🛍️ Someone purchased', 'dox-sales-booster' ); ?>">
                         <span class="dsb-hint"><?php esc_html_e( 'Accepts the {name} variable: it is replaced with a random name from the list below (or "Someone" if it is empty). E.g. "🛍️ {name} purchased"', 'dox-sales-booster' ); ?></span>
                     </div>
 
@@ -753,7 +753,7 @@ function dsb_render_page() {
 
                     <div class="dsb-field">
                         <label><?php esc_html_e( 'Link text', 'dox-sales-booster' ); ?></label>
-                        <input type="text" name="dsb[popup_link_text]" value="<?php echo esc_attr( $o['popup_link_text'] ); ?>" placeholder="Ver producto">
+                        <input type="text" name="dsb[popup_link_text]" value="<?php echo esc_attr( $o['popup_link_text'] ); ?>" placeholder="<?php echo esc_attr__( 'View product', 'dox-sales-booster' ); ?>">
                     </div>
 
                     <div class="dsb-field">
@@ -870,7 +870,7 @@ function dsb_render_page() {
                         <p><strong><?php esc_html_e( 'Basic:', 'dox-sales-booster' ); ?></strong></p>
                         <code>[dsb_viewing]</code>
                         <p><strong><?php esc_html_e( 'Custom:', 'dox-sales-booster' ); ?></strong></p>
-                        <code>[dsb_viewing min="5" max="20" text="personas mirando esto."]</code>
+                        <code>[dsb_viewing min="5" max="20" text="<?php echo esc_attr__( 'people looking at this.', 'dox-sales-booster' ); ?>"]</code>
                     </div>
                     <div class="dsb-info-box"><?php esc_html_e( 'Also available as an Elementor widget and a Gutenberg block.', 'dox-sales-booster' ); ?></div>
                 </div>
@@ -881,7 +881,7 @@ function dsb_render_page() {
                         <p><strong><?php esc_html_e( 'Basic:', 'dox-sales-booster' ); ?></strong></p>
                         <code>[dsb_sales]</code>
                         <p><strong><?php esc_html_e( 'Custom:', 'dox-sales-booster' ); ?></strong></p>
-                        <code>[dsb_sales min="4" max="18" timeframe="24" period="horas"]</code>
+                        <code>[dsb_sales min="4" max="18" timeframe="24" period="hours"]</code>
                     </div>
                     <div class="dsb-info-box"><?php esc_html_e( 'Also available as an Elementor widget and a Gutenberg block.', 'dox-sales-booster' ); ?></div>
                 </div>
@@ -1121,7 +1121,7 @@ jQuery(function($){
         $('#dsb-prev-img').css({width:s+'px',height:s+'px'});
     });
     $('input[name="dsb[popup_link_text]"]').on('input',function(){
-        $('#dsb-popup-preview .dsb-prev-link').text($(this).val()||I.defaultLink||'Ver producto');
+        $('#dsb-popup-preview .dsb-prev-link').text($(this).val()||I.defaultLink||'View product');
     });
     $('input[name="dsb[popup_show_price]"]').on('change',function(){
         $('#dsb-prev-price').toggle(this.checked);

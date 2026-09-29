@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dsb_defaults() {
     return [
         // Personas viendo
-        'viewing_enabled'        => 1,
+        'viewing_enabled'        => 0, // desde la 1.7.3 nace apagado: el número no sale de visitas reales
         'viewing_min'            => 3,
         'viewing_max'            => 12,
         'viewing_text'           => __( 'people are viewing this product right now.', 'dox-sales-booster' ),
@@ -29,7 +29,7 @@ function dsb_defaults() {
         'fakesales_text'         => __( '🔥 {count} sold in the last {timeframe} {period}', 'dox-sales-booster' ),
         'fakesales_timeframe'    => 24,
         'fakesales_period'       => 'hours',
-        'fakesales_data_mode'    => 'simulated', // simulated | real
+        'fakesales_data_mode'    => 'real', // simulated | real (real por defecto desde la 1.7.3)
         'fakesales_auto'         => 1,
         'fakesales_position'     => 'after_price',
         'fakesales_text_color'   => '#555555',
@@ -72,7 +72,7 @@ function dsb_defaults() {
         'popup_first_delay_max'  => 6,
 
         // Popup — datos
-        'popup_data_mode'        => 'simulated',
+        'popup_data_mode'        => 'real', // real por defecto desde la 1.7.3
         'popup_products_type'    => 'random',
         'popup_hide_outofstock'  => 0,
         'popup_cats_include'     => [],
@@ -327,13 +327,15 @@ function dsb_normalize_period( $period ) {
     return in_array( $period, [ 'minutes', 'hours', 'days', 'weeks' ], true ) ? $period : 'hours';
 }
 
-// Etiqueta del período tal como la lee el visitante dentro de {period}.
-function dsb_period_label( $period ) {
+// Etiqueta del período tal como la lee el visitante dentro de {period}, en
+// singular cuando la cantidad es 1 ("in the last 1 hour", no "1 hours").
+function dsb_period_label( $period, $n = 2 ) {
+    $n = (int) $n;
     switch ( dsb_normalize_period( $period ) ) {
-        case 'minutes': return _x( 'minutes', 'sales period', 'dox-sales-booster' );
-        case 'days':    return _x( 'days', 'sales period', 'dox-sales-booster' );
-        case 'weeks':   return _x( 'weeks', 'sales period', 'dox-sales-booster' );
-        default:        return _x( 'hours', 'sales period', 'dox-sales-booster' );
+        case 'minutes': return _nx( 'minute', 'minutes', $n, 'sales period', 'dox-sales-booster' );
+        case 'days':    return _nx( 'day', 'days', $n, 'sales period', 'dox-sales-booster' );
+        case 'weeks':   return _nx( 'week', 'weeks', $n, 'sales period', 'dox-sales-booster' );
+        default:        return _nx( 'hour', 'hours', $n, 'sales period', 'dox-sales-booster' );
     }
 }
 
@@ -502,7 +504,7 @@ function dsb_render_sales( $args = [] ) {
 
     $text = str_replace(
         [ '{count}', '{timeframe}', '{period}' ],
-        [ '<strong class="dsb-sales-count">' . (int) $count . '</strong>', (int) $timeframe, esc_html( dsb_period_label( $args['period'] ) ) ],
+        [ '<strong class="dsb-sales-count">' . (int) $count . '</strong>', (int) $timeframe, esc_html( dsb_period_label( $args['period'], $timeframe ) ) ],
         esc_html( $args['text'] )
     );
 

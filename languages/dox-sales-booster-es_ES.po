@@ -23,7 +23,7 @@ msgstr "personas están viendo este producto ahora."
 
 #: includes/render.php:29
 msgid "🔥 {count} sold in the last {timeframe} {period}"
-msgstr "🔥 {count} vendidos en las últimas {timeframe} {period}"
+msgstr "🔥 {count} vendidos en {timeframe} {period}"
 
 #: includes/render.php:41
 msgid "⚡ Only {stock} units left!"
@@ -51,23 +51,31 @@ msgstr "Desde %s"
 
 #: includes/render.php:333
 msgctxt "sales period"
-msgid "minutes"
-msgstr "minutos"
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minuto"
+msgstr[1] "minutos"
 
 #: includes/render.php:334
 msgctxt "sales period"
-msgid "days"
-msgstr "días"
+msgid "day"
+msgid_plural "days"
+msgstr[0] "día"
+msgstr[1] "días"
 
 #: includes/render.php:335
 msgctxt "sales period"
-msgid "weeks"
-msgstr "semanas"
+msgid "week"
+msgid_plural "weeks"
+msgstr[0] "semana"
+msgstr[1] "semanas"
 
 #: includes/render.php:336
 msgctxt "sales period"
-msgid "hours"
-msgstr "horas"
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "hora"
+msgstr[1] "horas"
 
 #: includes/frontend.php:110
 msgid "a moment ago"
@@ -948,3 +956,15 @@ msgstr "Color de las unidades restantes"
 #: assets/js/dsb-blocks.js:223
 msgid "Shown on product pages when the real stock is below the threshold. Outside a product page the preview may be empty."
 msgstr "Se muestra en páginas de producto cuando el stock real está por debajo del umbral. Fuera de una página de producto la vista previa puede quedar vacía."
+
+msgid "1 hour ago"
+msgstr "hace 1 hora"
+
+msgid "1 day ago"
+msgstr "hace 1 día"
+
+msgid "sec"
+msgstr "seg"
+
+msgid "people looking at this."
+msgstr "personas mirando esto."

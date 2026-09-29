@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,7 @@ The purchase popup and the low-stock alert require WooCommerce. The viewing and 
 
 = Are the sales and viewing numbers real? =
 
-The viewing counter is simulated within the min/max range you configure. The recent-sales counter can run in **simulated** mode (a stable number within your range) or in **real** mode (units actually sold for that product in the configured period; if there were none, nothing is shown). The purchase popup can run in **simulated** mode (catalog products) or in **real** mode (actual recent orders). The low-stock alert always uses real inventory data.
+The viewing counter is simulated within the min/max range you configure. The recent-sales counter can run in **simulated** mode (a stable number within your range) or in **real** mode (units actually sold for that product in the configured period; if there were none, nothing is shown). The purchase popup can run in **simulated** mode (catalog products) or in **real** mode (actual recent orders). The low-stock alert always uses real inventory data. Since 1.7.3, new installs start in real mode with the viewing counter off.
 
 = What customer data does the real mode expose? =
 
@@ -112,6 +112,13 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 5. Elementor widgets panel
 
 == Changelog ==
+
+= 1.7.3 =
+* New installs start with real data: Recent sales and the purchase popup in **Real** mode, and the People viewing counter off (its number is not measured from real visits). Stores that update keep the settings they had.
+* The period reads right in singular: "in the last 1 hour", not "1 hours". In Spanish the default recent sales text is now "vendidos en {timeframe} {period}", which works for hours, days, minutes and weeks.
+* The popup says "1 hour ago" and "1 day ago" instead of "1 hours ago" and "1 days ago".
+* The admin panel in English no longer shows Spanish leftovers ("seg", the popup placeholders and the shortcode examples), and the Free shipping tab shows the current shortcode, [dsb_free_shipping].
+* Help with screenshots for every element at help.doxstudio.com.
 
 = 1.7.2 =
 * Docs: the readme still sent you to a "Sales Booster" entry in the admin menu, which has been **Dox Plugins → Sales Booster** since 1.7.0, and the FAQ called the popup settings tab by its Spanish name from before 1.5.0. Both are fixed. The plugin itself does not change.
@@ -218,6 +225,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.7.3 =
+Real data by default on new installs, singular periods ("1 hour") and the English panel without Spanish leftovers. Your current settings do not change.
 
 = 1.7.2 =
 Documentation only: the readme now points to Dox Plugins → Sales Booster. The plugin itself does not change.

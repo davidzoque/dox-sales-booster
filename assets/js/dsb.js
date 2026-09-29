@@ -53,8 +53,9 @@
         var mins = Math.floor(secs / 60);
         if (mins < 60) return minutesText(mins);
         var hours = Math.floor(mins / 60);
-        if (hours < 24) return t('hours_ago', '%d hours ago').replace('%d', hours);
-        return t('days_ago', '%d days ago').replace('%d', Math.floor(hours / 24));
+        if (hours < 24) return hours === 1 ? t('hour_ago', '1 hour ago') : t('hours_ago', '%d hours ago').replace('%d', hours);
+        var days = Math.floor(hours / 24);
+        return days === 1 ? t('day_ago', '1 day ago') : t('days_ago', '%d days ago').replace('%d', days);
     }
 
     function timeAgoSimulated() {

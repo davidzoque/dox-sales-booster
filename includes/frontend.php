@@ -110,7 +110,9 @@ class DSB_Frontend {
                 'just_now'  => __( 'a moment ago', 'dox-sales-booster' ),
                 'mins_ago'  => __( '%d minutes ago', 'dox-sales-booster' ),
                 'hours_ago' => __( '%d hours ago', 'dox-sales-booster' ),
+                'hour_ago'  => __( '1 hour ago', 'dox-sales-booster' ),
                 'days_ago'  => __( '%d days ago', 'dox-sales-booster' ),
+                'day_ago'   => __( '1 day ago', 'dox-sales-booster' ),
                 'someone'   => __( 'Someone', 'dox-sales-booster' ),
             ],
         ];

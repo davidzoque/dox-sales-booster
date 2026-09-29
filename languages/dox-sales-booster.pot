@@ -47,23 +47,31 @@ msgstr ""
 
 #: includes/render.php:333
 msgctxt "sales period"
-msgid "minutes"
-msgstr ""
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/render.php:334
 msgctxt "sales period"
-msgid "days"
-msgstr ""
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/render.php:335
 msgctxt "sales period"
-msgid "weeks"
-msgstr ""
+msgid "week"
+msgid_plural "weeks"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/render.php:336
 msgctxt "sales period"
-msgid "hours"
-msgstr ""
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/frontend.php:110
 msgid "a moment ago"
@@ -943,4 +951,16 @@ msgstr ""
 
 #: assets/js/dsb-blocks.js:223
 msgid "Shown on product pages when the real stock is below the threshold. Outside a product page the preview may be empty."
+msgstr ""
+
+msgid "1 hour ago"
+msgstr ""
+
+msgid "1 day ago"
+msgstr ""
+
+msgid "sec"
+msgstr ""
+
+msgid "people looking at this."
 msgstr ""
