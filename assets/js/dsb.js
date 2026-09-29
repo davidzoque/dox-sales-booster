@@ -184,7 +184,8 @@
 
         // Meta: tiempo real (pedidos reales) o simulado + ciudad
         var ago  = product.ts ? timeAgoReal(product.ts) : timeAgoSimulated();
-        var city = product.city || (locations.length ? randItem(locations) : '');
+        // Un pedido real (lleva ts) enseña su ciudad o ninguna, nunca una de la lista
+        var city = product.ts ? (product.city || '') : (product.city || (locations.length ? randItem(locations) : ''));
         var meta = ago + (city ? ' · ' + city : '');
 
         var safeImg = escHtml(product.image);

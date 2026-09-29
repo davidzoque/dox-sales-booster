@@ -522,7 +522,7 @@ msgid "Real (orders from the last 30 days)"
 msgstr ""
 
 #: admin/settings.php:673
-msgid "Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no recent orders, it falls back to simulated mode."
+msgid "Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no orders in the last 30 days, the popup is not shown."
 msgstr ""
 
 #: admin/settings.php:678
@@ -674,7 +674,7 @@ msgid "Cities"
 msgstr ""
 
 #: admin/settings.php:829
-msgid "One per line. In simulated mode they are always used; in real mode, only when the order has no city."
+msgid "One per line. Only used in simulated mode: in real mode each popup shows the city of its order, or none."
 msgstr ""
 
 #: admin/settings.php:830
@@ -963,4 +963,7 @@ msgid "sec"
 msgstr ""
 
 msgid "people looking at this."
+msgstr ""
+
+msgid "There are no completed or processing orders in the last 30 days: the popup stays hidden until a real order comes in."
 msgstr ""

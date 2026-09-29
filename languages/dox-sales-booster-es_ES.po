@@ -526,8 +526,8 @@ msgid "Real (orders from the last 30 days)"
 msgstr "Real (pedidos de los últimos 30 días)"
 
 #: admin/settings.php:673
-msgid "Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no recent orders, it falls back to simulated mode."
-msgstr "Modo real: producto, ciudad y tiempo salen de pedidos reales (completados/en proceso). Nunca se muestran nombres ni datos del cliente. Si no hay pedidos recientes, cae al modo simulado."
+msgid "Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no orders in the last 30 days, the popup is not shown."
+msgstr "Modo real: producto, ciudad y tiempo salen de pedidos reales (completados/en proceso). Nunca se muestran nombres ni datos del cliente. Si no hay pedidos en los últimos 30 días, el popup no sale."
 
 #: admin/settings.php:678
 msgid "Product source"
@@ -678,8 +678,8 @@ msgid "Cities"
 msgstr "Ciudades"
 
 #: admin/settings.php:829
-msgid "One per line. In simulated mode they are always used; in real mode, only when the order has no city."
-msgstr "Una por línea. En modo simulado se usan siempre; en modo real, solo cuando el pedido no tiene ciudad."
+msgid "One per line. Only used in simulated mode: in real mode each popup shows the city of its order, or none."
+msgstr "Una por línea. Solo se usan en modo simulado: en modo real cada aviso muestra la ciudad de su pedido, o ninguna."
 
 #: admin/settings.php:830
 msgid "The starting list comes from your store country in WooCommerce → Settings → General."
@@ -968,3 +968,6 @@ msgstr "seg"
 
 msgid "people looking at this."
 msgstr "personas mirando esto."
+
+msgid "There are no completed or processing orders in the last 30 days: the popup stays hidden until a real order comes in."
+msgstr "No hay pedidos completados ni en proceso en los últimos 30 días: el popup queda oculto hasta que llegue un pedido real."

@@ -309,10 +309,10 @@ function dsb_get_real_sales( $opts ) {
 
 function dsb_get_popup_feed( $opts ) {
     if ( empty( $opts['popup_enabled'] ) ) return [];
+    // Modo real sin pedidos recientes: el popup no sale (desde la 1.7.4). Antes
+    // volvía al modo simulado y enseñaba compras que no habían ocurrido.
     if ( 'real' === ( $opts['popup_data_mode'] ?? 'simulated' ) ) {
-        $real = dsb_get_real_sales( $opts );
-        if ( $real ) return $real;
-        // Sin pedidos recientes → fallback al modo simulado.
+        return dsb_get_real_sales( $opts );
     }
     return dsb_get_popup_products( $opts );
 }

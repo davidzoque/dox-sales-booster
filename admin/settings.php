@@ -670,7 +670,7 @@ function dsb_render_page() {
                             <option value="simulated" <?php selected( $o['popup_data_mode'], 'simulated' ); ?>><?php esc_html_e( 'Simulated (catalog products)', 'dox-sales-booster' ); ?></option>
                             <option value="real" <?php selected( $o['popup_data_mode'], 'real' ); ?>><?php esc_html_e( 'Real (orders from the last 30 days)', 'dox-sales-booster' ); ?></option>
                         </select>
-                        <span class="dsb-hint"><?php esc_html_e( 'Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no recent orders, it falls back to simulated mode.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'Real mode: product, city and time come from real orders (completed/processing). Customer names and details are never shown. If there are no orders in the last 30 days, the popup is not shown.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <div class="dsb-sim-only">
@@ -734,7 +734,7 @@ function dsb_render_page() {
                     </div>
 
                     <div class="dsb-warn-box" id="dsb-source-warning" <?php echo 0 === $feed_count ? '' : 'style="display:none"'; ?>>
-                        ⚠️ <?php esc_html_e( 'The selected source has no products right now: the popup will not be shown. Check the source, the categories or the data mode.', 'dox-sales-booster' ); ?>
+                        ⚠️ <span class="dsb-warn-sim"><?php esc_html_e( 'The selected source has no products right now: the popup will not be shown. Check the source, the categories or the data mode.', 'dox-sales-booster' ); ?></span><span class="dsb-warn-real"><?php esc_html_e( 'There are no completed or processing orders in the last 30 days: the popup stays hidden until a real order comes in.', 'dox-sales-booster' ); ?></span>
                     </div>
 
                     <h4 class="dsb-subsection"><?php esc_html_e( 'Content', 'dox-sales-booster' ); ?></h4>
@@ -826,7 +826,7 @@ function dsb_render_page() {
                     <div class="dsb-field">
                         <label><?php esc_html_e( 'Cities', 'dox-sales-booster' ); ?></label>
                         <textarea name="dsb[popup_locations]" rows="8"><?php echo esc_textarea( $loc_display ); ?></textarea>
-                        <span class="dsb-hint"><?php esc_html_e( 'One per line. In simulated mode they are always used; in real mode, only when the order has no city.', 'dox-sales-booster' ); ?></span>
+                        <span class="dsb-hint"><?php esc_html_e( 'One per line. Only used in simulated mode: in real mode each popup shows the city of its order, or none.', 'dox-sales-booster' ); ?></span>
                         <span class="dsb-hint"><?php esc_html_e( 'The starting list comes from your store country in WooCommerce → Settings → General.', 'dox-sales-booster' ); ?></span>
                         <?php if ( '' === trim( (string) $loc_display ) ) : ?>
                             <?php if ( dsb_default_locations() ) : // vacío a mano en un país con lista: el popup sigue teniendo ciudades ?>
@@ -1187,6 +1187,8 @@ jQuery(function($){
     function syncDataMode(){
         var real=$('select[name="dsb[popup_data_mode]"]').val()==='real';
         $('.dsb-sim-only').toggleClass('dsb-dim',real);
+        $('.dsb-warn-sim').toggle(!real);
+        $('.dsb-warn-real').toggle(real);
     }
     $('select[name="dsb[popup_data_mode]"]').on('change',syncDataMode);
     syncDataMode();
