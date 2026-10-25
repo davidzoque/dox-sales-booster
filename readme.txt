@@ -4,7 +4,7 @@ Tags: woocommerce, sales, urgency, popup, social proof, conversion
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,11 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 5. Elementor widgets panel
 
 == Changelog ==
+
+= 1.7.5 =
+* The simulated purchase popup never shows products a shopper cannot buy: out of stock, without a price or not purchasable are always skipped, and the list is refreshed when stock changes.
+* "Hide out of stock products" is now on by default for new installs. Existing stores keep their saved setting.
+* In Real mode, orders for products that are no longer purchasable are skipped.
 
 = 1.7.4 =
 * The purchase popup in **Real** mode no longer falls back to simulated purchases: with no completed or processing orders in the last 30 days it stays hidden, and the panel says so. It comes back on its own with the next real order.
@@ -229,6 +234,9 @@ Yes. The "people viewing" number is generated in the visitor's browser and store
 * Mobile-responsive popup with configurable display duration.
 
 == Upgrade Notice ==
+
+= 1.7.5 =
+The simulated popup no longer shows out-of-stock, price-less or unpurchasable products. Your saved settings do not change.
 
 = 1.7.4 =
 In Real mode the purchase popup only shows real orders: with none in the last 30 days it stays hidden instead of showing simulated ones.

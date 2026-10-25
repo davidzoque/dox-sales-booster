@@ -74,7 +74,7 @@ function dsb_defaults() {
         // Popup — datos
         'popup_data_mode'        => 'real', // real por defecto desde la 1.7.3
         'popup_products_type'    => 'random',
-        'popup_hide_outofstock'  => 0,
+        'popup_hide_outofstock'  => 1, // encendido por defecto desde la 1.7.5 (las tiendas que ya existían conservan su valor, ver auto-insert.php)
         'popup_cats_include'     => [],
         'popup_cats_exclude'     => [],
         'popup_show_price'       => 1,
@@ -132,22 +132,32 @@ function dsb_flush_popup_cache() {
     update_option( 'dsb_cache_ver', (string) microtime( true ), false );
 }
 
-// Cambios de stock: solo interesa si el popup oculta productos agotados, y con
-// un candado de 5 min para no invalidar en cascada en tiendas con muchas ventas.
+// Cambios de stock: desde la 1.7.5 el popup siempre descarta lo agotado, así que
+// siempre hay que renovar la caché; con un candado de 5 min para no invalidar en cascada en tiendas con muchas ventas.
 function dsb_maybe_flush_stock_cache() {
     $o = dsb_get_settings();
-    if ( empty( $o['popup_enabled'] ) || empty( $o['popup_hide_outofstock'] ) ) return;
-    if ( get_transient( 'dsb_stock_flush_lock' ) ) return;
+    if ( empty( $o['popup_enabled'] ) ) return;
+    if ( get_transient( 'dsb_stock_flush_lock' ) ) {
+        // Dentro del candado: renovar una vez al caducar, para que una venta que
+        // agota un producto no deje la lista vieja hasta 3 h.
+        if ( ! wp_next_scheduled( 'dsb_deferred_cache_flush' ) ) {
+            wp_schedule_single_event( time() + 5 * MINUTE_IN_SECONDS + 5, 'dsb_deferred_cache_flush' );
+        }
+        return;
+    }
     set_transient( 'dsb_stock_flush_lock', 1, 5 * MINUTE_IN_SECONDS );
     dsb_flush_popup_cache();
 }
 
+add_action( 'dsb_deferred_cache_flush', 'dsb_flush_popup_cache' );
 add_action( 'save_post_product', 'dsb_flush_popup_cache' );
 add_action( 'before_delete_post', function ( $post_id ) {
     if ( get_post_type( $post_id ) === 'product' ) dsb_flush_popup_cache();
 } );
 add_action( 'woocommerce_product_set_stock', 'dsb_maybe_flush_stock_cache' );
 add_action( 'woocommerce_variation_set_stock', 'dsb_maybe_flush_stock_cache' );
+add_action( 'woocommerce_product_set_stock_status', 'dsb_maybe_flush_stock_cache' );
+add_action( 'woocommerce_variation_set_stock_status', 'dsb_maybe_flush_stock_cache' );
 add_action( 'woocommerce_product_stock_status_changed', 'dsb_maybe_flush_stock_cache' );
 
 /* ── Parsers de listas ────────────────────────────────────────────────────── */
@@ -206,6 +216,14 @@ function dsb_product_to_item( $product ) {
     ];
 }
 
+// Un producto que el visitante no podría comprar no debe salir en el popup:
+// sin precio, no comprable (borrador, privado, sin gestión de stock válida...)
+// o agotado. Se aplica siempre, con o sin la casilla de ocultar agotados.
+function dsb_popup_product_buyable( $product ) {
+    if ( ! $product instanceof WC_Product ) return false;
+    return $product->is_purchasable() && $product->is_in_stock() && '' !== $product->get_price();
+}
+
 // Modo simulado: catálogo según la fuente configurada. Cacheado 3 h.
 function dsb_get_popup_products( $opts ) {
     if ( ! function_exists( 'wc_get_product' ) ) return [];
@@ -223,7 +241,7 @@ function dsb_get_popup_products( $opts ) {
     $args = [
         'post_type'           => 'product',
         'post_status'         => 'publish',
-        'posts_per_page'      => 20,
+        'posts_per_page'      => 80, // margen: luego se descarta lo no comprable y se queda con 20
         'ignore_sticky_posts' => true,
         'no_found_rows'       => true,
     ];
@@ -252,15 +270,18 @@ function dsb_get_popup_products( $opts ) {
         $args['tax_query'] = $tax_query;
     }
 
-    if ( $instock ) {
-        $args['meta_query'] = [ [ 'key' => '_stock_status', 'value' => 'instock' ] ];
-    }
+    // Siempre solo en stock (desde la 1.7.5): descartar agotados en PHP con
+    // "bestsellers" podía dejar los 80 candidatos vacíos.
+    $args['meta_query'] = [ [ 'key' => '_stock_status', 'value' => 'instock' ] ];
 
     $query    = new WP_Query( $args );
     $products = [];
     foreach ( $query->posts as $post ) {
-        $item = dsb_product_to_item( wc_get_product( $post->ID ) );
+        $product = wc_get_product( $post->ID );
+        if ( ! dsb_popup_product_buyable( $product ) ) continue;
+        $item = dsb_product_to_item( $product );
         if ( $item ) $products[] = $item;
+        if ( count( $products ) >= 20 ) break;
     }
 
     // Cache negativa corta para no repetir la consulta cuando no hay resultados.
@@ -293,7 +314,7 @@ function dsb_get_real_sales( $opts ) {
         if ( empty( $line_items ) ) continue;
         $line    = reset( $line_items );
         $product = wc_get_product( $line->get_product_id() ); // producto padre: nombre genérico, sin variación
-        if ( ! $product || ! $product->is_visible() ) continue;
+        if ( ! $product || 'publish' !== $product->get_status() || ! $product->is_visible() || ! $product->is_purchasable() ) continue;
         $item = dsb_product_to_item( $product );
         if ( ! $item ) continue;
         $city = trim( (string) $order->get_billing_city() );

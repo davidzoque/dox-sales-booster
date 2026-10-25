@@ -145,5 +145,17 @@ add_action( 'init', function () {
         }
     }
 
+    // La 1.7.5 enciende por defecto "ocultar agotados" del popup. Quien ya usaba
+    // el plugin y nunca guardó ese campo conserva el de antes (apagado).
+    if ( $was_installed && ( ! $stored || version_compare( $stored, '1.7.5', '<' ) ) ) {
+        $s = get_option( 'dsb_settings' );
+        $s = is_array( $s ) ? $s : [];
+        if ( ! array_key_exists( 'popup_hide_outofstock', $s ) ) {
+            $s['popup_hide_outofstock'] = 0;
+            update_option( 'dsb_settings', $s );
+            dsb_get_settings( true );
+        }
+    }
+
     update_option( 'dsb_version', DSB_VERSION, false );
 }, 2 );
